@@ -1,0 +1,57 @@
+{{ define "main" }}
+  {{ $observations := where .Site.RegularPages "Section" "observations" }}
+  {{ $reviews := where .Site.RegularPages "Section" "reviews" }}
+  <section class="hero">
+    <div class="hero-copy">
+      <p class="eyebrow">Harbor Traffic Observatory / Sci-Fi Review Space</p>
+      <h1>Ingrid Watch</h1>
+      <p>{{ .Site.Params.description }}</p>
+      <div class="hero-actions">
+        <a href="{{ "/observations/" | relURL }}">Read the harbor</a>
+        <a href="{{ "/reviews/" | relURL }}">Open the reviews</a>
+      </div>
+    </div>
+    <div class="signal-panel" aria-label="Stylized harbor signal display">
+      <div class="radar">
+        <img src="{{ "/images/harbor-signal.png" | relURL }}" alt="Abstract harbor traffic signal panel with vessel tracks">
+        <span class="vessel vessel-a"></span>
+        <span class="vessel vessel-b"></span>
+        <span class="vessel vessel-c"></span>
+        <span class="track track-one"></span>
+        <span class="track track-two"></span>
+      </div>
+      <dl class="signal-readout">
+        <div><dt>AIS interval</dt><dd>15 min</dd></div>
+        <div><dt>Observations</dt><dd>{{ len $observations }}</dd></div>
+        <div><dt>Reviews</dt><dd>{{ len $reviews }}</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="split-band">
+    <div>
+      <p class="section-kicker">Latest Harbor Signals</p>
+      <div class="item-stack">
+        {{ range first 3 $observations }}
+          <article class="list-item">
+            <span>{{ .Date.Format "Jan 2, 2006" }}</span>
+            <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+            <p>{{ .Summary | plainify | truncate 150 }}</p>
+          </article>
+        {{ end }}
+      </div>
+    </div>
+    <div>
+      <p class="section-kicker">Latest Reviews</p>
+      <div class="item-stack">
+        {{ range first 3 $reviews }}
+          <article class="list-item">
+            <span>{{ .Params.medium | default "Review" }} / {{ .Params.year }}</span>
+            <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+            <p>{{ .Summary | plainify | truncate 150 }}</p>
+          </article>
+        {{ end }}
+      </div>
+    </div>
+  </section>
+{{ end }}

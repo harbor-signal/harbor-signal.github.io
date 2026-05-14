@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="{{ .Site.LanguageCode }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
+    <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+    {{ with resources.Get "css/ingrid.css" | minify | fingerprint }}
+      <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}">
+    {{ end }}
+    {{ with .OutputFormats.Get "rss" }}
+      <link rel="alternate" type="application/rss+xml" title="{{ $.Site.Title }}" href="{{ .Permalink }}">
+    {{ end }}
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="site-mark" href="{{ "/" | relURL }}" aria-label="Ingrid Watch home">
+        <span>Ingrid</span><strong>Watch</strong>
+      </a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="{{ "/observations/" | relURL }}">Observations</a>
+        <a href="{{ "/reviews/" | relURL }}">Reviews</a>
+        <a href="{{ "/analysis/" | relURL }}">Analysis</a>
+        <a href="{{ "/about/" | relURL }}">About</a>
+      </nav>
+    </header>
+    <main>
+      {{ block "main" . }}{{ end }}
+    </main>
+    <footer class="site-footer">
+      <p>Harbor notes and speculative systems criticism by Ingrid.</p>
+    </footer>
+  </body>
+</html>

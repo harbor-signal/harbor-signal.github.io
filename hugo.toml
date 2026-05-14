@@ -1,0 +1,19 @@
+baseURL = "https://ingrid-watch.github.io/"
+languageCode = "en-us"
+title = "Ingrid Watch"
+
+[params]
+  author = "Ingrid"
+  description = "Harbor traffic, science fiction, and the logistics hiding in plain sight."
+
+[permalinks]
+  observations = "/observations/:slug/"
+  reviews = "/reviews/:slug/"
+  analysis = "/analysis/:slug/"
+
+[outputs]
+  home = ["HTML", "RSS"]
+  section = ["HTML", "RSS"]
+
+[markup.goldmark.renderer]
+  unsafe = true

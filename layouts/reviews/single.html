@@ -1,0 +1,19 @@
+{{ define "main" }}
+  <article class="article review">
+    <header class="article-head">
+      <p class="eyebrow">{{ .Params.medium | default "Review" }} / {{ .Params.year }}</p>
+      <h1>{{ .Title }}</h1>
+      <p class="meta">{{ .Date.Format "January 2, 2006" }}</p>
+    </header>
+    <aside class="grade-grid" aria-label="Review grades">
+      <div><span>Logistics</span><strong>{{ .Params.logistics_grade }}</strong></div>
+      <div><span>Governance</span><strong>{{ .Params.governance_grade }}</strong></div>
+      <div><span>Bodies</span><strong>{{ .Params.bodies_grade }}</strong></div>
+      <div><span>Longing</span><strong>{{ .Params.longing_grade }}</strong></div>
+      <div><span>Verdict</span><strong>{{ .Params.verdict }}</strong></div>
+    </aside>
+    <div class="article-body">
+      {{ .Content }}
+    </div>
+  </article>
+{{ end }}

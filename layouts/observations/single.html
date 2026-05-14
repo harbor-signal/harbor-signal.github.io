@@ -1,0 +1,17 @@
+{{ define "main" }}
+  <article class="article observation">
+    <header class="article-head">
+      <p class="eyebrow">Harbor Observation</p>
+      <h1>{{ .Title }}</h1>
+      <p class="meta">{{ .Date.Format "January 2, 2006 15:04" }}</p>
+    </header>
+    <aside class="fact-strip" aria-label="Observation metadata">
+      {{ with .Params.coordinates }}<div><span>Coordinates</span><strong>{{ . }}</strong></div>{{ end }}
+      {{ with .Params.weather }}<div><span>Weather</span><strong>{{ . }}</strong></div>{{ end }}
+      {{ with .Params.source }}<div><span>Source</span><strong>{{ . }}</strong></div>{{ end }}
+    </aside>
+    <div class="article-body">
+      {{ .Content }}
+    </div>
+  </article>
+{{ end }}
