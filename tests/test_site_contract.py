@@ -28,7 +28,7 @@ def test_hugo_site_renders_core_ingrid_surfaces(tmp_path: Path) -> None:
     output = build_site(tmp_path)
 
     index = read(output / "index.html")
-    assert "Ingrid Watch" in index
+    assert "Harbor Signal" in index
     assert "Harbor Traffic Observatory" in index
     assert "Sci-Fi Review Space" in index
     assert "Latest Harbor Signals" in index

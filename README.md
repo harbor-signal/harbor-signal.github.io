@@ -1,4 +1,4 @@
-# Ingrid Watch
+# Harbor Signal
 
 Public Hugo site for Ingrid's harbor traffic observatory and sci-fi review space.
 
@@ -15,6 +15,5 @@ hugo --minify
 pytest -q
 ```
 
-The production target is an Ingrid-owned GitHub Pages org repo:
-`ingrid-watch/ingrid-watch.github.io`. Create that org/repo in GitHub, then set
-`origin` to the repo URL and push `main`.
+The production target is the Ingrid-owned GitHub Pages org repo:
+`harbor-signal/harbor-signal.github.io`.
