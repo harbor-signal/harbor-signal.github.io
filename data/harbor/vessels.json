@@ -1,65 +1,122 @@
 {
-  "last_updated": "2026-05-14T04:15:00-04:00",
+  "last_updated": "2026-05-14T21:33:57.029568+00:00",
   "source": "aisstream",
-  "status": "sample-seeded",
+  "status": "live",
   "bounds": {
-    "sw": [42.28, -71.08],
-    "ne": [42.38, -70.92]
+    "sw": [
+      42.28,
+      -71.08
+    ],
+    "ne": [
+      42.38,
+      -70.92
+    ]
   },
   "vessels": [
     {
-      "name": "Atlantic Pioneer",
-      "type": "cargo",
-      "mmsi": "sample-001",
-      "status": "Inbound, reduced speed",
-      "lat": 42.352,
-      "lon": -71.034,
-      "coordinates": "42.352, -71.034",
-      "x": 61,
-      "y": 38,
-      "speed_knots": 7.4,
-      "heading": 274,
-      "destination": "Boston Inner Harbor",
-      "eta": "pending",
-      "last_signal": "2026-05-14T04:10:00-04:00",
-      "source": "Sample AIS",
-      "tags": ["logistics", "container-traffic", "what pressure does to a system"]
+      "mmsi": "367551860",
+      "name": "JOCKA",
+      "type": "unknown",
+      "flag": "",
+      "lat": 42.35105,
+      "lon": -71.03739,
+      "coordinates": "42.35105, -71.03739",
+      "speed_knots": 0,
+      "heading": 511,
+      "destination": "",
+      "eta": "",
+      "length_m": "",
+      "nav_status": 4,
+      "last_signal": "2026-05-14 21:33:30.971839595 +0000 UTC",
+      "source": "AISStream",
+      "status": "reported",
+      "tags": [
+        "unknown"
+      ]
     },
     {
-      "name": "Harbor Pilot 3",
-      "type": "pilot boat",
-      "mmsi": "sample-002",
-      "status": "Crossing main channel",
-      "lat": 42.35,
-      "lon": -71.031,
-      "coordinates": "42.350, -71.031",
-      "x": 35,
-      "y": 56,
-      "speed_knots": 11.2,
-      "heading": 118,
-      "destination": "Main channel",
-      "eta": "active",
-      "last_signal": "2026-05-14T04:12:00-04:00",
-      "source": "Manual observation",
-      "tags": ["pilot-boat", "early-watch", "logistics of waiting"]
+      "mmsi": "367627580",
+      "name": "MASSACHUSETTS",
+      "type": "unknown",
+      "flag": "",
+      "lat": 42.35573,
+      "lon": -71.04964,
+      "coordinates": "42.35573, -71.04964",
+      "speed_knots": 0,
+      "heading": 280,
+      "destination": "",
+      "eta": "",
+      "length_m": "",
+      "nav_status": 0,
+      "last_signal": "2026-05-14 21:33:42.722314428 +0000 UTC",
+      "source": "AISStream",
+      "status": "under way using engine",
+      "tags": [
+        "unknown"
+      ]
     },
     {
-      "name": "Quincy Assist",
-      "type": "tug",
-      "mmsi": "sample-003",
-      "status": "Holding near approach",
-      "lat": 42.346,
-      "lon": -71.041,
-      "coordinates": "42.346, -71.041",
-      "x": 72,
-      "y": 67,
-      "speed_knots": 2.1,
-      "heading": 31,
-      "destination": "Approach channel",
-      "eta": "standing by",
-      "last_signal": "2026-05-14T04:15:00-04:00",
-      "source": "Sample AIS",
-      "tags": ["tug", "support-traffic", "command under uncertainty"]
+      "mmsi": "367148860",
+      "name": "SPIRIT OF BOSTON",
+      "type": "unknown",
+      "flag": "",
+      "lat": 42.35122,
+      "lon": -71.04172,
+      "coordinates": "42.35122, -71.04172",
+      "speed_knots": 0,
+      "heading": 208,
+      "destination": "",
+      "eta": "",
+      "length_m": "",
+      "nav_status": 0,
+      "last_signal": "2026-05-14 21:33:43.942461781 +0000 UTC",
+      "source": "AISStream",
+      "status": "under way using engine",
+      "tags": [
+        "unknown"
+      ]
+    },
+    {
+      "mmsi": "367782940",
+      "name": "GLORY",
+      "type": "unknown",
+      "flag": "",
+      "lat": 42.36183,
+      "lon": -71.04505,
+      "coordinates": "42.36183, -71.04505",
+      "speed_knots": 7.2,
+      "heading": 79,
+      "destination": "",
+      "eta": "",
+      "length_m": "",
+      "nav_status": 0,
+      "last_signal": "2026-05-14 21:33:45.30439052 +0000 UTC",
+      "source": "AISStream",
+      "status": "under way using engine",
+      "tags": [
+        "unknown"
+      ]
+    },
+    {
+      "mmsi": "367784560",
+      "name": "CHAMPION",
+      "type": "unknown",
+      "flag": "",
+      "lat": 42.32088,
+      "lon": -70.99244,
+      "coordinates": "42.32088, -70.99244",
+      "speed_knots": 26.5,
+      "heading": 322,
+      "destination": "",
+      "eta": "",
+      "length_m": "",
+      "nav_status": 0,
+      "last_signal": "2026-05-14 21:33:54.497203341 +0000 UTC",
+      "source": "AISStream",
+      "status": "under way using engine",
+      "tags": [
+        "unknown"
+      ]
     }
   ]
 }
