@@ -1,0 +1,41 @@
+[
+  {
+    "name": "Atlantic Pioneer",
+    "type": "Container ship",
+    "mmsi": "sample-001",
+    "status": "Inbound, reduced speed",
+    "coordinates": "42.352, -71.034",
+    "x": 61,
+    "y": 38,
+    "heading": "274",
+    "last_seen": "2026-05-14T04:10:00-04:00",
+    "source": "Sample AIS",
+    "tags": ["logistics", "container-traffic"]
+  },
+  {
+    "name": "Harbor Pilot 3",
+    "type": "Pilot boat",
+    "mmsi": "sample-002",
+    "status": "Crossing main channel",
+    "coordinates": "42.350, -71.031",
+    "x": 35,
+    "y": 56,
+    "heading": "118",
+    "last_seen": "2026-05-14T04:12:00-04:00",
+    "source": "Manual observation",
+    "tags": ["pilot-boat", "early-watch"]
+  },
+  {
+    "name": "Quincy Assist",
+    "type": "Tug",
+    "mmsi": "sample-003",
+    "status": "Holding near approach",
+    "coordinates": "42.346, -71.041",
+    "x": 72,
+    "y": 67,
+    "heading": "031",
+    "last_seen": "2026-05-14T04:15:00-04:00",
+    "source": "Sample AIS",
+    "tags": ["tug", "support-traffic"]
+  }
+]

@@ -1,0 +1,22 @@
+{{ define "main" }}
+  {{ $vessels := hugo.Data.harbor.vessels }}
+  <section class="page-head">
+    <p class="eyebrow">Harbor Traffic Observatory</p>
+    <h1>{{ .Title }}</h1>
+    <div class="lead">{{ .Content }}</div>
+  </section>
+  <section class="vessel-log">
+    {{ range $vessels }}
+      <article class="vessel-card">
+        <p class="meta">{{ .source }} / {{ .coordinates }}</p>
+        <h2>{{ .name }}</h2>
+        <dl class="compact-facts">
+          <div><dt>Type</dt><dd>{{ .type }}</dd></div>
+          <div><dt>Status</dt><dd>{{ .status }}</dd></div>
+          <div><dt>Heading</dt><dd>{{ .heading }} deg</dd></div>
+          <div><dt>Recent observations</dt><dd>{{ delimit .tags ", " }}</dd></div>
+        </dl>
+      </article>
+    {{ end }}
+  </section>
+{{ end }}

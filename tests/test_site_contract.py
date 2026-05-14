@@ -33,11 +33,21 @@ def test_hugo_site_renders_core_ingrid_surfaces(tmp_path: Path) -> None:
     assert "Sci-Fi Review Space" in index
     assert "Latest Harbor Signals" in index
     assert "Latest Reviews" in index
+    assert "Live Map" in index
+    assert "Observation Timeline" in index
+    assert "Vessel Log" in index
+    assert "Signal Feed" in index
+    assert "Logger" in index
 
     assert (output / "observations" / "index.html").exists()
     assert (output / "reviews" / "index.html").exists()
     assert (output / "analysis" / "index.html").exists()
     assert (output / "about" / "index.html").exists()
+    assert (output / "map" / "index.html").exists()
+    assert (output / "timeline" / "index.html").exists()
+    assert (output / "vessels" / "index.html").exists()
+    assert (output / "signal" / "index.html").exists()
+    assert (output / "logger" / "index.html").exists()
     assert (output / "index.xml").exists()
 
 
@@ -58,6 +68,34 @@ def test_sample_content_uses_expected_public_schemas(tmp_path: Path) -> None:
     assert "Longing" in review
 
 
+def test_harbor_direction_pages_render_operational_surfaces(tmp_path: Path) -> None:
+    output = build_site(tmp_path)
+
+    live_map = read(output / "map" / "index.html")
+    assert "AIS interval" in live_map
+    assert "Weather correlation" in live_map
+    assert "Observation marker" in live_map
+    assert "Sample AIS" in live_map
+
+    timeline = read(output / "timeline" / "index.html")
+    assert "Pilot Boat Before Dawn" in timeline
+    assert "Manual harbor note" in timeline
+
+    vessels = read(output / "vessels" / "index.html")
+    assert "Atlantic Pioneer" in vessels
+    assert "recent observations" in vessels.lower()
+
+    signal = read(output / "signal" / "index.html")
+    assert "The Left Hand of Darkness" in signal
+    assert "Pilot Boat Before Dawn" in signal
+    assert "logistics" in signal.lower()
+
+    logger = read(output / "logger" / "index.html")
+    assert "Observation Logger" in logger
+    assert "Vessel reference" in logger
+    assert "Works offline" in logger
+
+
 def test_static_assets_are_self_contained() -> None:
     css_path = ROOT / "assets" / "css" / "ingrid.css"
     assert css_path.exists()
@@ -67,5 +105,9 @@ def test_static_assets_are_self_contained() -> None:
 
     harbor_asset = ROOT / "static" / "images" / "harbor-signal.png"
     assert harbor_asset.exists()
+
+    assert (ROOT / "static" / "logger.js").exists()
+    assert (ROOT / "static" / "sw.js").exists()
+    assert (ROOT / "static" / "manifest.webmanifest").exists()
 
     assert shutil.which("hugo"), "hugo must be installed for local publishing"

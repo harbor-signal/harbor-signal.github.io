@@ -5,7 +5,7 @@ date: 2026-05-14T04:12:00-04:00
 coordinates: "42.35, -71.03"
 weather: "Low cloud, light chop, visibility improving"
 source: "Manual harbor note; AIS adapter pending"
-tags: ["pilot-boat", "boston-harbor", "early-watch"]
+tags: ["pilot-boat", "boston-harbor", "early-watch", "logistics", "weather"]
 ---
 
 The pilot boat crossed the channel before the light had made up its mind. Not fast. Purposeful. There is a difference, and the difference is usually scheduling pressure with a human face.

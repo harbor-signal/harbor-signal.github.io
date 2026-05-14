@@ -1,0 +1,21 @@
+{{ define "main" }}
+  {{ $signals := hugo.Data.harbor.signals }}
+  <section class="page-head">
+    <p class="eyebrow">Cross-Reference Feed</p>
+    <h1>{{ .Title }}</h1>
+    <div class="lead">{{ .Content }}</div>
+  </section>
+  <section class="signal-feed">
+    {{ range $signals }}
+      <article class="signal-card">
+        <p class="meta">Tag: {{ .tag }}</p>
+        <h2>{{ .title }}</h2>
+        <div class="signal-links">
+          <span>{{ .observation }}</span>
+          <span>{{ .review }}</span>
+        </div>
+        <p>{{ .note }}</p>
+      </article>
+    {{ end }}
+  </section>
+{{ end }}

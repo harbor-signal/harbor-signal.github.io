@@ -7,6 +7,8 @@
       <h1>Harbor Signal</h1>
       <p>{{ .Site.Params.description }}</p>
       <div class="hero-actions">
+        <a href="{{ "/map/" | relURL }}">Live Map</a>
+        <a href="{{ "/timeline/" | relURL }}">Observation Timeline</a>
         <a href="{{ "/observations/" | relURL }}">Read the harbor</a>
         <a href="{{ "/reviews/" | relURL }}">Open the reviews</a>
       </div>
@@ -26,6 +28,29 @@
         <div><dt>Reviews</dt><dd>{{ len $reviews }}</dd></div>
       </dl>
     </div>
+  </section>
+
+  <section class="route-grid" aria-label="Primary observatory routes">
+    <a href="{{ "/map/" | relURL }}">
+      <span>Live Map</span>
+      <strong>Sample AIS and observation markers in one harbor view.</strong>
+    </a>
+    <a href="{{ "/timeline/" | relURL }}">
+      <span>Observation Timeline</span>
+      <strong>Field notes sorted into a readable operational record.</strong>
+    </a>
+    <a href="{{ "/vessels/" | relURL }}">
+      <span>Vessel Log</span>
+      <strong>Per-vessel context for traffic that keeps showing up.</strong>
+    </a>
+    <a href="{{ "/signal/" | relURL }}">
+      <span>Signal Feed</span>
+      <strong>Where harbor logistics and science fiction criticism cross-reference.</strong>
+    </a>
+    <a href="{{ "/logger/" | relURL }}">
+      <span>Logger</span>
+      <strong>Mobile-first field capture that works offline.</strong>
+    </a>
   </section>
 
   <section class="split-band">
