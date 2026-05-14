@@ -30,7 +30,7 @@ jobs:
       - name: Fetch AIS data
         env:
           AIS_API_KEY: ${{ secrets.AIS_API_KEY }}
-        run: python scripts/fetch_ais.py --bounds "42.28,-71.08,42.38,-70.92" --output data/harbor/vessels.json
+        run: python scripts/fetch_ais.py --bounds "42.28,-71.08,42.38,-70.92" --output data/harbor/vessels.json --history-output data/harbor/sightings_history.json --timeout 60
 
       - name: Fetch weather
         env:
@@ -41,7 +41,7 @@ jobs:
         run: |
           git config user.name "Harbor Signal Bot"
           git config user.email "bot@harbor-signal.github.io"
-          git add data/harbor/vessels.json data/harbor/weather.json
+          git add data/harbor/vessels.json data/harbor/weather.json data/harbor/sightings_history.json
           if ! git diff --cached --quiet; then
             git commit -m "Update AIS and weather data"
             git push

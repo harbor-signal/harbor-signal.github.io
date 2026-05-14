@@ -1,6 +1,7 @@
 {{ define "main" }}
   {{ $vesselData := hugo.Data.harbor.vessels }}
   {{ $vessels := $vesselData.vessels }}
+  {{ $health := $vesselData.health }}
   {{ $weather := hugo.Data.harbor.weather }}
   {{ $observations := where .Site.RegularPages "Section" "observations" }}
   {{ $south := index $vesselData.bounds.sw 0 }}
@@ -16,7 +17,7 @@
   </section>
 
   {{ if gt $ageMinutes 30 }}
-    <aside class="stale-banner" role="status">Data stale: AISStream sample data last updated {{ $updated.Format "Jan 2, 2006 15:04" }}.</aside>
+    <aside class="stale-banner" role="status">Data stale: AISStream data last updated {{ $updated.Format "Jan 2, 2006 15:04" }} UTC.</aside>
   {{ end }}
 
   <section class="ops-shell">
@@ -29,18 +30,25 @@
           {{ $x = mul (div (sub (float .lon) $west) (sub $east $west)) 100 }}
           {{ $y = sub 100 (mul (div (sub (float .lat) $south) (sub $north $south)) 100) }}
         {{ end }}
-        <article class="map-marker marker-{{ .type | anchorize }} {{ if eq .source "Manual observation" }}observation-marker{{ end }}" style="left: {{ printf "%.1f" $x }}%; top: {{ printf "%.1f" $y }}%;" title="{{ .name }} / {{ .type }} / {{ .speed_knots }} kt / {{ .heading }} deg">
+        {{ if lt $x 2.0 }}{{ $x = 2.0 }}{{ end }}
+        {{ if gt $x 98.0 }}{{ $x = 98.0 }}{{ end }}
+        {{ if lt $y 2.0 }}{{ $y = 2.0 }}{{ end }}
+        {{ if gt $y 98.0 }}{{ $y = 98.0 }}{{ end }}
+        <article class="map-marker marker-{{ .type | anchorize }} {{ if eq .source "Manual observation" }}observation-marker{{ end }}" data-vessel-type="{{ .type }}" data-mmsi="{{ .mmsi }}" style="left: {{ printf "%.1f" $x }}%; top: {{ printf "%.1f" $y }}%;" title="{{ .name }} / {{ .type }} / {{ .speed_knots }} kt / {{ .heading }} deg / {{ .destination | default "no destination" }}">
           <span>{{ .type }}</span>
           <strong>{{ .name }}</strong>
-          <em>{{ .speed_knots }} kt / {{ .heading }} deg</em>
+          <em>{{ .speed_knots }} kt / {{ .heading }} deg / {{ .destination | default "no destination" }}</em>
         </article>
       {{ end }}
       <p class="map-note">Observation marker: Harbor Pilot 3 / Pilot Boat Before Dawn</p>
     </div>
     <aside class="ops-readout">
       <div><span>AIS interval</span><strong>15 min target</strong><em>AISStream source, GitHub cron wired for live fetches.</em></div>
+      <div><span>Unique MMSI this fetch</span><strong>{{ $health.unique_mmsi_count | default (len $vessels) }}</strong><em>{{ $health.collection_window_seconds | default 25 }} second collection window.</em></div>
+      <div><span>Data freshness</span><strong>{{ $ageMinutes }} min</strong><em>Latest AIS JSON commit: {{ $updated.Format "Jan 2 15:04" }} UTC.</em></div>
       <div><span>Weather correlation</span><strong>{{ $weather.summary }}</strong><em>{{ $weather.wind }} / {{ $weather.visibility }} / {{ $weather.temperature_f }} F</em></div>
       <div><span>Observation markers</span><strong>{{ len $observations }}</strong><em>Authored notes are amber, vessel data is teal.</em></div>
+      <div><span>Vessel types</span><strong>Pilot / tug / cargo / tanker / passenger</strong><em>Markers carry type-specific color and shape cues plus hover metadata.</em></div>
     </aside>
   </section>
 

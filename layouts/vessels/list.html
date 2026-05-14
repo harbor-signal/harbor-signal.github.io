@@ -1,13 +1,20 @@
 {{ define "main" }}
   {{ $vesselData := hugo.Data.harbor.vessels }}
   {{ $vessels := $vesselData.vessels }}
+  {{ $history := hugo.Data.harbor.sightings_history.vessels }}
   <section class="page-head">
     <p class="eyebrow">Harbor Traffic Observatory / Vessel Dossiers</p>
     <h1>{{ .Title }}</h1>
     <div class="lead">{{ .Content }}</div>
   </section>
+  <section class="dossier-summary" aria-label="Sighting History">
+    <div><span>Sighting History</span><strong>{{ len $history }}</strong><em>Tracked MMSI dossiers</em></div>
+    <div><span>Unique MMSI this fetch</span><strong>{{ $vesselData.health.unique_mmsi_count | default (len $vessels) }}</strong><em>{{ $vesselData.health.collection_window_seconds | default 25 }} second collection window</em></div>
+    <div><span>Recurrence candidates</span><strong>{{ len ($vesselData.health.recurrence_candidates | default slice) }}</strong><em>Vessels seen across multiple runs</em></div>
+  </section>
   <section class="vessel-log">
     {{ range $vessels }}
+      {{ $dossier := index $history .mmsi }}
       <article class="vessel-card">
         <p class="meta">{{ .source }} / {{ .coordinates }}</p>
         <h2>{{ .name }}</h2>
@@ -17,7 +24,22 @@
           <div><dt>Heading</dt><dd>{{ .heading }} deg</dd></div>
           <div><dt>Last signal</dt><dd>{{ .last_signal }}</dd></div>
           <div><dt>Recent observations</dt><dd>{{ delimit .tags ", " }}</dd></div>
+          {{ with $dossier }}
+            <div><dt>First seen</dt><dd>{{ .first_seen }}</dd></div>
+            <div><dt>Sightings</dt><dd>{{ .sighting_count }}</dd></div>
+            <div><dt>Last seen</dt><dd>{{ .last_seen }}</dd></div>
+          {{ end }}
         </dl>
+        {{ with $dossier }}
+          {{ with .recent_sightings }}
+            <div class="dossier-history" aria-label="Recent sighting history">
+              <p class="section-kicker">Recent sighting history</p>
+              {{ range first 3 . }}
+                <p><strong>{{ .seen_at }}</strong> {{ .speed_knots }} kt / {{ .heading }} deg / {{ .status }}</p>
+              {{ end }}
+            </div>
+          {{ end }}
+        {{ end }}
       </article>
     {{ end }}
   </section>

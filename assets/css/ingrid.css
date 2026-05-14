@@ -666,20 +666,47 @@ dd,
 }
 
 .marker-tug {
-  border-color: var(--color-slate);
+  background: var(--color-slate);
+  border-color: var(--paper);
+  height: 14px;
+  width: 14px;
 }
 
 .marker-cargo,
 .marker-container-ship {
+  background: var(--teal);
   border-color: var(--teal);
+  border-radius: 2px;
 }
 
 .marker-tanker {
+  background: var(--red);
   border-color: var(--red);
+  border-radius: 2px;
+  height: 15px;
+  width: 15px;
 }
 
 .marker-pilot-boat {
+  background: var(--amber);
   border-color: var(--amber);
+  border-radius: 2px;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.marker-pilot-boat:hover,
+.marker-pilot-boat:focus-within {
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+
+.marker-passenger {
+  background: var(--paper);
+  border-color: var(--paper);
+}
+
+.marker-unknown {
+  background: var(--muted);
+  border-color: var(--muted);
 }
 
 .observation-marker {
@@ -713,7 +740,8 @@ dd,
 .vessel-card,
 .signal-card,
 .logger-panel,
-.timeline-entry {
+.timeline-entry,
+.dossier-summary div {
   background: var(--panel);
   border: 1px solid var(--line);
 }
@@ -818,6 +846,50 @@ dd,
   gap: 1px;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   margin: 14px 0 0;
+}
+
+.dossier-summary {
+  display: grid;
+  gap: 1px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 28px 0 18px;
+}
+
+.dossier-summary div {
+  padding: 14px;
+}
+
+.dossier-summary span {
+  color: var(--amber);
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+}
+
+.dossier-summary strong {
+  color: var(--text);
+  display: block;
+  font-size: 1.3rem;
+  margin-top: 4px;
+}
+
+.dossier-summary em,
+.dossier-history p {
+  color: var(--muted);
+  font-style: normal;
+}
+
+.dossier-history {
+  border-top: 1px solid var(--line);
+  margin-top: 14px;
+  padding-top: 14px;
+}
+
+.dossier-history p {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  margin: 6px 0 0;
 }
 
 .compact-facts div {
@@ -985,7 +1057,8 @@ dd,
   .field-log,
   .grade-grid,
   .verdict-card,
-  .compact-facts {
+  .compact-facts,
+  .dossier-summary {
     grid-template-columns: 1fr;
   }
 

@@ -67,7 +67,7 @@ def classify_vessel(metadata: dict[str, Any], report: dict[str, Any]) -> str:
     return raw_type or "unknown"
 
 
-def transform_position_report(message: dict[str, Any]) -> dict[str, Any]:
+def transform_position_report(message: dict[str, Any], bounds: dict[str, list[float]] | None = None) -> dict[str, Any]:
     metadata = message.get("MetaData") or message.get("Metadata") or {}
     report = (message.get("Message") or {}).get("PositionReport") or {}
     mmsi = metadata.get("MMSI") or report.get("UserID")
@@ -75,12 +75,13 @@ def transform_position_report(message: dict[str, Any]) -> dict[str, Any]:
     lon = metadata.get("longitude") or metadata.get("Longitude") or report.get("Longitude")
     ship_name = str(metadata.get("ShipName") or f"MMSI {mmsi}").strip()
     signal_time = metadata.get("time_utc") or datetime.now(timezone.utc).isoformat()
-    position = marker_position(lat, lon, parse_bounds(DEFAULT_BOUNDS))
+    position = marker_position(lat, lon, bounds or parse_bounds(DEFAULT_BOUNDS))
+    vessel_type = classify_vessel(metadata, report)
 
     return {
         "mmsi": str(mmsi),
         "name": ship_name,
-        "type": classify_vessel(metadata, report),
+        "type": vessel_type,
         "flag": metadata.get("Country") or "",
         "lat": lat,
         "lon": lon,
@@ -96,18 +97,102 @@ def transform_position_report(message: dict[str, Any]) -> dict[str, Any]:
         "last_signal": signal_time,
         "source": "AISStream",
         "status": "under way using engine" if report.get("NavigationalStatus") == 0 else "reported",
-        "tags": [classify_vessel(metadata, report)],
+        "tags": [vessel_type],
     }
 
 
-def build_output(vessels: list[dict[str, Any]], bounds: dict[str, list[float]]) -> dict[str, Any]:
+def recurrence_candidates(history: dict[str, Any] | None) -> list[str]:
+    if not history:
+        return []
+    candidates = []
+    for mmsi, dossier in (history.get("vessels") or {}).items():
+        if int(dossier.get("sighting_count") or 0) > 1:
+            candidates.append(str(mmsi))
+    return sorted(candidates)
+
+
+def build_output(
+    vessels: list[dict[str, Any]],
+    bounds: dict[str, list[float]],
+    collection_window_seconds: int,
+    history: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    now_utc = datetime.now(timezone.utc).isoformat()
     return {
-        "last_updated": datetime.now(timezone.utc).isoformat(),
+        "last_updated": now_utc,
         "source": "aisstream",
         "status": "live",
         "bounds": bounds,
+        "health": {
+            "unique_mmsi_count": len({vessel.get("mmsi") for vessel in vessels if vessel.get("mmsi")}),
+            "vessel_count": len(vessels),
+            "collection_window_seconds": collection_window_seconds,
+            "recurrence_candidates": recurrence_candidates(history),
+        },
         "vessels": vessels,
     }
+
+
+def load_history(path: Path) -> dict[str, Any]:
+    if not path.exists():
+        return {"source": "aisstream-history", "vessels": {}}
+    try:
+        history = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return {"source": "aisstream-history", "vessels": {}}
+    history.setdefault("source", "aisstream-history")
+    history.setdefault("vessels", {})
+    return history
+
+
+def update_sightings_history(
+    history: dict[str, Any],
+    vessels: list[dict[str, Any]],
+    observed_at: str | None = None,
+    max_recent_sightings: int = 25,
+) -> dict[str, Any]:
+    next_history = {
+        "source": "aisstream-history",
+        "last_updated": observed_at or datetime.now(timezone.utc).isoformat(),
+        "vessels": dict(history.get("vessels") or {}),
+    }
+    for vessel in vessels:
+        mmsi = str(vessel.get("mmsi") or "")
+        if not mmsi:
+            continue
+        seen_at = observed_at or vessel.get("last_signal") or next_history["last_updated"]
+        existing = dict(next_history["vessels"].get(mmsi) or {})
+        recent_sightings = list(existing.get("recent_sightings") or [])
+        observed_types = set(existing.get("observed_types") or [])
+        destinations = set(existing.get("destinations") or [])
+        vessel_type = vessel.get("type") or "unknown"
+        destination = vessel.get("destination") or ""
+        if vessel_type:
+            observed_types.add(str(vessel_type))
+        if destination:
+            destinations.add(str(destination))
+
+        sighting = {
+            "seen_at": seen_at,
+            "lat": vessel.get("lat"),
+            "lon": vessel.get("lon"),
+            "speed_knots": vessel.get("speed_knots"),
+            "heading": vessel.get("heading"),
+            "status": vessel.get("status"),
+            "destination": destination,
+        }
+        next_history["vessels"][mmsi] = {
+            "mmsi": mmsi,
+            "name": vessel.get("name") or existing.get("name") or f"MMSI {mmsi}",
+            "type": vessel_type or existing.get("type") or "unknown",
+            "first_seen": existing.get("first_seen") or seen_at,
+            "last_seen": seen_at,
+            "sighting_count": int(existing.get("sighting_count") or 0) + 1,
+            "recent_sightings": [sighting, *recent_sightings][:max_recent_sightings],
+            "destinations": sorted(destinations),
+            "observed_types": sorted(observed_types),
+        }
+    return next_history
 
 
 async def collect_vessels(api_key: str, bounds: dict[str, list[float]], timeout: int, max_messages: int) -> list[dict[str, Any]]:
@@ -129,7 +214,7 @@ async def collect_vessels(api_key: str, bounds: dict[str, list[float]], timeout:
             message = json.loads(raw)
             if message.get("MessageType") != "PositionReport":
                 continue
-            vessel = transform_position_report(message)
+            vessel = transform_position_report(message, bounds=bounds)
             if vessel["mmsi"]:
                 vessels_by_mmsi[vessel["mmsi"]] = vessel
     return list(vessels_by_mmsi.values())
@@ -139,7 +224,8 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Fetch Boston Harbor AIS positions from AISStream.")
     parser.add_argument("--bounds", default=DEFAULT_BOUNDS)
     parser.add_argument("--output", default="data/harbor/vessels.json")
-    parser.add_argument("--timeout", type=int, default=25)
+    parser.add_argument("--history-output", default="data/harbor/sightings_history.json")
+    parser.add_argument("--timeout", type=int, default=60)
     parser.add_argument("--max-messages", type=int, default=80)
     args = parser.parse_args()
 
@@ -149,10 +235,14 @@ def main() -> None:
 
     bounds = parse_bounds(args.bounds)
     vessels = asyncio.run(collect_vessels(api_key, bounds, timeout=args.timeout, max_messages=args.max_messages))
-    output = build_output(vessels, bounds)
+    history_path = Path(args.history_output)
+    history = update_sightings_history(load_history(history_path), vessels)
+    output = build_output(vessels, bounds, collection_window_seconds=args.timeout, history=history)
     path = Path(args.output)
     path.parent.mkdir(parents=True, exist_ok=True)
+    history_path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(output, indent=2) + "\n", encoding="utf-8")
+    history_path.write_text(json.dumps(history, indent=2) + "\n", encoding="utf-8")
 
 
 if __name__ == "__main__":

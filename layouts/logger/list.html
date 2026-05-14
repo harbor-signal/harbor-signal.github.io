@@ -19,9 +19,11 @@
     </form>
     <aside>
       <p class="section-kicker">Works offline</p>
-      <p>Drafts are stored in this browser and can be exported for commit into the observation archive or handed off through GitHub Issues.</p>
+      <p>Drafts are stored in this browser and can be published as structured Markdown into the observation archive with a GitHub token kept only in this page session.</p>
+      <label>GitHub token<input id="github-token" type="password" autocomplete="off" placeholder="Fine-grained token with contents write"></label>
+      <label>Branch<input id="github-branch" type="text" value="main"></label>
       <button id="export-observations" type="button">Export JSON</button>
-      <button id="open-github-issue" type="button">Open GitHub issue</button>
+      <button id="publish-github" type="button">Publish to GitHub</button>
       <pre id="logger-output" aria-live="polite"></pre>
     </aside>
   </section>

@@ -88,7 +88,11 @@ def test_harbor_direction_pages_render_operational_surfaces(tmp_path: Path) -> N
     assert "Observation marker" in live_map
     assert "AISStream" in live_map
     assert "AISStream Vessel Snapshot" in live_map
+    assert "Unique MMSI this fetch" in live_map
+    assert "Data freshness" in live_map
+    assert "marker-pilot-boat" in live_map
     assert "left: 50%; top: 50%;" not in live_map
+    assert "top: 0.0%;" not in live_map
 
     timeline = read(output / "timeline" / "index.html")
     assert "Pilot Boat Before Dawn" in timeline
@@ -99,6 +103,9 @@ def test_harbor_direction_pages_render_operational_surfaces(tmp_path: Path) -> N
     assert vessel_data["vessels"][0]["name"] in vessels
     assert "recent observations" in vessels.lower()
     assert "Vessel Dossiers" in vessels
+    assert "Sighting History" in vessels
+    assert "First seen" in vessels
+    assert "Sightings" in vessels
 
     signal = read(output / "signal" / "index.html")
     assert "The Left Hand of Darkness" in signal
@@ -109,7 +116,8 @@ def test_harbor_direction_pages_render_operational_surfaces(tmp_path: Path) -> N
     assert "Observation Logger" in logger
     assert "Vessel reference" in logger
     assert "Works offline" in logger
-    assert "Open GitHub issue" in logger
+    assert "Publish to GitHub" in logger
+    assert "GitHub token" in logger
 
     threads = read(output / "threads" / "index.html")
     assert "Cross-Reference Threads" in threads
@@ -137,6 +145,11 @@ def test_static_assets_are_self_contained() -> None:
     assert harbor_asset.exists()
 
     assert (ROOT / "static" / "logger.js").exists()
+    logger_js = (ROOT / "static" / "logger.js").read_text(encoding="utf-8")
+    assert "api.github.com/repos/harbor-signal/harbor-signal.github.io/contents/content/observations/" in logger_js
+    assert "method: \"PUT\"" in logger_js
+    assert "vessels_referenced" in logger_js
+    assert "observation_type: field-log" in logger_js
     assert (ROOT / "static" / "sw.js").exists()
     assert (ROOT / "static" / "manifest.webmanifest").exists()
 
@@ -198,6 +211,35 @@ def test_pipeline_scripts_transform_aisstream_and_weather_payloads() -> None:
     unavailable_heading_vessel = fetch_ais.transform_position_report(unavailable_heading_payload)
     assert unavailable_heading_vessel["heading"] == 195
 
+    output = fetch_ais.build_output([vessel], fetch_ais.parse_bounds(fetch_ais.DEFAULT_BOUNDS), collection_window_seconds=60)
+    assert output["health"]["unique_mmsi_count"] == 1
+    assert output["health"]["collection_window_seconds"] == 60
+    assert output["health"]["recurrence_candidates"] == []
+
+    history = fetch_ais.update_sightings_history(
+        {
+            "vessels": {
+                "366953000": {
+                    "mmsi": "366953000",
+                    "name": "FRANK S. REYNOLDS",
+                    "type": "tug",
+                    "first_seen": "2026-05-14T21:45:00+00:00",
+                    "last_seen": "2026-05-14T21:45:00+00:00",
+                    "sighting_count": 1,
+                    "recent_sightings": [],
+                    "destinations": [],
+                    "observed_types": ["tug"],
+                }
+            }
+        },
+        [vessel],
+        observed_at="2026-05-14T22:12:00+00:00",
+    )
+    dossier = history["vessels"]["366953000"]
+    assert dossier["sighting_count"] == 2
+    assert dossier["last_seen"] == "2026-05-14T22:12:00+00:00"
+    assert dossier["recent_sightings"][0]["speed_knots"] == 4.2
+
     weather_payload = {
         "weather": [{"description": "overcast clouds"}],
         "main": {"temp": 48.1},
@@ -217,11 +259,19 @@ def test_pipeline_workflow_and_live_data_schema_exist() -> None:
     assert "AIS_API_KEY" in workflow
     assert "OW_API_KEY" in workflow
     assert "scripts/fetch_ais.py" in workflow
+    assert "--history-output data/harbor/sightings_history.json" in workflow
+    assert "--timeout 60" in workflow
     assert "scripts/fetch_weather.py" in workflow
+    assert "data/harbor/sightings_history.json" in workflow
     assert "actions/deploy-pages" in workflow
     assert "actions/upload-pages-artifact" in workflow
 
     vessel_data = json.loads(read(ROOT / "data" / "harbor" / "vessels.json"))
     assert vessel_data["source"] == "aisstream"
     assert vessel_data["bounds"]["sw"] == [42.28, -71.08]
+    assert vessel_data["health"]["unique_mmsi_count"] == len(vessel_data["vessels"])
     assert isinstance(vessel_data["vessels"], list)
+
+    history_data = json.loads(read(ROOT / "data" / "harbor" / "sightings_history.json"))
+    assert history_data["source"] == "aisstream-history"
+    assert history_data["vessels"]
