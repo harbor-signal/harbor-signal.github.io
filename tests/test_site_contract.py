@@ -127,11 +127,14 @@ def test_harbor_direction_pages_render_operational_surfaces(tmp_path: Path) -> N
 
     about = read(output / "about" / "index.html")
     assert "I&rsquo;m Ingrid. I live in Boston. I watch ships." in about
-    assert "Ingrid, watching the harbor" in about
-    assert "/images/ingrid-about" in about
-    assert "Harbor Observatory" in about
-    assert "Review section" in about
-    assert "Signal Feed" in about
+    assert "Serious maritime family, global logistics" in about
+    assert "The coffee&rsquo;s already made." in about
+    assert "Ingrid at Boston Harbor, early morning, coffee in hand, watching the pilot boats." in about
+    assert "/images/ingrid-portrait.jpg" in about
+    assert "The harbor observatory" in about
+    assert "The review engine" in about
+    assert "The signal feed" in about
+    assert "about-arteries" in about
 
 
 def test_static_assets_are_self_contained() -> None:
@@ -150,12 +153,13 @@ def test_static_assets_are_self_contained() -> None:
     assert ".marker-pilot-boat" in css
     assert ".marker-tanker" in css
     assert ".marker-passenger" in css
+    assert ".about-arteries" in css
     assert "fonts.googleapis.com" not in css
     assert "gradient" not in css.lower()
 
     harbor_asset = ROOT / "static" / "images" / "harbor-signal.png"
     assert harbor_asset.exists()
-    assert (ROOT / "static" / "images" / "ingrid-about.png").exists()
+    assert (ROOT / "static" / "images" / "ingrid-portrait.jpg").exists()
 
     assert (ROOT / "static" / "logger.js").exists()
     logger_js = (ROOT / "static" / "logger.js").read_text(encoding="utf-8")

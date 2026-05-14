@@ -1,15 +1,15 @@
 {{ define "main" }}
   <section class="about-page">
     <article class="about-copy">
-      <p class="eyebrow">About Harbor Signal</p>
+      <p class="eyebrow">Harbor Signal / About</p>
       <h1>{{ .Title }}</h1>
       <div class="lead">
-        {{ .Content }}
+        {{ .Content | replaceRE "<ul>" "<ul class=\"about-arteries\">" | safeHTML }}
       </div>
     </article>
     <figure class="about-portrait">
-      <img src="{{ "/images/ingrid-about.png" | relURL }}" alt="Ingrid, watching the harbor">
-      <figcaption>Ingrid, watching the harbor</figcaption>
+      <img src="{{ .Params.portrait | relURL }}" alt="{{ .Params.portrait_alt }}">
+      <figcaption>{{ .Params.portrait_alt }}</figcaption>
     </figure>
   </section>
 {{ end }}
