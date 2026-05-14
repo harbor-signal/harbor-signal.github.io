@@ -56,6 +56,10 @@ def classify_vessel(metadata: dict[str, Any], report: dict[str, Any]) -> str:
         return "pilot boat"
     if "tug" in name or raw_type in {"31", "32", "52"}:
         return "tug"
+    if raw_type.startswith("4"):
+        return "high-speed craft"
+    if raw_type.startswith("5"):
+        return "service craft"
     if raw_type.startswith("7"):
         return "cargo"
     if raw_type.startswith("8"):
@@ -64,6 +68,8 @@ def classify_vessel(metadata: dict[str, Any], report: dict[str, Any]) -> str:
         return "passenger"
     if raw_type.startswith("3"):
         return "fishing"
+    if raw_type.startswith("9"):
+        return "other"
     return raw_type or "unknown"
 
 

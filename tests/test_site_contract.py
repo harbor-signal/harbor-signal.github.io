@@ -248,6 +248,12 @@ def test_pipeline_scripts_transform_aisstream_and_weather_payloads() -> None:
     assert merged_vessel["type"] == "tug"
     assert merged_vessel["length_m"] == 28
 
+    high_speed_payload = {
+        **static_payload,
+        "Message": {"ShipStaticData": {**static_payload["Message"]["ShipStaticData"], "Type": 40}},
+    }
+    assert fetch_ais.transform_static_data(high_speed_payload)["type"] == "high-speed craft"
+
     output = fetch_ais.build_output([vessel], fetch_ais.parse_bounds(fetch_ais.DEFAULT_BOUNDS), collection_window_seconds=60)
     assert output["health"]["unique_mmsi_count"] == 1
     assert output["health"]["collection_window_seconds"] == 60
