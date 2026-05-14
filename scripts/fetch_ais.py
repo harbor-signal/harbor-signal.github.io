@@ -5,7 +5,7 @@ import argparse
 import asyncio
 import json
 import os
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 
@@ -23,7 +23,7 @@ def subscription_message(api_key: str, bounds: dict[str, list[float]]) -> dict[s
     return {
         "APIKey": api_key,
         "BoundingBoxes": [[bounds["sw"], bounds["ne"]]],
-        "FilterMessageTypes": ["PositionReport"],
+        "FilterMessageTypes": ["PositionReport", "ShipStaticData"],
     }
 
 
@@ -50,7 +50,7 @@ def normalize_heading(report: dict[str, Any]) -> float | int | None:
 
 
 def classify_vessel(metadata: dict[str, Any], report: dict[str, Any]) -> str:
-    raw_type = str(metadata.get("ShipType") or report.get("ShipType") or "").lower()
+    raw_type = str(metadata.get("ShipType") or metadata.get("Type") or report.get("ShipType") or report.get("Type") or "").lower()
     name = str(metadata.get("ShipName") or "").lower()
     if "pilot" in name:
         return "pilot boat"
@@ -65,6 +65,59 @@ def classify_vessel(metadata: dict[str, Any], report: dict[str, Any]) -> str:
     if raw_type.startswith("3"):
         return "fishing"
     return raw_type or "unknown"
+
+
+def format_eta(raw_eta: Any) -> str:
+    if not isinstance(raw_eta, dict):
+        return str(raw_eta or "")
+    month = raw_eta.get("Month")
+    day = raw_eta.get("Day")
+    hour = raw_eta.get("Hour")
+    minute = raw_eta.get("Minute")
+    if None in {month, day, hour, minute}:
+        return ""
+    return f"{int(month):02d}-{int(day):02d} {int(hour):02d}:{int(minute):02d} UTC"
+
+
+def vessel_length(raw_dimension: Any) -> int | str:
+    if not isinstance(raw_dimension, dict):
+        return ""
+    parts = [raw_dimension.get("A"), raw_dimension.get("B")]
+    numeric = [int(part) for part in parts if isinstance(part, int | float)]
+    return sum(numeric) if numeric else ""
+
+
+def transform_static_data(message: dict[str, Any]) -> dict[str, Any]:
+    metadata = message.get("MetaData") or message.get("Metadata") or {}
+    static = (message.get("Message") or {}).get("ShipStaticData") or {}
+    mmsi = metadata.get("MMSI") or static.get("UserID")
+    name = str(static.get("Name") or metadata.get("ShipName") or f"MMSI {mmsi}").strip()
+    type_metadata = {**metadata, "ShipName": name}
+    type_report = {
+        "Type": static.get("Type") or static.get("ShipType"),
+        "ShipType": static.get("ShipType") or static.get("Type"),
+    }
+    return {
+        "mmsi": str(mmsi),
+        "name": name,
+        "type": classify_vessel(type_metadata, type_report),
+        "destination": static.get("Destination") or metadata.get("Destination") or "",
+        "eta": format_eta(static.get("Eta") or static.get("ETA") or metadata.get("ETA")),
+        "length_m": vessel_length(static.get("Dimension")),
+    }
+
+
+def apply_static_data(vessel: dict[str, Any], static: dict[str, Any] | None) -> dict[str, Any]:
+    if not static:
+        return vessel
+    merged = dict(vessel)
+    for key in ("name", "destination", "eta", "length_m"):
+        if static.get(key):
+            merged[key] = static[key]
+    if static.get("type") and (not merged.get("type") or merged.get("type") == "unknown"):
+        merged["type"] = static["type"]
+        merged["tags"] = [static["type"]]
+    return merged
 
 
 def transform_position_report(message: dict[str, Any], bounds: dict[str, list[float]] | None = None) -> dict[str, Any]:
@@ -195,6 +248,39 @@ def update_sightings_history(
     return next_history
 
 
+def parse_timestamp(value: str) -> datetime | None:
+    try:
+        return datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except (AttributeError, ValueError):
+        return None
+
+
+def prune_history(history: dict[str, Any], now: str | None = None, detail_days: int = 30) -> dict[str, Any]:
+    now_dt = parse_timestamp(now or datetime.now(timezone.utc).isoformat()) or datetime.now(timezone.utc)
+    cutoff = now_dt - timedelta(days=detail_days)
+    next_history = dict(history)
+    vessels = dict(next_history.get("vessels") or {})
+    for mmsi, dossier in vessels.items():
+        next_dossier = dict(dossier)
+        summary = dict(next_dossier.get("summary") or {})
+        archived_count = int(summary.get("archived_sighting_count") or 0)
+        kept = []
+        for sighting in next_dossier.get("recent_sightings") or []:
+            seen_at = parse_timestamp(sighting.get("seen_at"))
+            if seen_at and seen_at < cutoff:
+                archived_count += 1
+            else:
+                kept.append(sighting)
+        summary["archived_sighting_count"] = archived_count
+        summary["detail_window_days"] = detail_days
+        summary["detail_cutoff"] = cutoff.isoformat()
+        next_dossier["summary"] = summary
+        next_dossier["recent_sightings"] = kept
+        vessels[mmsi] = next_dossier
+    next_history["vessels"] = vessels
+    return next_history
+
+
 async def collect_vessels(api_key: str, bounds: dict[str, list[float]], timeout: int, max_messages: int) -> list[dict[str, Any]]:
     try:
         import websockets
@@ -202,6 +288,7 @@ async def collect_vessels(api_key: str, bounds: dict[str, list[float]], timeout:
         raise SystemExit("Missing dependency: install websockets to fetch AIS data") from exc
 
     vessels_by_mmsi: dict[str, dict[str, Any]] = {}
+    static_by_mmsi: dict[str, dict[str, Any]] = {}
     async with websockets.connect(AISSTREAM_URL) as websocket:
         await websocket.send(json.dumps(subscription_message(api_key, bounds)))
         end_at = asyncio.get_running_loop().time() + timeout
@@ -212,11 +299,17 @@ async def collect_vessels(api_key: str, bounds: dict[str, list[float]], timeout:
             except asyncio.TimeoutError:
                 break
             message = json.loads(raw)
-            if message.get("MessageType") != "PositionReport":
+            if message.get("MessageType") == "ShipStaticData":
+                static = transform_static_data(message)
+                if static["mmsi"]:
+                    static_by_mmsi[static["mmsi"]] = static
+                    if static["mmsi"] in vessels_by_mmsi:
+                        vessels_by_mmsi[static["mmsi"]] = apply_static_data(vessels_by_mmsi[static["mmsi"]], static)
                 continue
-            vessel = transform_position_report(message, bounds=bounds)
-            if vessel["mmsi"]:
-                vessels_by_mmsi[vessel["mmsi"]] = vessel
+            if message.get("MessageType") == "PositionReport":
+                vessel = transform_position_report(message, bounds=bounds)
+                if vessel["mmsi"]:
+                    vessels_by_mmsi[vessel["mmsi"]] = apply_static_data(vessel, static_by_mmsi.get(vessel["mmsi"]))
     return list(vessels_by_mmsi.values())
 
 
@@ -227,6 +320,7 @@ def main() -> None:
     parser.add_argument("--history-output", default="data/harbor/sightings_history.json")
     parser.add_argument("--timeout", type=int, default=60)
     parser.add_argument("--max-messages", type=int, default=80)
+    parser.add_argument("--history-detail-days", type=int, default=30)
     args = parser.parse_args()
 
     api_key = os.environ.get("AIS_API_KEY")
@@ -236,7 +330,7 @@ def main() -> None:
     bounds = parse_bounds(args.bounds)
     vessels = asyncio.run(collect_vessels(api_key, bounds, timeout=args.timeout, max_messages=args.max_messages))
     history_path = Path(args.history_output)
-    history = update_sightings_history(load_history(history_path), vessels)
+    history = prune_history(update_sightings_history(load_history(history_path), vessels), detail_days=args.history_detail_days)
     output = build_output(vessels, bounds, collection_window_seconds=args.timeout, history=history)
     path = Path(args.output)
     path.parent.mkdir(parents=True, exist_ok=True)

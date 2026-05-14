@@ -90,7 +90,7 @@ def test_harbor_direction_pages_render_operational_surfaces(tmp_path: Path) -> N
     assert "AISStream Vessel Snapshot" in live_map
     assert "Unique MMSI this fetch" in live_map
     assert "Data freshness" in live_map
-    assert "marker-pilot-boat" in live_map
+    assert "data-vessel-type" in live_map
     assert "left: 50%; top: 50%;" not in live_map
     assert "top: 0.0%;" not in live_map
 
@@ -126,8 +126,12 @@ def test_harbor_direction_pages_render_operational_surfaces(tmp_path: Path) -> N
     assert "The Left Hand of Darkness" in threads
 
     about = read(output / "about" / "index.html")
-    assert "what moves through Boston Harbor" in about
-    assert "Sometimes the harbor wins" in about
+    assert "I&rsquo;m Ingrid. I live in Boston. I watch ships." in about
+    assert "Ingrid, watching the harbor" in about
+    assert "/images/ingrid-about" in about
+    assert "Harbor Observatory" in about
+    assert "Review section" in about
+    assert "Signal Feed" in about
 
 
 def test_static_assets_are_self_contained() -> None:
@@ -138,11 +142,20 @@ def test_static_assets_are_self_contained() -> None:
     assert "--color-review: #1a1f2e" in css
     assert "--font-observation" in css
     assert "--font-review" in css
+    assert "@font-face" in css
+    assert "Harbor Field Mono" in css
+    assert "Harbor Review Serif" in css
+    assert ".observation .article-body" in css
+    assert ".review .article-body" in css
+    assert ".marker-pilot-boat" in css
+    assert ".marker-tanker" in css
+    assert ".marker-passenger" in css
     assert "fonts.googleapis.com" not in css
     assert "gradient" not in css.lower()
 
     harbor_asset = ROOT / "static" / "images" / "harbor-signal.png"
     assert harbor_asset.exists()
+    assert (ROOT / "static" / "images" / "ingrid-about.png").exists()
 
     assert (ROOT / "static" / "logger.js").exists()
     logger_js = (ROOT / "static" / "logger.js").read_text(encoding="utf-8")
@@ -211,6 +224,30 @@ def test_pipeline_scripts_transform_aisstream_and_weather_payloads() -> None:
     unavailable_heading_vessel = fetch_ais.transform_position_report(unavailable_heading_payload)
     assert unavailable_heading_vessel["heading"] == 195
 
+    static_payload = {
+        "MessageType": "ShipStaticData",
+        "MetaData": {
+            "MMSI": 366953000,
+            "ShipName": "FRANK S. REYNOLDS",
+        },
+        "Message": {
+            "ShipStaticData": {
+                "UserID": 366953000,
+                "Name": "FRANK S. REYNOLDS",
+                "Type": 52,
+                "Destination": "BOSTON",
+                "Eta": {"Month": 5, "Day": 15, "Hour": 6, "Minute": 0},
+                "Dimension": {"A": 8, "B": 20},
+            }
+        },
+    }
+    static_data = fetch_ais.transform_static_data(static_payload)
+    assert static_data["type"] == "tug"
+    assert static_data["destination"] == "BOSTON"
+    merged_vessel = fetch_ais.apply_static_data(vessel, static_data)
+    assert merged_vessel["type"] == "tug"
+    assert merged_vessel["length_m"] == 28
+
     output = fetch_ais.build_output([vessel], fetch_ais.parse_bounds(fetch_ais.DEFAULT_BOUNDS), collection_window_seconds=60)
     assert output["health"]["unique_mmsi_count"] == 1
     assert output["health"]["collection_window_seconds"] == 60
@@ -239,6 +276,26 @@ def test_pipeline_scripts_transform_aisstream_and_weather_payloads() -> None:
     assert dossier["sighting_count"] == 2
     assert dossier["last_seen"] == "2026-05-14T22:12:00+00:00"
     assert dossier["recent_sightings"][0]["speed_knots"] == 4.2
+
+    pruned_history = fetch_ais.prune_history(
+        {
+            "vessels": {
+                "366953000": {
+                    **dossier,
+                    "recent_sightings": [
+                        {"seen_at": "2026-04-01T00:00:00+00:00"},
+                        {"seen_at": "2026-05-14T22:12:00+00:00"},
+                    ],
+                    "summary": {"archived_sighting_count": 0},
+                }
+            }
+        },
+        now="2026-05-14T22:12:00+00:00",
+        detail_days=30,
+    )
+    pruned_dossier = pruned_history["vessels"]["366953000"]
+    assert pruned_dossier["summary"]["archived_sighting_count"] == 1
+    assert len(pruned_dossier["recent_sightings"]) == 1
 
     weather_payload = {
         "weather": [{"description": "overcast clouds"}],

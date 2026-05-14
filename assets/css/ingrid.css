@@ -19,10 +19,31 @@
   --max: 1160px;
   --read: 720px;
   --font-ui: Inter, "Source Sans 3", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-observation: "JetBrains Mono", "IBM Plex Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
-  --font-review: Georgia, "Times New Roman", serif;
+  --font-observation: "Harbor Field Mono", "JetBrains Mono", "IBM Plex Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  --font-review: "Harbor Review Serif", Literata, "Source Serif 4", Georgia, "Times New Roman", serif;
   --ui: var(--font-ui);
   --mono: var(--font-observation);
+}
+
+@font-face {
+  font-family: "Harbor Field Mono";
+  font-style: normal;
+  font-weight: 400 800;
+  src: local("JetBrains Mono"), local("IBM Plex Mono"), local("SFMono-Regular");
+}
+
+@font-face {
+  font-family: "Harbor Review Serif";
+  font-style: normal;
+  font-weight: 400 800;
+  src: local("Literata"), local("Source Serif 4"), local("Georgia");
+}
+
+@font-face {
+  font-family: "Harbor Review Serif";
+  font-style: italic;
+  font-weight: 400 800;
+  src: local("Literata Italic"), local("Source Serif 4 Italic"), local("Georgia Italic");
 }
 
 * {
@@ -438,6 +459,61 @@ dd,
 
 .wide-head {
   max-width: 900px;
+}
+
+.about-page {
+  display: grid;
+  gap: 34px;
+  grid-template-columns: minmax(0, 0.95fr) minmax(320px, 0.7fr);
+  padding-top: 54px;
+}
+
+.about-copy {
+  max-width: 760px;
+}
+
+.about-copy h1 {
+  font-size: clamp(2.6rem, 6vw, 5.2rem);
+  margin-bottom: 22px;
+}
+
+.about-copy .lead {
+  font-size: 1.14rem;
+}
+
+.about-copy h2 {
+  border-top: 1px solid var(--line);
+  margin-top: 34px;
+  padding-top: 24px;
+}
+
+.about-copy strong {
+  color: var(--amber);
+}
+
+.about-portrait {
+  align-self: start;
+  border: 1px solid var(--line);
+  margin: 0;
+  overflow: hidden;
+}
+
+.about-portrait img {
+  aspect-ratio: 4 / 5;
+  display: block;
+  height: auto;
+  object-fit: cover;
+  object-position: 50% 28%;
+  width: 100%;
+}
+
+.about-portrait figcaption {
+  background: var(--panel);
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  padding: 10px 12px;
+  text-transform: uppercase;
 }
 
 .page-head h1,
@@ -1044,6 +1120,7 @@ dd,
 
   .hero,
   .split-band,
+  .about-page,
   .pulse-grid,
   .route-grid,
   .signal-strip-grid,
