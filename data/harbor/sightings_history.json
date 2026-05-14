@@ -1,6 +1,6 @@
 {
   "source": "aisstream-history",
-  "last_updated": "2026-05-14T22:09:44.782165+00:00",
+  "last_updated": "2026-05-14T22:37:52.935355+00:00",
   "vessels": {
     "367784560": {
       "mmsi": "367784560",
@@ -85,9 +85,18 @@
       "name": "JOCKA",
       "type": "unknown",
       "first_seen": "2026-05-14 22:08:44.313427195 +0000 UTC",
-      "last_seen": "2026-05-14 22:08:44.313427195 +0000 UTC",
-      "sighting_count": 1,
+      "last_seen": "2026-05-14 22:36:51.465224861 +0000 UTC",
+      "sighting_count": 2,
       "recent_sightings": [
+        {
+          "seen_at": "2026-05-14 22:36:51.465224861 +0000 UTC",
+          "lat": 42.35104,
+          "lon": -71.03736,
+          "speed_knots": 0,
+          "heading": 360,
+          "status": "reported",
+          "destination": ""
+        },
         {
           "seen_at": "2026-05-14 22:08:44.313427195 +0000 UTC",
           "lat": 42.35108,
@@ -108,9 +117,18 @@
       "name": "CHETTA",
       "type": "unknown",
       "first_seen": "2026-05-14 22:08:48.010991489 +0000 UTC",
-      "last_seen": "2026-05-14 22:08:48.010991489 +0000 UTC",
-      "sighting_count": 1,
+      "last_seen": "2026-05-14 22:37:37.630970866 +0000 UTC",
+      "sighting_count": 2,
       "recent_sightings": [
+        {
+          "seen_at": "2026-05-14 22:37:37.630970866 +0000 UTC",
+          "lat": 42.34549,
+          "lon": -71.02488,
+          "speed_knots": 0.1,
+          "heading": 360,
+          "status": "reported",
+          "destination": ""
+        },
         {
           "seen_at": "2026-05-14 22:08:48.010991489 +0000 UTC",
           "lat": 42.34548,
@@ -177,9 +195,18 @@
       "name": "COMMONWEALTH",
       "type": "unknown",
       "first_seen": "2026-05-14 22:09:06.99134703 +0000 UTC",
-      "last_seen": "2026-05-14 22:09:06.99134703 +0000 UTC",
-      "sighting_count": 1,
+      "last_seen": "2026-05-14 22:37:49.92096065 +0000 UTC",
+      "sighting_count": 2,
       "recent_sightings": [
+        {
+          "seen_at": "2026-05-14 22:37:49.92096065 +0000 UTC",
+          "lat": 42.35443,
+          "lon": -71.03429,
+          "speed_knots": 8.7,
+          "heading": 129.5,
+          "status": "under way using engine",
+          "destination": ""
+        },
         {
           "seen_at": "2026-05-14 22:09:06.99134703 +0000 UTC",
           "lat": 42.35965,
@@ -269,9 +296,18 @@
       "name": "SPIRIT OF BOSTON",
       "type": "unknown",
       "first_seen": "2026-05-14 22:09:36.160678744 +0000 UTC",
-      "last_seen": "2026-05-14 22:09:36.160678744 +0000 UTC",
-      "sighting_count": 1,
+      "last_seen": "2026-05-14 22:37:13.311087262 +0000 UTC",
+      "sighting_count": 2,
       "recent_sightings": [
+        {
+          "seen_at": "2026-05-14 22:37:13.311087262 +0000 UTC",
+          "lat": 42.35327,
+          "lon": -71.03735,
+          "speed_knots": 5.4,
+          "heading": 115,
+          "status": "under way using engine",
+          "destination": ""
+        },
         {
           "seen_at": "2026-05-14 22:09:36.160678744 +0000 UTC",
           "lat": 42.35123,
@@ -301,6 +337,121 @@
           "lon": -71.0497,
           "speed_knots": 0,
           "heading": 360,
+          "status": "reported",
+          "destination": ""
+        }
+      ],
+      "destinations": [],
+      "observed_types": [
+        "unknown"
+      ]
+    },
+    "367379320": {
+      "mmsi": "367379320",
+      "name": "AURORA",
+      "type": "unknown",
+      "first_seen": "2026-05-14 22:37:06.228374488 +0000 UTC",
+      "last_seen": "2026-05-14 22:37:06.228374488 +0000 UTC",
+      "sighting_count": 1,
+      "recent_sightings": [
+        {
+          "seen_at": "2026-05-14 22:37:06.228374488 +0000 UTC",
+          "lat": 42.35622,
+          "lon": -71.0431,
+          "speed_knots": 7.4,
+          "heading": 267,
+          "status": "under way using engine",
+          "destination": ""
+        }
+      ],
+      "destinations": [],
+      "observed_types": [
+        "unknown"
+      ]
+    },
+    "367677670": {
+      "mmsi": "367677670",
+      "name": "SANCTUARY",
+      "type": "unknown",
+      "first_seen": "2026-05-14 22:37:46.425395397 +0000 UTC",
+      "last_seen": "2026-05-14 22:37:46.425395397 +0000 UTC",
+      "sighting_count": 1,
+      "recent_sightings": [
+        {
+          "seen_at": "2026-05-14 22:37:46.425395397 +0000 UTC",
+          "lat": 42.35055,
+          "lon": -71.0283,
+          "speed_knots": 29.5,
+          "heading": 122,
+          "status": "under way using engine",
+          "destination": ""
+        }
+      ],
+      "destinations": [],
+      "observed_types": [
+        "unknown"
+      ]
+    },
+    "368157410": {
+      "mmsi": "368157410",
+      "name": "CRISPUS ATTUCKS",
+      "type": "unknown",
+      "first_seen": "2026-05-14 22:37:29.353639115 +0000 UTC",
+      "last_seen": "2026-05-14 22:37:29.353639115 +0000 UTC",
+      "sighting_count": 1,
+      "recent_sightings": [
+        {
+          "seen_at": "2026-05-14 22:37:29.353639115 +0000 UTC",
+          "lat": 42.35495,
+          "lon": -71.04146,
+          "speed_knots": 8.5,
+          "heading": 18.8,
+          "status": "under way using engine",
+          "destination": ""
+        }
+      ],
+      "destinations": [],
+      "observed_types": [
+        "unknown"
+      ]
+    },
+    "368227350": {
+      "mmsi": "368227350",
+      "name": "PHILLIS WHEATLEY",
+      "type": "unknown",
+      "first_seen": "2026-05-14 22:37:33.701809718 +0000 UTC",
+      "last_seen": "2026-05-14 22:37:33.701809718 +0000 UTC",
+      "sighting_count": 1,
+      "recent_sightings": [
+        {
+          "seen_at": "2026-05-14 22:37:33.701809718 +0000 UTC",
+          "lat": 42.35391,
+          "lon": -71.04185,
+          "speed_knots": 5.7,
+          "heading": 250.4,
+          "status": "under way using engine",
+          "destination": ""
+        }
+      ],
+      "destinations": [],
+      "observed_types": [
+        "unknown"
+      ]
+    },
+    "338295000": {
+      "mmsi": "338295000",
+      "name": "CAPE CANAVERAL",
+      "type": "unknown",
+      "first_seen": "2026-05-14 22:37:38.908573141 +0000 UTC",
+      "last_seen": "2026-05-14 22:37:38.908573141 +0000 UTC",
+      "sighting_count": 1,
+      "recent_sightings": [
+        {
+          "seen_at": "2026-05-14 22:37:38.908573141 +0000 UTC",
+          "lat": 42.35877,
+          "lon": -71.03739,
+          "speed_knots": 0.1,
+          "heading": 92,
           "status": "reported",
           "destination": ""
         }
