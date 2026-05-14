@@ -88,6 +88,7 @@ def test_harbor_direction_pages_render_operational_surfaces(tmp_path: Path) -> N
     assert "Observation marker" in live_map
     assert "AISStream" in live_map
     assert "AISStream Vessel Snapshot" in live_map
+    assert "left: 50%; top: 50%;" not in live_map
 
     timeline = read(output / "timeline" / "index.html")
     assert "Pilot Boat Before Dawn" in timeline
@@ -179,6 +180,23 @@ def test_pipeline_scripts_transform_aisstream_and_weather_payloads() -> None:
     assert vessel["name"] == "FRANK S. REYNOLDS"
     assert vessel["type"] == "unknown"
     assert vessel["speed_knots"] == 4.2
+    assert vessel["x"] == 21.8
+    assert vessel["y"] == 25.8
+
+    unavailable_heading_payload = {
+        **ais_payload,
+        "Message": {
+            "PositionReport": {
+                "UserID": 366953000,
+                "Sog": 4.2,
+                "Cog": 195,
+                "TrueHeading": 511,
+                "NavigationalStatus": 0,
+            }
+        },
+    }
+    unavailable_heading_vessel = fetch_ais.transform_position_report(unavailable_heading_payload)
+    assert unavailable_heading_vessel["heading"] == 195
 
     weather_payload = {
         "weather": [{"description": "overcast clouds"}],

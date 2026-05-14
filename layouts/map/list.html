@@ -3,6 +3,10 @@
   {{ $vessels := $vesselData.vessels }}
   {{ $weather := hugo.Data.harbor.weather }}
   {{ $observations := where .Site.RegularPages "Section" "observations" }}
+  {{ $south := index $vesselData.bounds.sw 0 }}
+  {{ $west := index $vesselData.bounds.sw 1 }}
+  {{ $north := index $vesselData.bounds.ne 0 }}
+  {{ $east := index $vesselData.bounds.ne 1 }}
   {{ $updated := time $vesselData.last_updated }}
   {{ $ageMinutes := div (sub now.Unix $updated.Unix) 60 }}
   <section class="page-head wide-head">
@@ -19,7 +23,13 @@
     <div class="harbor-map" aria-label="Live harbor map with sample AIS and observation markers">
       <div class="map-grid"></div>
       {{ range $vessels }}
-        <article class="map-marker marker-{{ .type | anchorize }} {{ if eq .source "Manual observation" }}observation-marker{{ end }}" style="left: {{ .x | default 50 }}%; top: {{ .y | default 50 }}%;">
+        {{ $x := .x | default 50 }}
+        {{ $y := .y | default 50 }}
+        {{ if and .lat .lon }}
+          {{ $x = mul (div (sub (float .lon) $west) (sub $east $west)) 100 }}
+          {{ $y = sub 100 (mul (div (sub (float .lat) $south) (sub $north $south)) 100) }}
+        {{ end }}
+        <article class="map-marker marker-{{ .type | anchorize }} {{ if eq .source "Manual observation" }}observation-marker{{ end }}" style="left: {{ printf "%.1f" $x }}%; top: {{ printf "%.1f" $y }}%;" title="{{ .name }} / {{ .type }} / {{ .speed_knots }} kt / {{ .heading }} deg">
           <span>{{ .type }}</span>
           <strong>{{ .name }}</strong>
           <em>{{ .speed_knots }} kt / {{ .heading }} deg</em>

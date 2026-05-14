@@ -589,13 +589,17 @@ dd,
 }
 
 .map-marker {
-  background: rgba(17, 17, 15, 0.94);
+  background: var(--teal);
   border: 1px solid var(--teal);
+  border-radius: 50%;
+  box-shadow: 0 0 18px rgba(79, 183, 170, 0.36);
   color: var(--text);
-  max-width: 190px;
-  padding: 8px 10px;
+  height: 12px;
+  max-width: none;
+  padding: 0;
   position: absolute;
   transform: translate(-50%, -50%);
+  width: 12px;
   z-index: 2;
 }
 
@@ -603,6 +607,7 @@ dd,
   background: var(--teal);
   border-radius: 50%;
   content: "";
+  display: none;
   height: 8px;
   left: -13px;
   position: absolute;
@@ -611,6 +616,31 @@ dd,
 }
 
 .map-marker span,
+.map-marker strong,
+.map-marker em {
+  display: none;
+}
+
+.map-marker:hover,
+.map-marker:focus-within {
+  background: rgba(10, 22, 40, 0.96);
+  border-radius: 0;
+  height: auto;
+  min-width: 150px;
+  padding: 8px 10px;
+  width: auto;
+}
+
+.map-marker:hover span,
+.map-marker:hover strong,
+.map-marker:hover em,
+.map-marker:focus-within span,
+.map-marker:focus-within strong,
+.map-marker:focus-within em {
+  display: block;
+}
+
+.map-marker:hover span,
 .compact-facts dt {
   color: var(--muted);
   display: block;
@@ -619,12 +649,14 @@ dd,
   text-transform: uppercase;
 }
 
-.map-marker strong {
+.map-marker:hover strong,
+.map-marker:focus-within strong {
   display: block;
   font-size: 0.92rem;
 }
 
-.map-marker em {
+.map-marker:hover em,
+.map-marker:focus-within em {
   color: var(--muted);
   display: block;
   font-family: var(--mono);

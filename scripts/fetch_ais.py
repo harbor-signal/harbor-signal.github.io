@@ -27,6 +27,28 @@ def subscription_message(api_key: str, bounds: dict[str, list[float]]) -> dict[s
     }
 
 
+def marker_position(lat: float | int | None, lon: float | int | None, bounds: dict[str, list[float]]) -> dict[str, float | None]:
+    if lat is None or lon is None:
+        return {"x": None, "y": None}
+    south, west = bounds["sw"]
+    north, east = bounds["ne"]
+    if north == south or east == west:
+        return {"x": None, "y": None}
+    x = ((float(lon) - west) / (east - west)) * 100
+    y = 100 - (((float(lat) - south) / (north - south)) * 100)
+    return {
+        "x": round(max(0, min(100, x)), 1),
+        "y": round(max(0, min(100, y)), 1),
+    }
+
+
+def normalize_heading(report: dict[str, Any]) -> float | int | None:
+    true_heading = report.get("TrueHeading")
+    if true_heading is not None and true_heading != 511:
+        return true_heading
+    return report.get("Cog")
+
+
 def classify_vessel(metadata: dict[str, Any], report: dict[str, Any]) -> str:
     raw_type = str(metadata.get("ShipType") or report.get("ShipType") or "").lower()
     name = str(metadata.get("ShipName") or "").lower()
@@ -53,6 +75,7 @@ def transform_position_report(message: dict[str, Any]) -> dict[str, Any]:
     lon = metadata.get("longitude") or metadata.get("Longitude") or report.get("Longitude")
     ship_name = str(metadata.get("ShipName") or f"MMSI {mmsi}").strip()
     signal_time = metadata.get("time_utc") or datetime.now(timezone.utc).isoformat()
+    position = marker_position(lat, lon, parse_bounds(DEFAULT_BOUNDS))
 
     return {
         "mmsi": str(mmsi),
@@ -61,9 +84,11 @@ def transform_position_report(message: dict[str, Any]) -> dict[str, Any]:
         "flag": metadata.get("Country") or "",
         "lat": lat,
         "lon": lon,
+        "x": position["x"],
+        "y": position["y"],
         "coordinates": f"{lat}, {lon}",
         "speed_knots": report.get("Sog"),
-        "heading": report.get("TrueHeading") or report.get("Cog"),
+        "heading": normalize_heading(report),
         "destination": metadata.get("Destination") or "",
         "eta": metadata.get("ETA") or "",
         "length_m": metadata.get("Length") or "",
