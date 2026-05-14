@@ -87,14 +87,15 @@ def test_harbor_direction_pages_render_operational_surfaces(tmp_path: Path) -> N
     assert "Weather correlation" in live_map
     assert "Observation marker" in live_map
     assert "AISStream" in live_map
-    assert "Data stale" in live_map
+    assert "AISStream Vessel Snapshot" in live_map
 
     timeline = read(output / "timeline" / "index.html")
     assert "Pilot Boat Before Dawn" in timeline
     assert "Manual harbor note" in timeline
 
     vessels = read(output / "vessels" / "index.html")
-    assert "Atlantic Pioneer" in vessels
+    vessel_data = json.loads(read(ROOT / "data" / "harbor" / "vessels.json"))
+    assert vessel_data["vessels"][0]["name"] in vessels
     assert "recent observations" in vessels.lower()
     assert "Vessel Dossiers" in vessels
 
@@ -199,6 +200,8 @@ def test_pipeline_workflow_and_live_data_schema_exist() -> None:
     assert "OW_API_KEY" in workflow
     assert "scripts/fetch_ais.py" in workflow
     assert "scripts/fetch_weather.py" in workflow
+    assert "actions/deploy-pages" in workflow
+    assert "actions/upload-pages-artifact" in workflow
 
     vessel_data = json.loads(read(ROOT / "data" / "harbor" / "vessels.json"))
     assert vessel_data["source"] == "aisstream"
