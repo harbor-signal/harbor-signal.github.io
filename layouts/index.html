@@ -1,6 +1,11 @@
 {{ define "main" }}
   {{ $observations := where .Site.RegularPages "Section" "observations" }}
   {{ $reviews := where .Site.RegularPages "Section" "reviews" }}
+  {{ $signals := hugo.Data.harbor.signals }}
+  {{ $vessels := hugo.Data.harbor.vessels.vessels }}
+  {{ $latestObservation := index (first 1 $observations.ByDate.Reverse) 0 }}
+  {{ $latestReview := index (first 1 $reviews.ByDate.Reverse) 0 }}
+  {{ $tracking := index $vessels 0 }}
   <section class="hero">
     <div class="hero-copy">
       <p class="eyebrow">Harbor Traffic Observatory / Sci-Fi Review Space</p>
@@ -30,6 +35,48 @@
     </div>
   </section>
 
+  <section class="pulse-grid" aria-label="Current harbor and reading pulse">
+    {{ with $latestObservation }}
+      <article class="pulse-card pulse-harbor">
+        <p class="section-kicker">Latest Observation</p>
+        <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+        <p>{{ .Summary | plainify | truncate 170 }}</p>
+      </article>
+    {{ end }}
+    {{ with $latestReview }}
+      <article class="pulse-card pulse-review">
+        <p class="section-kicker">Latest Review</p>
+        <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+        <p>{{ .Summary | plainify | truncate 170 }}</p>
+      </article>
+    {{ end }}
+    {{ with $tracking }}
+      <aside class="pulse-card">
+        <p class="section-kicker">Currently tracking</p>
+        <h2>{{ .name }}</h2>
+        <p>{{ .type }} / {{ .status }}</p>
+      </aside>
+    {{ end }}
+    <aside class="pulse-card">
+      <p class="section-kicker">Currently reading</p>
+      <h2>The Left Hand of Darkness</h2>
+      <p>Governance, weather, and the body inside the machine.</p>
+    </aside>
+  </section>
+
+  <section class="signal-strip" aria-label="Recent Signal Feed">
+    <p class="section-kicker">Recent Signal Feed</p>
+    <div class="signal-strip-grid">
+      {{ range first 3 $signals }}
+        <article>
+          <span>{{ .tag }}</span>
+          <strong>{{ .title }}</strong>
+          <p>{{ .note }}</p>
+        </article>
+      {{ end }}
+    </div>
+  </section>
+
   <section class="route-grid" aria-label="Primary observatory routes">
     <a href="{{ "/map/" | relURL }}">
       <span>Live Map</span>
@@ -46,6 +93,10 @@
     <a href="{{ "/signal/" | relURL }}">
       <span>Signal Feed</span>
       <strong>Where harbor logistics and science fiction criticism cross-reference.</strong>
+    </a>
+    <a href="{{ "/threads/" | relURL }}">
+      <span>Threads</span>
+      <strong>Shared taxonomy for observations, reviews, and analysis.</strong>
     </a>
     <a href="{{ "/logger/" | relURL }}">
       <span>Logger</span>

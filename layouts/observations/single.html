@@ -1,15 +1,23 @@
 {{ define "main" }}
   <article class="article observation">
     <header class="article-head">
-      <p class="eyebrow">Harbor Observation</p>
+      <p class="eyebrow">Harbor Observation / {{ .Params.observation_type | default "field-log" }}</p>
       <h1>{{ .Title }}</h1>
-      <p class="meta">{{ .Date.Format "January 2, 2006 15:04" }}</p>
+      <p class="meta">{{ .Date.Format "January 2, 2006" }}{{ with .Params.time }} / {{ . }}{{ end }}</p>
     </header>
-    <aside class="fact-strip" aria-label="Observation metadata">
+    <aside class="field-log" aria-label="Observation metadata">
+      {{ with .Params.location }}<div><span>Location</span><strong>{{ . }}</strong></div>{{ end }}
+      {{ with .Params.time }}<div><span>Time</span><strong>{{ . }}</strong></div>{{ end }}
       {{ with .Params.coordinates }}<div><span>Coordinates</span><strong>{{ . }}</strong></div>{{ end }}
       {{ with .Params.weather }}<div><span>Weather</span><strong>{{ . }}</strong></div>{{ end }}
+      {{ with .Params.vessels_referenced }}<div><span>Vessels</span><strong>{{ delimit . ", " }}</strong></div>{{ end }}
       {{ with .Params.source }}<div><span>Source</span><strong>{{ . }}</strong></div>{{ end }}
     </aside>
+    {{ with .Params.tags }}
+      <ul class="tag-list article-tags" aria-label="Observation threads">
+        {{ range . }}<li>{{ . }}</li>{{ end }}
+      </ul>
+    {{ end }}
     <div class="article-body">
       {{ .Content }}
     </div>

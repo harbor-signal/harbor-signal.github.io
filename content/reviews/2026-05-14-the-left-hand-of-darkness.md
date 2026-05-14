@@ -7,10 +7,10 @@ year: 1969
 medium: "Book"
 logistics_grade: "A-"
 governance_grade: "A"
-bodies_grade: "A"
-longing_grade: "A"
-verdict: "5/5"
-tags: ["book", "governance", "envoy", "winter"]
+bodies_verdict: "yes"
+tension: "high"
+overall: "A"
+tags: ["book", "governance", "envoy", "winter", "the body inside the machine", "command under uncertainty"]
 ---
 
 Le Guin understands that an envoy is not a floating mind with a briefcase. He is a body in weather, a political instrument with bad assumptions, and a lonely person who keeps mistaking description for understanding.

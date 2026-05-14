@@ -10,7 +10,7 @@
       <label>Location<input name="location" type="text" placeholder="42.35, -71.03" required></label>
       <label>Vessel reference<input name="vessel" type="text" list="vessel-options" placeholder="Harbor Pilot 3"></label>
       <datalist id="vessel-options">
-        {{ range hugo.Data.harbor.vessels }}<option value="{{ .name }}"></option>{{ end }}
+        {{ range hugo.Data.harbor.vessels.vessels }}<option value="{{ .name }}"></option>{{ end }}
       </datalist>
       <label>Weather<input name="weather" type="text" placeholder="Low cloud, light chop"></label>
       <label>Tags<input name="tags" type="text" placeholder="pilot-boat, logistics"></label>
@@ -19,8 +19,9 @@
     </form>
     <aside>
       <p class="section-kicker">Works offline</p>
-      <p>Drafts are stored in this browser and can be exported for commit into the observation archive.</p>
+      <p>Drafts are stored in this browser and can be exported for commit into the observation archive or handed off through GitHub Issues.</p>
       <button id="export-observations" type="button">Export JSON</button>
+      <button id="open-github-issue" type="button">Open GitHub issue</button>
       <pre id="logger-output" aria-live="polite"></pre>
     </aside>
   </section>

@@ -1,7 +1,8 @@
 {{ define "main" }}
-  {{ $vessels := hugo.Data.harbor.vessels }}
+  {{ $vesselData := hugo.Data.harbor.vessels }}
+  {{ $vessels := $vesselData.vessels }}
   <section class="page-head">
-    <p class="eyebrow">Harbor Traffic Observatory</p>
+    <p class="eyebrow">Harbor Traffic Observatory / Vessel Dossiers</p>
     <h1>{{ .Title }}</h1>
     <div class="lead">{{ .Content }}</div>
   </section>
@@ -14,6 +15,7 @@
           <div><dt>Type</dt><dd>{{ .type }}</dd></div>
           <div><dt>Status</dt><dd>{{ .status }}</dd></div>
           <div><dt>Heading</dt><dd>{{ .heading }} deg</dd></div>
+          <div><dt>Last signal</dt><dd>{{ .last_signal }}</dd></div>
           <div><dt>Recent observations</dt><dd>{{ delimit .tags ", " }}</dd></div>
         </dl>
       </article>

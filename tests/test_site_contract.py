@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import importlib.util
+import json
 import shutil
 import subprocess
 from pathlib import Path
@@ -38,6 +40,9 @@ def test_hugo_site_renders_core_ingrid_surfaces(tmp_path: Path) -> None:
     assert "Vessel Log" in index
     assert "Signal Feed" in index
     assert "Logger" in index
+    assert "Currently tracking" in index
+    assert "Currently reading" in index
+    assert "Recent Signal Feed" in index
 
     assert (output / "observations" / "index.html").exists()
     assert (output / "reviews" / "index.html").exists()
@@ -48,6 +53,7 @@ def test_hugo_site_renders_core_ingrid_surfaces(tmp_path: Path) -> None:
     assert (output / "vessels" / "index.html").exists()
     assert (output / "signal" / "index.html").exists()
     assert (output / "logger" / "index.html").exists()
+    assert (output / "threads" / "index.html").exists()
     assert (output / "index.xml").exists()
 
 
@@ -58,6 +64,9 @@ def test_sample_content_uses_expected_public_schemas(tmp_path: Path) -> None:
     assert "Pilot Boat Before Dawn" in observation
     assert "42.35" in observation
     assert "weather" in observation.lower()
+    assert "Castle Island" in observation
+    assert "field-log" in observation
+    assert "Harbor Pilot 3" in observation
     assert "source" in observation.lower()
 
     review = read(output / "reviews" / "the-left-hand-of-darkness" / "index.html")
@@ -65,7 +74,9 @@ def test_sample_content_uses_expected_public_schemas(tmp_path: Path) -> None:
     assert "Logistics" in review
     assert "Governance" in review
     assert "Bodies" in review
-    assert "Longing" in review
+    assert "Tension" in review
+    assert "Overall" in review
+    assert "verdict-card" in review
 
 
 def test_harbor_direction_pages_render_operational_surfaces(tmp_path: Path) -> None:
@@ -75,7 +86,8 @@ def test_harbor_direction_pages_render_operational_surfaces(tmp_path: Path) -> N
     assert "AIS interval" in live_map
     assert "Weather correlation" in live_map
     assert "Observation marker" in live_map
-    assert "Sample AIS" in live_map
+    assert "AISStream" in live_map
+    assert "Data stale" in live_map
 
     timeline = read(output / "timeline" / "index.html")
     assert "Pilot Boat Before Dawn" in timeline
@@ -84,6 +96,7 @@ def test_harbor_direction_pages_render_operational_surfaces(tmp_path: Path) -> N
     vessels = read(output / "vessels" / "index.html")
     assert "Atlantic Pioneer" in vessels
     assert "recent observations" in vessels.lower()
+    assert "Vessel Dossiers" in vessels
 
     signal = read(output / "signal" / "index.html")
     assert "The Left Hand of Darkness" in signal
@@ -94,12 +107,27 @@ def test_harbor_direction_pages_render_operational_surfaces(tmp_path: Path) -> N
     assert "Observation Logger" in logger
     assert "Vessel reference" in logger
     assert "Works offline" in logger
+    assert "Open GitHub issue" in logger
+
+    threads = read(output / "threads" / "index.html")
+    assert "Cross-Reference Threads" in threads
+    assert "logistics of waiting" in threads
+    assert "Pilot Boat Before Dawn" in threads
+    assert "The Left Hand of Darkness" in threads
+
+    about = read(output / "about" / "index.html")
+    assert "what moves through Boston Harbor" in about
+    assert "Sometimes the harbor wins" in about
 
 
 def test_static_assets_are_self_contained() -> None:
     css_path = ROOT / "assets" / "css" / "ingrid.css"
     assert css_path.exists()
     css = css_path.read_text(encoding="utf-8")
+    assert "--color-harbor: #0a1628" in css
+    assert "--color-review: #1a1f2e" in css
+    assert "--font-observation" in css
+    assert "--font-review" in css
     assert "fonts.googleapis.com" not in css
     assert "gradient" not in css.lower()
 
@@ -111,3 +139,68 @@ def test_static_assets_are_self_contained() -> None:
     assert (ROOT / "static" / "manifest.webmanifest").exists()
 
     assert shutil.which("hugo"), "hugo must be installed for local publishing"
+
+
+def load_script(name: str):
+    path = ROOT / "scripts" / name
+    spec = importlib.util.spec_from_file_location(name.removesuffix(".py"), path)
+    assert spec and spec.loader
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def test_pipeline_scripts_transform_aisstream_and_weather_payloads() -> None:
+    fetch_ais = load_script("fetch_ais.py")
+    fetch_weather = load_script("fetch_weather.py")
+
+    ais_payload = {
+        "MessageType": "PositionReport",
+        "MetaData": {
+            "MMSI": 366953000,
+            "ShipName": "FRANK S. REYNOLDS",
+            "latitude": 42.3542,
+            "longitude": -71.0451,
+            "time_utc": "2026-05-14 22:12:00 +0000 UTC",
+        },
+        "Message": {
+            "PositionReport": {
+                "UserID": 366953000,
+                "Sog": 4.2,
+                "Cog": 195,
+                "TrueHeading": 195,
+                "NavigationalStatus": 0,
+            }
+        },
+    }
+    vessel = fetch_ais.transform_position_report(ais_payload)
+    assert vessel["mmsi"] == "366953000"
+    assert vessel["name"] == "FRANK S. REYNOLDS"
+    assert vessel["type"] == "unknown"
+    assert vessel["speed_knots"] == 4.2
+
+    weather_payload = {
+        "weather": [{"description": "overcast clouds"}],
+        "main": {"temp": 48.1},
+        "wind": {"speed": 7.0, "deg": 45},
+        "visibility": 10000,
+        "dt": 1778796720,
+    }
+    weather = fetch_weather.transform_weather(weather_payload, lat=42.3601, lon=-71.0589)
+    assert weather["source"] == "openweathermap"
+    assert weather["temperature_f"] == 48.1
+    assert weather["conditions"] == "overcast clouds"
+
+
+def test_pipeline_workflow_and_live_data_schema_exist() -> None:
+    workflow = read(ROOT / ".github" / "workflows" / "ais-data.yml")
+    assert "*/15 * * * *" in workflow
+    assert "AIS_API_KEY" in workflow
+    assert "OW_API_KEY" in workflow
+    assert "scripts/fetch_ais.py" in workflow
+    assert "scripts/fetch_weather.py" in workflow
+
+    vessel_data = json.loads(read(ROOT / "data" / "harbor" / "vessels.json"))
+    assert vessel_data["source"] == "aisstream"
+    assert vessel_data["bounds"]["sw"] == [42.28, -71.08]
+    assert isinstance(vessel_data["vessels"], list)

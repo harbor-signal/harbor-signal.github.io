@@ -1,0 +1,31 @@
+{{ define "main" }}
+  {{ $threads := hugo.Data.harbor.threads }}
+  {{ $pages := where .Site.RegularPages "Section" "in" (slice "observations" "reviews" "analysis") }}
+  <section class="page-head wide-head">
+    <p class="eyebrow">Signal Feed</p>
+    <h1>{{ .Title }}</h1>
+    <div class="lead">{{ .Content }}</div>
+  </section>
+  <section class="thread-list">
+    {{ range $threads }}
+      {{ $thread := .name }}
+      <article class="thread-card">
+        <header>
+          <p class="meta">Thread</p>
+          <h2>{{ .name }}</h2>
+          <p>{{ .description }}</p>
+        </header>
+        <div class="thread-items">
+          {{ range $pages }}
+            {{ if and .Params.tags (in .Params.tags $thread) }}
+              <a class="thread-item thread-{{ .Section }}" href="{{ .RelPermalink }}">
+                <span>{{ .Section | humanize }}</span>
+                <strong>{{ .Title }}</strong>
+              </a>
+            {{ end }}
+          {{ end }}
+        </div>
+      </article>
+    {{ end }}
+  </section>
+{{ end }}

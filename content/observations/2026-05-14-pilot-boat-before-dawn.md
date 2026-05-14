@@ -1,11 +1,15 @@
 ---
 title: Pilot Boat Before Dawn
 slug: pilot-boat-before-dawn
-date: 2026-05-14T04:12:00-04:00
+date: 2026-05-14
+time: "04:12"
+location: "Castle Island"
 coordinates: "42.35, -71.03"
 weather: "Low cloud, light chop, visibility improving"
 source: "Manual harbor note; AIS adapter pending"
-tags: ["pilot-boat", "boston-harbor", "early-watch", "logistics", "weather"]
+vessels_referenced: ["Harbor Pilot 3", "pilot boat"]
+observation_type: "field-log"
+tags: ["pilot-boat", "boston-harbor", "early-watch", "logistics of waiting", "the body inside the machine"]
 ---
 
 The pilot boat crossed the channel before the light had made up its mind. Not fast. Purposeful. There is a difference, and the difference is usually scheduling pressure with a human face.

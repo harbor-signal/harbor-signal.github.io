@@ -1,37 +1,45 @@
 {{ define "main" }}
-  {{ $vessels := hugo.Data.harbor.vessels }}
+  {{ $vesselData := hugo.Data.harbor.vessels }}
+  {{ $vessels := $vesselData.vessels }}
   {{ $weather := hugo.Data.harbor.weather }}
   {{ $observations := where .Site.RegularPages "Section" "observations" }}
+  {{ $updated := time $vesselData.last_updated }}
+  {{ $ageMinutes := div (sub now.Unix $updated.Unix) 60 }}
   <section class="page-head wide-head">
     <p class="eyebrow">Harbor Traffic Observatory</p>
     <h1>{{ .Title }}</h1>
     <div class="lead">{{ .Content }}</div>
   </section>
 
+  {{ if gt $ageMinutes 30 }}
+    <aside class="stale-banner" role="status">Data stale: AISStream sample data last updated {{ $updated.Format "Jan 2, 2006 15:04" }}.</aside>
+  {{ end }}
+
   <section class="ops-shell">
     <div class="harbor-map" aria-label="Live harbor map with sample AIS and observation markers">
       <div class="map-grid"></div>
       {{ range $vessels }}
-        <article class="map-marker {{ if eq .source "Manual observation" }}observation-marker{{ end }}" style="left: {{ .x }}%; top: {{ .y }}%;">
+        <article class="map-marker marker-{{ .type | anchorize }} {{ if eq .source "Manual observation" }}observation-marker{{ end }}" style="left: {{ .x | default 50 }}%; top: {{ .y | default 50 }}%;">
           <span>{{ .type }}</span>
           <strong>{{ .name }}</strong>
+          <em>{{ .speed_knots }} kt / {{ .heading }} deg</em>
         </article>
       {{ end }}
       <p class="map-note">Observation marker: Harbor Pilot 3 / Pilot Boat Before Dawn</p>
     </div>
     <aside class="ops-readout">
-      <div><span>AIS interval</span><strong>15 min target</strong><em>Sample AIS until adapter is approved.</em></div>
-      <div><span>Weather correlation</span><strong>{{ $weather.summary }}</strong><em>{{ $weather.wind }} / {{ $weather.visibility }}</em></div>
+      <div><span>AIS interval</span><strong>15 min target</strong><em>AISStream source, GitHub cron wired for live fetches.</em></div>
+      <div><span>Weather correlation</span><strong>{{ $weather.summary }}</strong><em>{{ $weather.wind }} / {{ $weather.visibility }} / {{ $weather.temperature_f }} F</em></div>
       <div><span>Observation markers</span><strong>{{ len $observations }}</strong><em>Authored notes are amber, vessel data is teal.</em></div>
     </aside>
   </section>
 
   <section class="data-table" aria-label="Vessel positions">
-    <p class="section-kicker">Sample AIS</p>
+    <p class="section-kicker">AISStream Vessel Snapshot</p>
     <div class="table-grid vessel-table">
-      <span>Name</span><span>Type</span><span>Status</span><span>Source</span>
+      <span>Name</span><span>Type</span><span>Status</span><span>Destination</span><span>Source</span>
       {{ range $vessels }}
-        <strong>{{ .name }}</strong><p>{{ .type }}</p><p>{{ .status }}</p><p>{{ .source }}</p>
+        <strong>{{ .name }}</strong><p>{{ .type }}</p><p>{{ .status }}</p><p>{{ .destination }}</p><p>{{ .source }}</p>
       {{ end }}
     </div>
   </section>

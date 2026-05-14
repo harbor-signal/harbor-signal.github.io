@@ -1,41 +1,65 @@
-[
-  {
-    "name": "Atlantic Pioneer",
-    "type": "Container ship",
-    "mmsi": "sample-001",
-    "status": "Inbound, reduced speed",
-    "coordinates": "42.352, -71.034",
-    "x": 61,
-    "y": 38,
-    "heading": "274",
-    "last_seen": "2026-05-14T04:10:00-04:00",
-    "source": "Sample AIS",
-    "tags": ["logistics", "container-traffic"]
+{
+  "last_updated": "2026-05-14T04:15:00-04:00",
+  "source": "aisstream",
+  "status": "sample-seeded",
+  "bounds": {
+    "sw": [42.28, -71.08],
+    "ne": [42.38, -70.92]
   },
-  {
-    "name": "Harbor Pilot 3",
-    "type": "Pilot boat",
-    "mmsi": "sample-002",
-    "status": "Crossing main channel",
-    "coordinates": "42.350, -71.031",
-    "x": 35,
-    "y": 56,
-    "heading": "118",
-    "last_seen": "2026-05-14T04:12:00-04:00",
-    "source": "Manual observation",
-    "tags": ["pilot-boat", "early-watch"]
-  },
-  {
-    "name": "Quincy Assist",
-    "type": "Tug",
-    "mmsi": "sample-003",
-    "status": "Holding near approach",
-    "coordinates": "42.346, -71.041",
-    "x": 72,
-    "y": 67,
-    "heading": "031",
-    "last_seen": "2026-05-14T04:15:00-04:00",
-    "source": "Sample AIS",
-    "tags": ["tug", "support-traffic"]
-  }
-]
+  "vessels": [
+    {
+      "name": "Atlantic Pioneer",
+      "type": "cargo",
+      "mmsi": "sample-001",
+      "status": "Inbound, reduced speed",
+      "lat": 42.352,
+      "lon": -71.034,
+      "coordinates": "42.352, -71.034",
+      "x": 61,
+      "y": 38,
+      "speed_knots": 7.4,
+      "heading": 274,
+      "destination": "Boston Inner Harbor",
+      "eta": "pending",
+      "last_signal": "2026-05-14T04:10:00-04:00",
+      "source": "Sample AIS",
+      "tags": ["logistics", "container-traffic", "what pressure does to a system"]
+    },
+    {
+      "name": "Harbor Pilot 3",
+      "type": "pilot boat",
+      "mmsi": "sample-002",
+      "status": "Crossing main channel",
+      "lat": 42.35,
+      "lon": -71.031,
+      "coordinates": "42.350, -71.031",
+      "x": 35,
+      "y": 56,
+      "speed_knots": 11.2,
+      "heading": 118,
+      "destination": "Main channel",
+      "eta": "active",
+      "last_signal": "2026-05-14T04:12:00-04:00",
+      "source": "Manual observation",
+      "tags": ["pilot-boat", "early-watch", "logistics of waiting"]
+    },
+    {
+      "name": "Quincy Assist",
+      "type": "tug",
+      "mmsi": "sample-003",
+      "status": "Holding near approach",
+      "lat": 42.346,
+      "lon": -71.041,
+      "coordinates": "42.346, -71.041",
+      "x": 72,
+      "y": 67,
+      "speed_knots": 2.1,
+      "heading": 31,
+      "destination": "Approach channel",
+      "eta": "standing by",
+      "last_signal": "2026-05-14T04:15:00-04:00",
+      "source": "Sample AIS",
+      "tags": ["tug", "support-traffic", "command under uncertainty"]
+    }
+  ]
+}

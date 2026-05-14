@@ -8,7 +8,7 @@
   <section class="timeline">
     {{ range $observations.ByDate.Reverse }}
       <article class="timeline-entry">
-        <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date.Format "Jan 2, 2006 15:04" }}</time>
+        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}{{ with .Params.time }} {{ . }}{{ end }}</time>
         <div>
           <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
           <p>{{ .Summary | plainify | truncate 220 }}</p>
