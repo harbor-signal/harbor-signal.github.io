@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-05-15T01:32:04.612140+00:00",
+  "last_updated": "2026-05-15T05:41:10.026094+00:00",
   "source": "aisstream",
   "status": "live",
   "bounds": {
@@ -13,8 +13,8 @@
     ]
   },
   "health": {
-    "unique_mmsi_count": 7,
-    "vessel_count": 7,
+    "unique_mmsi_count": 3,
+    "vessel_count": 3,
     "collection_window_seconds": 60,
     "recurrence_candidates": [
       "338295000",
@@ -36,164 +36,72 @@
   },
   "vessels": [
     {
+      "mmsi": "367551860",
+      "name": "JOCKA",
+      "type": "unknown",
+      "flag": "",
+      "lat": 42.35103,
+      "lon": -71.03736,
+      "x": 26.6,
+      "y": 29.0,
+      "coordinates": "42.35103, -71.03736",
+      "speed_knots": 0,
+      "heading": 360,
+      "destination": "",
+      "eta": "",
+      "length_m": "",
+      "nav_status": 4,
+      "last_signal": "2026-05-15 05:40:31.352219024 +0000 UTC",
+      "source": "AISStream",
+      "status": "reported",
+      "tags": [
+        "unknown"
+      ]
+    },
+    {
+      "mmsi": "368434520",
+      "name": "AMERICAN PIONEER",
+      "type": "unknown",
+      "flag": "",
+      "lat": 42.35481,
+      "lon": -71.04317,
+      "x": 23.0,
+      "y": 25.2,
+      "coordinates": "42.35481, -71.04317",
+      "speed_knots": 0,
+      "heading": 299,
+      "destination": "",
+      "eta": "",
+      "length_m": "",
+      "nav_status": 5,
+      "last_signal": "2026-05-15 05:40:31.603154107 +0000 UTC",
+      "source": "AISStream",
+      "status": "reported",
+      "tags": [
+        "unknown"
+      ]
+    },
+    {
       "mmsi": "367513040",
       "name": "LIBERTY",
-      "type": "passenger",
+      "type": "tug",
       "flag": "",
-      "lat": 42.37998,
-      "lon": -71.04247,
+      "lat": 42.37997,
+      "lon": -71.04245,
       "x": 23.5,
       "y": 0.0,
-      "coordinates": "42.37998, -71.04247",
+      "coordinates": "42.37997, -71.04245",
       "speed_knots": 0,
-      "heading": 91,
-      "destination": "",
-      "eta": "",
-      "length_m": "",
-      "nav_status": 0,
-      "last_signal": "2026-05-15 01:31:05.954071305 +0000 UTC",
-      "source": "AISStream",
-      "status": "under way using engine",
-      "tags": [
-        "passenger"
-      ]
-    },
-    {
-      "mmsi": "367784560",
-      "name": "CHAMPION",
-      "type": "passenger",
-      "flag": "",
-      "lat": 42.3602,
-      "lon": -71.02759,
-      "x": 32.8,
-      "y": 19.8,
-      "coordinates": "42.3602, -71.02759",
-      "speed_knots": 0,
-      "heading": 104,
+      "heading": 89,
       "destination": "BOSTON",
-      "eta": "01-28 00:00 UTC",
+      "eta": "",
       "length_m": 26,
       "nav_status": 0,
-      "last_signal": "2026-05-15 01:31:10.202077756 +0000 UTC",
+      "last_signal": "2026-05-15 05:41:05.292021046 +0000 UTC",
       "source": "AISStream",
       "status": "under way using engine",
       "tags": [
-        "passenger"
-      ]
-    },
-    {
-      "mmsi": "538002220",
-      "name": "NEW ENGLAND",
-      "type": "unknown",
-      "flag": "",
-      "lat": 42.36975,
-      "lon": -71.04672,
-      "x": 20.8,
-      "y": 10.2,
-      "coordinates": "42.36975, -71.04672",
-      "speed_knots": 8.7,
-      "heading": 167,
-      "destination": "",
-      "eta": "",
-      "length_m": "",
-      "nav_status": 0,
-      "last_signal": "2026-05-15 01:31:28.259711733 +0000 UTC",
-      "source": "AISStream",
-      "status": "under way using engine",
-      "tags": [
-        "unknown"
-      ]
-    },
-    {
-      "mmsi": "338295000",
-      "name": "CAPE CANAVERAL",
-      "type": "unknown",
-      "flag": "",
-      "lat": 42.35752,
-      "lon": -71.03472,
-      "x": 28.3,
-      "y": 22.5,
-      "coordinates": "42.35752, -71.03472",
-      "speed_knots": 0,
-      "heading": 321,
-      "destination": "",
-      "eta": "",
-      "length_m": "",
-      "nav_status": 1,
-      "last_signal": "2026-05-15 01:31:37.655644393 +0000 UTC",
-      "source": "AISStream",
-      "status": "reported",
-      "tags": [
-        "unknown"
-      ]
-    },
-    {
-      "mmsi": "338926452",
-      "name": "CGC MAURICE JESTER",
-      "type": "service craft",
-      "flag": "",
-      "lat": 42.36894,
-      "lon": -71.05104,
-      "x": 18.1,
-      "y": 11.1,
-      "coordinates": "42.36894, -71.05104",
-      "speed_knots": 0,
-      "heading": 211,
-      "destination": "",
-      "eta": "",
-      "length_m": 46,
-      "nav_status": 5,
-      "last_signal": "2026-05-15 01:31:48.502924736 +0000 UTC",
-      "source": "AISStream",
-      "status": "reported",
-      "tags": [
-        "service craft"
-      ]
-    },
-    {
-      "mmsi": "367623310",
-      "name": "MUSIC CITY QUEEN",
-      "type": "passenger",
-      "flag": "",
-      "lat": 42.36055,
-      "lon": -71.036,
-      "x": 27.5,
-      "y": 19.4,
-      "coordinates": "42.36055, -71.036",
-      "speed_knots": 3.7,
-      "heading": 308,
-      "destination": "",
-      "eta": "",
-      "length_m": "",
-      "nav_status": 0,
-      "last_signal": "2026-05-15 01:31:56.005715024 +0000 UTC",
-      "source": "AISStream",
-      "status": "under way using engine",
-      "tags": [
-        "passenger"
-      ]
-    },
-    {
-      "mmsi": "369494417",
-      "name": "CG49417",
-      "type": "service craft",
-      "flag": "",
-      "lat": 42.36781,
-      "lon": -71.05092,
-      "x": 18.2,
-      "y": 12.2,
-      "coordinates": "42.36781, -71.05092",
-      "speed_knots": 0.1,
-      "heading": 72.8,
-      "destination": "",
-      "eta": "",
-      "length_m": "",
-      "nav_status": 0,
-      "last_signal": "2026-05-15 01:32:01.47223472 +0000 UTC",
-      "source": "AISStream",
-      "status": "under way using engine",
-      "tags": [
-        "service craft"
+        "tug"
       ]
     }
   ]
