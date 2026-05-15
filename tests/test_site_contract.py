@@ -40,6 +40,7 @@ def test_hugo_site_renders_core_ingrid_surfaces(tmp_path: Path) -> None:
     assert "Vessel Log" in index
     assert "Signal Feed" in index
     assert "Logger" in index
+    assert 'href="/about/"' in index
     assert "Currently tracking" in index
     assert "Currently reading" in index
     assert "Recent Signal Feed" in index
@@ -86,11 +87,14 @@ def test_harbor_direction_pages_render_operational_surfaces(tmp_path: Path) -> N
     output = build_site(tmp_path)
 
     live_map = read(output / "map" / "index.html")
-    assert "leaflet.css" in live_map
-    assert "leaflet.js" in live_map
+    assert "maplibre-gl.css" in live_map
+    assert "maplibre-gl.js" in live_map
     assert "/map.js" in live_map
-    assert "harbor-leaflet-map" in live_map
+    assert "harbor-maplibre-map" in live_map
     assert "data-vessels=" in live_map
+    assert "leaflet" not in live_map.lower()
+    assert live_map.count('aria-label="Primary navigation"') == 1
+    assert 'href="/about/"' in live_map
     assert "AIS interval" in live_map
     assert "Weather correlation" in live_map
     assert "Observation marker" in live_map
@@ -161,6 +165,10 @@ def test_static_assets_are_self_contained() -> None:
     assert ".marker-pilot-boat" in css
     assert ".marker-tanker" in css
     assert ".marker-passenger" in css
+    assert ".maplibre-vessel-marker" in css
+    assert ".marker-cargo" in css
+    assert ".marker-tug" in css
+    assert ".marker-fishing" in css
     assert ".about-arteries" in css
     assert "fonts.googleapis.com" not in css
     assert "gradient" not in css.lower()
@@ -177,9 +185,12 @@ def test_static_assets_are_self_contained() -> None:
     assert "observation_type: field-log" in logger_js
     assert (ROOT / "static" / "sw.js").exists()
     map_js = (ROOT / "static" / "map.js").read_text(encoding="utf-8")
-    assert "L.map" in map_js
+    assert "maplibregl.Map" in map_js
+    assert "maplibregl.Marker" in map_js
+    assert "maplibregl.Popup" in map_js
     assert "tiles.openseamap.org/seamark" in map_js
     assert "data-vessel-type" in map_js
+    assert "leaflet" not in map_js.lower()
     assert (ROOT / "static" / "manifest.webmanifest").exists()
 
     assert shutil.which("hugo"), "hugo must be installed for local publishing"
@@ -239,6 +250,20 @@ def test_pipeline_scripts_transform_aisstream_and_weather_payloads() -> None:
     }
     unavailable_heading_vessel = fetch_ais.transform_position_report(unavailable_heading_payload)
     assert unavailable_heading_vessel["heading"] == 195
+
+    position_type_payload = {
+        **ais_payload,
+        "MetaData": {
+            **ais_payload["MetaData"],
+            "ShipType": 80,
+            "Destination": " BOSTON OUTER HARBOR ",
+            "ETA": "05-15 06:00 UTC",
+        },
+    }
+    position_type_vessel = fetch_ais.transform_position_report(position_type_payload)
+    assert position_type_vessel["type"] == "tanker"
+    assert position_type_vessel["destination"] == "BOSTON OUTER HARBOR"
+    assert position_type_vessel["eta"] == "05-15 06:00 UTC"
 
     static_payload = {
         "MessageType": "ShipStaticData",
@@ -401,6 +426,7 @@ def test_pipeline_workflow_and_live_data_schema_exist() -> None:
     assert vessel_data["health"]["unique_mmsi_count"] == len(vessel_data["vessels"])
     assert isinstance(vessel_data["vessels"], list)
     assert sum(1 for vessel in vessel_data["vessels"] if vessel["type"] == "unknown") <= 2
+    assert any(vessel["type"] != "unknown" for vessel in vessel_data["vessels"])
 
     history_data = json.loads(read(ROOT / "data" / "harbor" / "sightings_history.json"))
     assert history_data["source"] == "aisstream-history"

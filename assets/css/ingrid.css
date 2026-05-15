@@ -661,7 +661,7 @@ dd,
   position: relative;
 }
 
-.harbor-leaflet-map {
+.harbor-maplibre-map {
   height: min(68vh, 640px);
   min-height: 520px;
   position: relative;
@@ -675,18 +675,18 @@ dd,
   z-index: 0;
 }
 
-.harbor-map.leaflet-loaded .css-map-fallback {
+.harbor-map.maplibre-loaded .css-map-fallback {
   display: none;
 }
 
-.leaflet-container {
+.maplibregl-map {
   background: #10120f;
   color: var(--text);
   font-family: var(--ui);
 }
 
-.leaflet-control-attribution,
-.leaflet-control-zoom a {
+.maplibregl-ctrl-attrib,
+.maplibregl-ctrl button {
   background: var(--panel) !important;
   color: var(--body) !important;
 }
@@ -837,6 +837,12 @@ dd,
   border-color: var(--paper);
 }
 
+.marker-fishing {
+  background: var(--amber);
+  border-color: var(--paper);
+  border-radius: 50% 50% 2px 2px;
+}
+
 .marker-unknown {
   background: var(--muted);
   border-color: var(--muted);
@@ -850,47 +856,79 @@ dd,
   background: var(--amber);
 }
 
-.leaflet-vessel-marker {
+.maplibre-vessel-marker {
   background: var(--teal);
   border: 1px solid var(--teal);
   border-radius: 50%;
   box-shadow: 0 0 18px rgba(79, 183, 170, 0.4);
+  cursor: pointer;
+  height: 16px;
+  padding: 0;
+  width: 16px;
 }
 
-.leaflet-vessel-marker.marker-tug {
+.maplibre-vessel-marker.marker-tug {
   background: var(--color-slate);
   border-color: var(--paper);
+  border-radius: 3px;
+  height: 18px;
+  width: 18px;
 }
 
-.leaflet-vessel-marker.marker-cargo,
-.leaflet-vessel-marker.marker-container-ship,
-.leaflet-vessel-marker.marker-high-speed-craft {
+.maplibre-vessel-marker.marker-cargo,
+.maplibre-vessel-marker.marker-container-ship,
+.maplibre-vessel-marker.marker-high-speed-craft {
   background: var(--teal);
   border-color: var(--teal);
   border-radius: 2px;
+  height: 14px;
+  width: 22px;
 }
 
-.leaflet-vessel-marker.marker-tanker {
+.maplibre-vessel-marker.marker-tanker {
   background: var(--red);
   border-color: var(--red);
   border-radius: 2px;
+  height: 18px;
+  width: 24px;
 }
 
-.leaflet-vessel-marker.marker-pilot-boat {
+.maplibre-vessel-marker.marker-pilot-boat {
   background: var(--amber);
   border-color: var(--amber);
   border-radius: 2px;
   transform: rotate(45deg);
 }
 
-.leaflet-vessel-marker.marker-passenger {
+.maplibre-vessel-marker.marker-passenger {
   background: var(--paper);
   border-color: var(--paper);
+  height: 12px;
+  width: 22px;
 }
 
-.leaflet-vessel-marker.marker-unknown {
+.maplibre-vessel-marker.marker-fishing {
+  background: var(--amber);
+  border-color: var(--paper);
+  border-radius: 50% 50% 2px 2px;
+  height: 18px;
+  width: 16px;
+}
+
+.maplibre-vessel-marker.marker-unknown {
   background: var(--muted);
   border-color: var(--muted);
+}
+
+.maplibregl-popup-content {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  color: var(--body);
+  padding: 12px;
+}
+
+.maplibregl-popup-tip {
+  border-top-color: var(--panel) !important;
 }
 
 .map-popup h2 {

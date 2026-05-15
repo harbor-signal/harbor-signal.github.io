@@ -24,10 +24,10 @@
     <aside class="stale-banner" role="status">Data stale: AISStream data last updated {{ $updated.Format "Jan 2, 2006 15:04" }} UTC.</aside>
   {{ end }}
 
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5.11.0/dist/maplibre-gl.css">
   <section class="ops-shell">
     <div class="harbor-map" aria-label="Live harbor map with sample AIS and observation markers">
-      <div id="harbor-leaflet-map" class="harbor-leaflet-map" data-bounds="{{ $vesselData.bounds | jsonify }}" data-vessels="{{ $vessels | jsonify }}"></div>
+      <div id="harbor-maplibre-map" class="harbor-maplibre-map" data-bounds="{{ $vesselData.bounds | jsonify }}" data-vessels="{{ $vessels | jsonify }}"></div>
       <div class="css-map-fallback" aria-hidden="true">
         <div class="map-grid"></div>
         {{ range $vessels }}
@@ -59,7 +59,7 @@
       <div><span>Vessel types</span><strong>Pilot / tug / cargo / tanker / passenger</strong><em>Markers carry type-specific color and shape cues plus hover metadata.</em></div>
     </aside>
   </section>
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
+  <script src="https://unpkg.com/maplibre-gl@5.11.0/dist/maplibre-gl.js" defer></script>
   <script src="{{ "/map.js" | relURL }}" defer></script>
 
   <section class="data-table" aria-label="Vessel positions">
