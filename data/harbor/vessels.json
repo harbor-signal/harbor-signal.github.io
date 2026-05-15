@@ -38,7 +38,7 @@
     {
       "mmsi": "367513040",
       "name": "LIBERTY",
-      "type": "unknown",
+      "type": "passenger",
       "flag": "",
       "lat": 42.37998,
       "lon": -71.04247,
@@ -55,7 +55,7 @@
       "source": "AISStream",
       "status": "under way using engine",
       "tags": [
-        "unknown"
+        "passenger"
       ]
     },
     {
@@ -70,7 +70,7 @@
       "coordinates": "42.3602, -71.02759",
       "speed_knots": 0,
       "heading": 104,
-      "destination": "BOSTON              ",
+      "destination": "BOSTON",
       "eta": "01-28 00:00 UTC",
       "length_m": 26,
       "nav_status": 0,
@@ -140,7 +140,7 @@
       "speed_knots": 0,
       "heading": 211,
       "destination": "",
-      "eta": "00-00 00:00 UTC",
+      "eta": "",
       "length_m": 46,
       "nav_status": 5,
       "last_signal": "2026-05-15 01:31:48.502924736 +0000 UTC",
@@ -153,7 +153,7 @@
     {
       "mmsi": "367623310",
       "name": "MUSIC CITY QUEEN",
-      "type": "unknown",
+      "type": "passenger",
       "flag": "",
       "lat": 42.36055,
       "lon": -71.036,
@@ -170,13 +170,13 @@
       "source": "AISStream",
       "status": "under way using engine",
       "tags": [
-        "unknown"
+        "passenger"
       ]
     },
     {
       "mmsi": "369494417",
       "name": "CG49417",
-      "type": "unknown",
+      "type": "service craft",
       "flag": "",
       "lat": 42.36781,
       "lon": -71.05092,
@@ -193,7 +193,7 @@
       "source": "AISStream",
       "status": "under way using engine",
       "tags": [
-        "unknown"
+        "service craft"
       ]
     }
   ]

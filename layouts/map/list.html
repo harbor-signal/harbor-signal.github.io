@@ -24,27 +24,31 @@
     <aside class="stale-banner" role="status">Data stale: AISStream data last updated {{ $updated.Format "Jan 2, 2006 15:04" }} UTC.</aside>
   {{ end }}
 
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <section class="ops-shell">
     <div class="harbor-map" aria-label="Live harbor map with sample AIS and observation markers">
-      <div class="map-grid"></div>
-      {{ range $vessels }}
-        {{ $x := .x | default 50 }}
-        {{ $y := .y | default 50 }}
-        {{ if and .lat .lon }}
-          {{ $x = mul (div (sub (float .lon) $west) (sub $east $west)) 100 }}
-          {{ $y = sub 100 (mul (div (sub (float .lat) $south) (sub $north $south)) 100) }}
+      <div id="harbor-leaflet-map" class="harbor-leaflet-map" data-bounds="{{ $vesselData.bounds | jsonify }}" data-vessels="{{ $vessels | jsonify }}"></div>
+      <div class="css-map-fallback" aria-hidden="true">
+        <div class="map-grid"></div>
+        {{ range $vessels }}
+          {{ $x := .x | default 50 }}
+          {{ $y := .y | default 50 }}
+          {{ if and .lat .lon }}
+            {{ $x = mul (div (sub (float .lon) $west) (sub $east $west)) 100 }}
+            {{ $y = sub 100 (mul (div (sub (float .lat) $south) (sub $north $south)) 100) }}
+          {{ end }}
+          {{ if lt $x 2.0 }}{{ $x = 2.0 }}{{ end }}
+          {{ if gt $x 98.0 }}{{ $x = 98.0 }}{{ end }}
+          {{ if lt $y 2.0 }}{{ $y = 2.0 }}{{ end }}
+          {{ if gt $y 98.0 }}{{ $y = 98.0 }}{{ end }}
+          <article class="map-marker marker-{{ .type | anchorize }} {{ if eq .source "Manual observation" }}observation-marker{{ end }}" data-vessel-type="{{ .type }}" data-mmsi="{{ .mmsi }}" style="left: {{ printf "%.1f" $x }}%; top: {{ printf "%.1f" $y }}%;" title="{{ .name }} / {{ .type }} / {{ .speed_knots }} kt / {{ .heading }} deg / {{ .destination | default "no destination" }}">
+            <span>{{ .type }}</span>
+            <strong>{{ .name }}</strong>
+            <em>{{ .speed_knots }} kt / {{ .heading }} deg / {{ .destination | default "no destination" }}</em>
+          </article>
         {{ end }}
-        {{ if lt $x 2.0 }}{{ $x = 2.0 }}{{ end }}
-        {{ if gt $x 98.0 }}{{ $x = 98.0 }}{{ end }}
-        {{ if lt $y 2.0 }}{{ $y = 2.0 }}{{ end }}
-        {{ if gt $y 98.0 }}{{ $y = 98.0 }}{{ end }}
-        <article class="map-marker marker-{{ .type | anchorize }} {{ if eq .source "Manual observation" }}observation-marker{{ end }}" data-vessel-type="{{ .type }}" data-mmsi="{{ .mmsi }}" style="left: {{ printf "%.1f" $x }}%; top: {{ printf "%.1f" $y }}%;" title="{{ .name }} / {{ .type }} / {{ .speed_knots }} kt / {{ .heading }} deg / {{ .destination | default "no destination" }}">
-          <span>{{ .type }}</span>
-          <strong>{{ .name }}</strong>
-          <em>{{ .speed_knots }} kt / {{ .heading }} deg / {{ .destination | default "no destination" }}</em>
-        </article>
-      {{ end }}
-      <p class="map-note">Observation marker: Harbor Pilot 3 / Pilot Boat Before Dawn</p>
+        <p class="map-note">Observation marker: Harbor Pilot 3 / Pilot Boat Before Dawn</p>
+      </div>
     </div>
     <aside class="ops-readout">
       <div><span>AIS interval</span><strong>15 min target</strong><em>AISStream source, GitHub cron wired for live fetches.</em></div>
@@ -55,6 +59,8 @@
       <div><span>Vessel types</span><strong>Pilot / tug / cargo / tanker / passenger</strong><em>Markers carry type-specific color and shape cues plus hover metadata.</em></div>
     </aside>
   </section>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
+  <script src="{{ "/map.js" | relURL }}" defer></script>
 
   <section class="data-table" aria-label="Vessel positions">
     <p class="section-kicker">AISStream Vessel Snapshot</p>

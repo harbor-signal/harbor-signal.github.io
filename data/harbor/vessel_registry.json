@@ -1,0 +1,32 @@
+{
+  "source": "local-harbor-signal-registry",
+  "notes": "Curated fallback for recurring Boston Harbor vessels when AISStream position reports arrive before static data.",
+  "vessels": {
+    "367379320": {
+      "name": "AURORA",
+      "type": "high-speed craft",
+      "destination": "HINGHAM-BOSTON"
+    },
+    "368351390": {
+      "name": "COMMONWEALTH",
+      "type": "passenger",
+      "destination": "FAN PIER TO LOVEJOY"
+    },
+    "368227350": {
+      "name": "PHILLIS WHEATLEY",
+      "type": "passenger"
+    },
+    "368157410": {
+      "name": "CRISPUS ATTUCKS",
+      "type": "passenger"
+    },
+    "367513040": {
+      "name": "LIBERTY",
+      "type": "passenger"
+    },
+    "369494417": {
+      "name": "CG49417",
+      "type": "service craft"
+    }
+  }
+}

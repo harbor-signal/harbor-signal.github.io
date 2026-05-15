@@ -7,6 +7,7 @@ const CORE_ASSETS = [
   "/signal/",
   "/logger/",
   "/logger.js",
+  "/map.js",
   "/images/harbor-signal.png"
 ];
 

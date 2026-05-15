@@ -77,12 +77,20 @@ def test_sample_content_uses_expected_public_schemas(tmp_path: Path) -> None:
     assert "Tension" in review
     assert "Overall" in review
     assert "verdict-card" in review
+    assert "Gobrin Ice" in review
+    assert "Shifgrethor" in review
+    assert len(review.split()) >= 1500
 
 
 def test_harbor_direction_pages_render_operational_surfaces(tmp_path: Path) -> None:
     output = build_site(tmp_path)
 
     live_map = read(output / "map" / "index.html")
+    assert "leaflet.css" in live_map
+    assert "leaflet.js" in live_map
+    assert "/map.js" in live_map
+    assert "harbor-leaflet-map" in live_map
+    assert "data-vessels=" in live_map
     assert "AIS interval" in live_map
     assert "Weather correlation" in live_map
     assert "Observation marker" in live_map
@@ -96,7 +104,7 @@ def test_harbor_direction_pages_render_operational_surfaces(tmp_path: Path) -> N
 
     timeline = read(output / "timeline" / "index.html")
     assert "Pilot Boat Before Dawn" in timeline
-    assert "Manual harbor note" in timeline
+    assert "AISStream-correlated field note" in timeline
 
     vessels = read(output / "vessels" / "index.html")
     vessel_data = json.loads(read(ROOT / "data" / "harbor" / "vessels.json"))
@@ -168,6 +176,10 @@ def test_static_assets_are_self_contained() -> None:
     assert "vessels_referenced" in logger_js
     assert "observation_type: field-log" in logger_js
     assert (ROOT / "static" / "sw.js").exists()
+    map_js = (ROOT / "static" / "map.js").read_text(encoding="utf-8")
+    assert "L.map" in map_js
+    assert "tiles.openseamap.org/seamark" in map_js
+    assert "data-vessel-type" in map_js
     assert (ROOT / "static" / "manifest.webmanifest").exists()
 
     assert shutil.which("hugo"), "hugo must be installed for local publishing"
@@ -258,6 +270,56 @@ def test_pipeline_scripts_transform_aisstream_and_weather_payloads() -> None:
     }
     assert fetch_ais.transform_static_data(high_speed_payload)["type"] == "high-speed craft"
 
+    invalid_eta_payload = {
+        **static_payload,
+        "Message": {
+            "ShipStaticData": {
+                **static_payload["Message"]["ShipStaticData"],
+                "Destination": " HINGHAM-BOSTON      ",
+                "Eta": {"Month": 0, "Day": 0, "Hour": 24, "Minute": 60},
+            }
+        },
+    }
+    invalid_eta = fetch_ais.transform_static_data(invalid_eta_payload)
+    assert invalid_eta["destination"] == "HINGHAM-BOSTON"
+    assert invalid_eta["eta"] == ""
+
+    history_enriched_vessel = fetch_ais.apply_history_data(
+        vessel,
+        {
+            "name": "FRANK S. REYNOLDS",
+            "type": "unknown",
+            "observed_types": ["unknown", "52"],
+            "destinations": [" BOSTON "],
+        },
+    )
+    assert history_enriched_vessel["type"] == "tug"
+    assert history_enriched_vessel["destination"] == "BOSTON"
+    assert history_enriched_vessel["tags"] == ["tug"]
+
+    registry_enriched_vessel = fetch_ais.apply_registry_data(
+        {
+            **vessel,
+            "mmsi": "368351390",
+            "name": "COMMONWEALTH",
+            "type": "unknown",
+            "destination": "",
+            "eta": "",
+            "length_m": "",
+        },
+        {
+            "368351390": {
+                "name": "COMMONWEALTH",
+                "type": "passenger",
+                "destination": "FAN PIER TO LOVEJOY",
+                "length_m": 24,
+            }
+        },
+    )
+    assert registry_enriched_vessel["type"] == "passenger"
+    assert registry_enriched_vessel["destination"] == "FAN PIER TO LOVEJOY"
+    assert registry_enriched_vessel["length_m"] == 24
+
     output = fetch_ais.build_output([vessel], fetch_ais.parse_bounds(fetch_ais.DEFAULT_BOUNDS), collection_window_seconds=60)
     assert output["health"]["unique_mmsi_count"] == 1
     assert output["health"]["collection_window_seconds"] == 60
@@ -338,6 +400,7 @@ def test_pipeline_workflow_and_live_data_schema_exist() -> None:
     assert vessel_data["bounds"]["sw"] == [42.28, -71.08]
     assert vessel_data["health"]["unique_mmsi_count"] == len(vessel_data["vessels"])
     assert isinstance(vessel_data["vessels"], list)
+    assert sum(1 for vessel in vessel_data["vessels"] if vessel["type"] == "unknown") <= 2
 
     history_data = json.loads(read(ROOT / "data" / "harbor" / "sightings_history.json"))
     assert history_data["source"] == "aisstream-history"

@@ -12,6 +12,24 @@ from typing import Any
 
 AISSTREAM_URL = "wss://stream.aisstream.io/v0/stream"
 DEFAULT_BOUNDS = "42.28,-71.08,42.38,-70.92"
+DEFAULT_REGISTRY = "data/harbor/vessel_registry.json"
+
+AIS_TYPE_CODES = {
+    "30": "fishing",
+    "31": "tug",
+    "32": "tug",
+    "40": "high-speed craft",
+    "50": "service craft",
+    "51": "service craft",
+    "52": "tug",
+    "53": "service craft",
+    "54": "service craft",
+    "55": "service craft",
+    "58": "service craft",
+    "60": "passenger",
+    "70": "cargo",
+    "80": "tanker",
+}
 
 
 def parse_bounds(raw: str) -> dict[str, list[float]]:
@@ -49,28 +67,44 @@ def normalize_heading(report: dict[str, Any]) -> float | int | None:
     return report.get("Cog")
 
 
-def classify_vessel(metadata: dict[str, Any], report: dict[str, Any]) -> str:
-    raw_type = str(metadata.get("ShipType") or metadata.get("Type") or report.get("ShipType") or report.get("Type") or "").lower()
-    name = str(metadata.get("ShipName") or "").lower()
-    if "pilot" in name:
+def clean_text(value: Any) -> str:
+    return str(value or "").replace("\x00", "").strip().rstrip("<").strip()
+
+
+def normalize_vessel_type(raw_value: Any, name: str = "") -> str:
+    raw_type = clean_text(raw_value).lower()
+    vessel_name = clean_text(name).lower()
+    if "pilot" in vessel_name:
         return "pilot boat"
-    if "tug" in name or raw_type in {"31", "32", "52"}:
+    if vessel_name.startswith("cg") or "coast guard" in vessel_name:
+        return "service craft"
+    if "tug" in vessel_name or raw_type in {"31", "32", "52"}:
         return "tug"
+    if raw_type in AIS_TYPE_CODES:
+        return AIS_TYPE_CODES[raw_type]
     if raw_type.startswith("4"):
         return "high-speed craft"
     if raw_type.startswith("5"):
         return "service craft"
+    if raw_type.startswith("6"):
+        return "passenger"
     if raw_type.startswith("7"):
         return "cargo"
     if raw_type.startswith("8"):
         return "tanker"
-    if raw_type.startswith("6"):
-        return "passenger"
     if raw_type.startswith("3"):
         return "fishing"
     if raw_type.startswith("9"):
         return "other"
+    for label in ("pilot boat", "high-speed craft", "service craft", "passenger", "tanker", "cargo", "tug", "fishing"):
+        if label in raw_type:
+            return label
     return raw_type or "unknown"
+
+
+def classify_vessel(metadata: dict[str, Any], report: dict[str, Any]) -> str:
+    raw_type = metadata.get("ShipType") or metadata.get("Type") or report.get("ShipType") or report.get("Type") or ""
+    return normalize_vessel_type(raw_type, metadata.get("ShipName") or "")
 
 
 def format_eta(raw_eta: Any) -> str:
@@ -82,7 +116,24 @@ def format_eta(raw_eta: Any) -> str:
     minute = raw_eta.get("Minute")
     if None in {month, day, hour, minute}:
         return ""
+    if not (1 <= int(month) <= 12 and 1 <= int(day) <= 31 and 0 <= int(hour) <= 23 and 0 <= int(minute) <= 59):
+        return ""
     return f"{int(month):02d}-{int(day):02d} {int(hour):02d}:{int(minute):02d} UTC"
+
+
+def clean_eta(value: Any) -> str:
+    eta = clean_text(value)
+    if not eta:
+        return ""
+    try:
+        date_part, time_part, *_ = eta.split()
+        month, day = [int(part) for part in date_part.split("-", 1)]
+        hour, minute = [int(part) for part in time_part.split(":", 1)]
+    except ValueError:
+        return eta
+    if not (1 <= month <= 12 and 1 <= day <= 31 and 0 <= hour <= 23 and 0 <= minute <= 59):
+        return ""
+    return eta
 
 
 def vessel_length(raw_dimension: Any) -> int | str:
@@ -97,7 +148,7 @@ def transform_static_data(message: dict[str, Any]) -> dict[str, Any]:
     metadata = message.get("MetaData") or message.get("Metadata") or {}
     static = (message.get("Message") or {}).get("ShipStaticData") or {}
     mmsi = metadata.get("MMSI") or static.get("UserID")
-    name = str(static.get("Name") or metadata.get("ShipName") or f"MMSI {mmsi}").strip()
+    name = clean_text(static.get("Name") or metadata.get("ShipName") or f"MMSI {mmsi}")
     type_metadata = {**metadata, "ShipName": name}
     type_report = {
         "Type": static.get("Type") or static.get("ShipType"),
@@ -107,7 +158,7 @@ def transform_static_data(message: dict[str, Any]) -> dict[str, Any]:
         "mmsi": str(mmsi),
         "name": name,
         "type": classify_vessel(type_metadata, type_report),
-        "destination": static.get("Destination") or metadata.get("Destination") or "",
+        "destination": clean_text(static.get("Destination") or metadata.get("Destination")),
         "eta": format_eta(static.get("Eta") or static.get("ETA") or metadata.get("ETA")),
         "length_m": vessel_length(static.get("Dimension")),
     }
@@ -126,13 +177,91 @@ def apply_static_data(vessel: dict[str, Any], static: dict[str, Any] | None) -> 
     return merged
 
 
+def known_history_type(dossier: dict[str, Any]) -> str:
+    candidates = [dossier.get("type"), *(dossier.get("observed_types") or [])]
+    for candidate in candidates:
+        vessel_type = normalize_vessel_type(candidate, dossier.get("name") or "")
+        if vessel_type and vessel_type != "unknown":
+            return vessel_type
+    return ""
+
+
+def latest_history_destination(dossier: dict[str, Any]) -> str:
+    for sighting in dossier.get("recent_sightings") or []:
+        destination = clean_text(sighting.get("destination"))
+        if destination:
+            return destination
+    for destination in dossier.get("destinations") or []:
+        cleaned = clean_text(destination)
+        if cleaned:
+            return cleaned
+    return ""
+
+
+def apply_history_data(vessel: dict[str, Any], dossier: dict[str, Any] | None) -> dict[str, Any]:
+    if not dossier:
+        return vessel
+    merged = dict(vessel)
+    history_type = known_history_type(dossier)
+    if history_type and (not merged.get("type") or merged.get("type") == "unknown"):
+        merged["type"] = history_type
+        merged["tags"] = [history_type]
+    destination = latest_history_destination(dossier)
+    if destination and not clean_text(merged.get("destination")):
+        merged["destination"] = destination
+    if dossier.get("name") and str(merged.get("name") or "").startswith("MMSI "):
+        merged["name"] = dossier["name"]
+    return merged
+
+
+def load_registry(path: Path) -> dict[str, Any]:
+    if not path.exists():
+        return {}
+    data = json.loads(path.read_text(encoding="utf-8"))
+    vessels = data.get("vessels", data)
+    return {str(key): value for key, value in vessels.items()}
+
+
+def apply_registry_data(vessel: dict[str, Any], registry: dict[str, Any]) -> dict[str, Any]:
+    entry = registry.get(str(vessel.get("mmsi") or ""))
+    if not entry:
+        normalized_name = clean_text(vessel.get("name")).upper()
+        entry = next((item for item in registry.values() if clean_text(item.get("name")).upper() == normalized_name), None)
+    if not entry:
+        return vessel
+    merged = dict(vessel)
+    registry_type = normalize_vessel_type(entry.get("type"), entry.get("name") or merged.get("name") or "")
+    if registry_type and (not merged.get("type") or merged.get("type") == "unknown"):
+        merged["type"] = registry_type
+        merged["tags"] = [registry_type]
+    for key in ("name", "destination", "eta", "length_m"):
+        value = clean_text(entry.get(key)) if key != "length_m" else entry.get(key)
+        if value and not clean_text(merged.get(key)):
+            merged[key] = value
+    return merged
+
+
+def enrich_vessels(vessels: list[dict[str, Any]], history: dict[str, Any], registry: dict[str, Any]) -> list[dict[str, Any]]:
+    dossiers = history.get("vessels") or {}
+    enriched = []
+    for vessel in vessels:
+        merged = apply_history_data(vessel, dossiers.get(str(vessel.get("mmsi") or "")))
+        merged = apply_registry_data(merged, registry)
+        merged["destination"] = clean_text(merged.get("destination"))
+        merged["eta"] = clean_eta(merged.get("eta"))
+        if not merged.get("tags") or merged.get("tags") == ["unknown"]:
+            merged["tags"] = [merged.get("type") or "unknown"]
+        enriched.append(merged)
+    return enriched
+
+
 def transform_position_report(message: dict[str, Any], bounds: dict[str, list[float]] | None = None) -> dict[str, Any]:
     metadata = message.get("MetaData") or message.get("Metadata") or {}
     report = (message.get("Message") or {}).get("PositionReport") or {}
     mmsi = metadata.get("MMSI") or report.get("UserID")
     lat = metadata.get("latitude") or metadata.get("Latitude") or report.get("Latitude")
     lon = metadata.get("longitude") or metadata.get("Longitude") or report.get("Longitude")
-    ship_name = str(metadata.get("ShipName") or f"MMSI {mmsi}").strip()
+    ship_name = clean_text(metadata.get("ShipName") or f"MMSI {mmsi}")
     signal_time = metadata.get("time_utc") or datetime.now(timezone.utc).isoformat()
     position = marker_position(lat, lon, bounds or parse_bounds(DEFAULT_BOUNDS))
     vessel_type = classify_vessel(metadata, report)
@@ -149,8 +278,8 @@ def transform_position_report(message: dict[str, Any], bounds: dict[str, list[fl
         "coordinates": f"{lat}, {lon}",
         "speed_knots": report.get("Sog"),
         "heading": normalize_heading(report),
-        "destination": metadata.get("Destination") or "",
-        "eta": metadata.get("ETA") or "",
+        "destination": clean_text(metadata.get("Destination")),
+        "eta": clean_eta(metadata.get("ETA")),
         "length_m": metadata.get("Length") or "",
         "nav_status": report.get("NavigationalStatus"),
         "last_signal": signal_time,
@@ -225,7 +354,9 @@ def update_sightings_history(
         observed_types = set(existing.get("observed_types") or [])
         destinations = set(existing.get("destinations") or [])
         vessel_type = vessel.get("type") or "unknown"
-        destination = vessel.get("destination") or ""
+        if vessel_type == "unknown":
+            vessel_type = known_history_type(existing) or vessel_type
+        destination = clean_text(vessel.get("destination")) or latest_history_destination(existing)
         if vessel_type:
             observed_types.add(str(vessel_type))
         if destination:
@@ -324,21 +455,34 @@ def main() -> None:
     parser.add_argument("--bounds", default=DEFAULT_BOUNDS)
     parser.add_argument("--output", default="data/harbor/vessels.json")
     parser.add_argument("--history-output", default="data/harbor/sightings_history.json")
+    parser.add_argument("--registry", default=DEFAULT_REGISTRY)
     parser.add_argument("--timeout", type=int, default=60)
     parser.add_argument("--max-messages", type=int, default=80)
     parser.add_argument("--history-detail-days", type=int, default=30)
+    parser.add_argument("--enrich-existing", action="store_true", help="Enrich the existing output JSON without opening AISStream.")
     args = parser.parse_args()
+
+    bounds = parse_bounds(args.bounds)
+    history_path = Path(args.history_output)
+    registry = load_registry(Path(args.registry))
+    history_input = load_history(history_path)
+    path = Path(args.output)
+    if args.enrich_existing:
+        existing_output = json.loads(path.read_text(encoding="utf-8"))
+        vessels = enrich_vessels(existing_output.get("vessels") or [], history_input, registry)
+        existing_output["vessels"] = vessels
+        existing_output.setdefault("health", {})["unique_mmsi_count"] = len({vessel.get("mmsi") for vessel in vessels if vessel.get("mmsi")})
+        path.write_text(json.dumps(existing_output, indent=2) + "\n", encoding="utf-8")
+        return
 
     api_key = os.environ.get("AIS_API_KEY")
     if not api_key:
         raise SystemExit("AIS_API_KEY is required")
 
-    bounds = parse_bounds(args.bounds)
     vessels = asyncio.run(collect_vessels(api_key, bounds, timeout=args.timeout, max_messages=args.max_messages))
-    history_path = Path(args.history_output)
+    vessels = enrich_vessels(vessels, history_input, registry)
     history = prune_history(update_sightings_history(load_history(history_path), vessels), detail_days=args.history_detail_days)
     output = build_output(vessels, bounds, collection_window_seconds=args.timeout, history=history)
-    path = Path(args.output)
     path.parent.mkdir(parents=True, exist_ok=True)
     history_path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(output, indent=2) + "\n", encoding="utf-8")
