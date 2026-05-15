@@ -50,7 +50,7 @@ def test_hugo_site_renders_core_ingrid_surfaces(tmp_path: Path) -> None:
     assert "Logger" in index
     assert 'href="/about/"' in index
     assert "Live vessels" in index
-    assert ">10 min<" in index
+    assert ">20 min<" in index
     assert "HARBOR" in nav
     assert "REVIEWS" in nav
     assert 'href="/map/"' in nav
@@ -138,7 +138,7 @@ def test_harbor_direction_pages_render_operational_surfaces(tmp_path: Path) -> N
     assert "Data stale:" not in live_map
     assert "Delayed warning after 120 min" in live_map
     assert "data-vessel-type" in live_map
-    assert "10 min target" in live_map
+    assert "20 min target" in live_map
     assert "left: 50%; top: 50%;" not in live_map
     assert "top: 0.0%;" not in live_map
 
@@ -456,12 +456,13 @@ def test_pipeline_scripts_transform_aisstream_and_weather_payloads() -> None:
 def test_pipeline_workflow_and_live_data_schema_exist() -> None:
     workflow = read(ROOT / ".github" / "workflows" / "ais-data.yml")
     fetch_ais_script = read(ROOT / "scripts" / "fetch_ais.py")
-    assert "*/10 * * * *" in workflow
+    assert "*/20 * * * *" in workflow
     assert "AIS_API_KEY" in workflow
     assert "OW_API_KEY" in workflow
     assert "scripts/fetch_ais.py" in workflow
     assert "--history-output data/harbor/sightings_history.json" in workflow
     assert "--timeout 300" in workflow
+    assert "*/10 * * * *" not in workflow
     assert "--timeout 60" not in workflow
     assert 'parser.add_argument("--timeout", type=int, default=300)' in fetch_ais_script
     assert "scripts/fetch_weather.py" in workflow

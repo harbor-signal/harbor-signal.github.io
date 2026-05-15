@@ -52,7 +52,7 @@
       </div>
     </div>
     <aside class="ops-readout">
-      <div><span>AIS interval</span><strong>10 min target</strong><em>AISStream source, GitHub cron wired for live fetches.</em></div>
+      <div><span>AIS interval</span><strong>20 min target</strong><em>AISStream source, GitHub cron wired for live fetches.</em></div>
       <div><span>Unique MMSI this fetch</span><strong>{{ $health.unique_mmsi_count | default (len $vessels) }}</strong><em>{{ $health.collection_window_seconds | default 25 }} second collection window.</em></div>
       <div><span>Data freshness</span><strong>{{ $ageMinutes }} min</strong><em>Latest AIS JSON commit: {{ $updated.Format "Jan 2 15:04" }} UTC. Delayed warning after {{ $staleMinutes }} min.</em></div>
       <div><span>Weather correlation</span><strong>{{ $weather.summary }}</strong><em>{{ delimit $weatherBits " / " }}</em></div>
