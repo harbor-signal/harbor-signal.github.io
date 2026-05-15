@@ -21,16 +21,16 @@
       <nav class="site-nav" aria-label="Primary navigation">
         <div class="nav-group">
           <span class="nav-label">HARBOR</span>
-          <a href="{{ "/map/" | relURL }}">Map</a>
-          <a href="{{ "/timeline/" | relURL }}">Timeline</a>
-          <a href="{{ "/vessels/" | relURL }}">Vessels</a>
+          <a href="{{ "/map/" | relURL }}"{{ if eq .Section "map" }} class="is-active" aria-current="page"{{ end }}>Map</a>
+          <a href="{{ "/timeline/" | relURL }}"{{ if eq .Section "timeline" }} class="is-active" aria-current="page"{{ end }}>Timeline</a>
+          <a href="{{ "/vessels/" | relURL }}"{{ if eq .Section "vessels" }} class="is-active" aria-current="page"{{ end }}>Vessels</a>
         </div>
         <div class="nav-group">
           <span class="nav-label">REVIEWS</span>
-          <a href="{{ "/observations/" | relURL }}">Observations</a>
-          <a href="{{ "/reviews/" | relURL }}">Reviews</a>
+          <a href="{{ "/observations/" | relURL }}"{{ if eq .Section "observations" }} class="is-active" aria-current="page"{{ end }}>Observations</a>
+          <a href="{{ "/reviews/" | relURL }}"{{ if eq .Section "reviews" }} class="is-active" aria-current="page"{{ end }}>Reviews</a>
         </div>
-        <a class="nav-about" href="{{ "/about/" | relURL }}">About</a>
+        <a class="nav-about{{ if eq .Section "about" }} is-active{{ end }}" href="{{ "/about/" | relURL }}"{{ if eq .Section "about" }} aria-current="page"{{ end }}>About</a>
       </nav>
     </header>
     <main>

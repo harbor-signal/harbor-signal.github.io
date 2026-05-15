@@ -118,6 +118,7 @@ def test_harbor_direction_pages_render_operational_surfaces(tmp_path: Path) -> N
     output = build_site(tmp_path)
 
     live_map = read(output / "map" / "index.html")
+    live_map_nav = primary_nav(live_map)
     assert "maplibre-gl.css" in live_map
     assert "maplibre-gl.js" in live_map
     assert "/map.js" in live_map
@@ -125,6 +126,7 @@ def test_harbor_direction_pages_render_operational_surfaces(tmp_path: Path) -> N
     assert "data-vessels=" in live_map
     assert "leaflet" not in live_map.lower()
     assert live_map.count('aria-label="Primary navigation"') == 1
+    assert 'href="/map/" class="is-active" aria-current="page"' in live_map_nav
     assert 'href="/about/"' in live_map
     assert "AIS interval" in live_map
     assert "Weather correlation" in live_map
@@ -133,16 +135,20 @@ def test_harbor_direction_pages_render_operational_surfaces(tmp_path: Path) -> N
     assert "AISStream Vessel Snapshot" in live_map
     assert "Unique MMSI this fetch" in live_map
     assert "Data freshness" in live_map
+    assert "Data stale:" not in live_map
+    assert "Delayed warning after 120 min" in live_map
     assert "data-vessel-type" in live_map
     assert "10 min target" in live_map
     assert "left: 50%; top: 50%;" not in live_map
     assert "top: 0.0%;" not in live_map
 
     timeline = read(output / "timeline" / "index.html")
+    assert 'href="/timeline/" class="is-active" aria-current="page"' in primary_nav(timeline)
     assert "Pilot Boat Before Dawn" in timeline
     assert "AISStream-correlated field note" in timeline
 
     vessels = read(output / "vessels" / "index.html")
+    assert 'href="/vessels/" class="is-active" aria-current="page"' in primary_nav(vessels)
     vessel_data = json.loads(read(ROOT / "data" / "harbor" / "vessels.json"))
     assert vessel_data["vessels"][0]["name"] in vessels
     assert "recent observations" in vessels.lower()

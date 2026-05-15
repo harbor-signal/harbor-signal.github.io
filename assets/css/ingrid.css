@@ -146,6 +146,21 @@ a:hover {
   padding: 6px 9px;
 }
 
+.site-nav a.is-active,
+.site-nav a[aria-current="page"] {
+  color: var(--amber);
+}
+
+.site-nav a.is-active {
+  text-decoration: underline;
+  text-decoration-color: var(--amber);
+  text-underline-offset: 6px;
+}
+
+.site-nav .nav-about.is-active {
+  border-color: var(--amber);
+}
+
 main {
   margin: 0 auto;
   max-width: var(--max);

@@ -10,6 +10,7 @@
   {{ $east := index $vesselData.bounds.ne 1 }}
   {{ $updated := time $vesselData.last_updated }}
   {{ $ageMinutes := div (sub now.Unix $updated.Unix) 60 }}
+  {{ $staleMinutes := 120 }}
   {{ $weatherBits := slice }}
   {{ with $weather.wind }}{{ $weatherBits = $weatherBits | append . }}{{ end }}
   {{ with $weather.visibility }}{{ $weatherBits = $weatherBits | append . }}{{ end }}
@@ -20,8 +21,8 @@
     <div class="lead">{{ .Content }}</div>
   </section>
 
-  {{ if gt $ageMinutes 30 }}
-    <aside class="stale-banner" role="status">Data stale: AISStream data last updated {{ $updated.Format "Jan 2, 2006 15:04" }} UTC.</aside>
+  {{ if gt $ageMinutes $staleMinutes }}
+    <aside class="stale-banner" role="status">AIS data delayed: latest AISStream commit was {{ $updated.Format "Jan 2, 2006 15:04" }} UTC.</aside>
   {{ end }}
 
   <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5.11.0/dist/maplibre-gl.css">
@@ -53,7 +54,7 @@
     <aside class="ops-readout">
       <div><span>AIS interval</span><strong>10 min target</strong><em>AISStream source, GitHub cron wired for live fetches.</em></div>
       <div><span>Unique MMSI this fetch</span><strong>{{ $health.unique_mmsi_count | default (len $vessels) }}</strong><em>{{ $health.collection_window_seconds | default 25 }} second collection window.</em></div>
-      <div><span>Data freshness</span><strong>{{ $ageMinutes }} min</strong><em>Latest AIS JSON commit: {{ $updated.Format "Jan 2 15:04" }} UTC.</em></div>
+      <div><span>Data freshness</span><strong>{{ $ageMinutes }} min</strong><em>Latest AIS JSON commit: {{ $updated.Format "Jan 2 15:04" }} UTC. Delayed warning after {{ $staleMinutes }} min.</em></div>
       <div><span>Weather correlation</span><strong>{{ $weather.summary }}</strong><em>{{ delimit $weatherBits " / " }}</em></div>
       <div><span>Observation markers</span><strong>{{ len $observations }}</strong><em>Authored notes are amber, vessel data is teal.</em></div>
       <div><span>Vessel types</span><strong>Pilot / tug / cargo / tanker / passenger</strong><em>Markers carry type-specific color and shape cues plus hover metadata.</em></div>
