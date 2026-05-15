@@ -64,8 +64,12 @@ def test_hugo_site_renders_core_ingrid_surfaces(tmp_path: Path) -> None:
     assert 'href="/logger/"' not in nav
     assert 'class="nav-about"' in nav
     assert 'href="/signal/"' in index
-    assert 'href="/threads/"' in index
+    assert 'href="/threads/#' in index
     assert 'href="/logger/"' in index
+    utility_nav = index.split('aria-label="Utility navigation"', 1)[1].split("</nav>", 1)[0]
+    assert "Signal Feed</a>" not in utility_nav
+    assert "Threads</a>" not in utility_nav
+    assert "Logger</a>" in utility_nav
     assert "Currently tracking" in index
     assert "Currently reading" in index
     assert "Recent Signal Feed" in index
@@ -94,6 +98,7 @@ def test_sample_content_uses_expected_public_schemas(tmp_path: Path) -> None:
     assert "field-log" in observation
     assert "Harbor Pilot 3" in observation
     assert "source" in observation.lower()
+    assert 'href="/threads/#logistics-of-waiting"' in observation
 
     review = read(output / "reviews" / "the-left-hand-of-darkness" / "index.html")
     assert "The Left Hand of Darkness" in review
@@ -103,6 +108,7 @@ def test_sample_content_uses_expected_public_schemas(tmp_path: Path) -> None:
     assert "Tension" in review
     assert "Overall" in review
     assert "verdict-card" in review
+    assert 'href="/threads/#the-body-inside-the-machine"' in review
     assert "Gobrin Ice" in review
     assert "Shifgrethor" in review
     assert len(review.split()) >= 1500
@@ -160,6 +166,7 @@ def test_harbor_direction_pages_render_operational_surfaces(tmp_path: Path) -> N
     threads = read(output / "threads" / "index.html")
     assert "Cross-Reference Threads" in threads
     assert "logistics of waiting" in threads
+    assert 'id="logistics-of-waiting"' in threads
     assert "Pilot Boat Before Dawn" in threads
     assert "The Left Hand of Darkness" in threads
 
@@ -210,6 +217,13 @@ def test_static_assets_are_self_contained() -> None:
     assert "vessels_referenced" in logger_js
     assert "observation_type: field-log" in logger_js
     assert (ROOT / "static" / "sw.js").exists()
+    service_worker = (ROOT / "static" / "sw.js").read_text(encoding="utf-8")
+    assert 'CACHE_NAME = "harbor-signal-v2"' in service_worker
+    assert 'event.request.mode === "navigate"' in service_worker
+    assert "networkFirst(event.request)" in service_worker
+    assert "self.skipWaiting()" in service_worker
+    assert "clients.claim()" in service_worker
+    assert '"/map/"' not in service_worker
     map_js = (ROOT / "static" / "map.js").read_text(encoding="utf-8")
     assert "maplibregl.Map" in map_js
     assert "maplibregl.Marker" in map_js
@@ -454,8 +468,10 @@ def test_pipeline_workflow_and_live_data_schema_exist() -> None:
     assert vessel_data["bounds"]["sw"] == [42.28, -71.08]
     assert vessel_data["health"]["unique_mmsi_count"] == len(vessel_data["vessels"])
     assert isinstance(vessel_data["vessels"], list)
-    assert sum(1 for vessel in vessel_data["vessels"] if vessel["type"] == "unknown") <= 2
-    assert any(vessel["type"] != "unknown" for vessel in vessel_data["vessels"])
+    typed_vessels = [vessel for vessel in vessel_data["vessels"] if vessel["type"] != "unknown"]
+    unknown_vessels = [vessel for vessel in vessel_data["vessels"] if vessel["type"] == "unknown"]
+    assert len(typed_vessels) >= len(unknown_vessels)
+    assert {"passenger", "tug", "service craft", "fishing"} <= {vessel["type"] for vessel in typed_vessels}
 
     history_data = json.loads(read(ROOT / "data" / "harbor" / "sightings_history.json"))
     assert history_data["source"] == "aisstream-history"

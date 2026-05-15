@@ -14,7 +14,7 @@
         </div>
         {{ with .Params.tags }}
           <ul class="tag-list" aria-label="Tags">
-            {{ range . }}<li>{{ . }}</li>{{ end }}
+            {{ range . }}<li><a href="{{ "/threads/" | relURL }}#{{ . | anchorize }}">{{ . }}</a></li>{{ end }}
           </ul>
         {{ end }}
       </article>

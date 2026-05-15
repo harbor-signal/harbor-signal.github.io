@@ -9,7 +9,7 @@
   <section class="thread-list">
     {{ range $threads }}
       {{ $thread := .name }}
-      <article class="thread-card">
+      <article id="{{ .name | anchorize }}" class="thread-card">
         <header>
           <p class="meta">Thread</p>
           <h2>{{ .name }}</h2>

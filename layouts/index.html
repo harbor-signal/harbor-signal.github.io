@@ -66,13 +66,14 @@
   </section>
 
   <section class="signal-strip" aria-label="Recent Signal Feed">
-    <p class="section-kicker">Recent Signal Feed</p>
+    <p class="section-kicker"><a href="{{ "/signal/" | relURL }}">Recent Signal Feed</a></p>
     <div class="signal-strip-grid">
       {{ range first 3 $signals }}
         <article>
           <span>{{ .tag }}</span>
           <strong>{{ .title }}</strong>
           <p>{{ .note }}</p>
+          <a class="thread-link" href="{{ "/threads/" | relURL }}#{{ .tag | anchorize }}">Thread</a>
         </article>
       {{ end }}
     </div>
