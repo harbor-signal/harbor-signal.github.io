@@ -2,7 +2,7 @@ name: AIS Data Fetch
 
 on:
   schedule:
-    - cron: "*/15 * * * *"
+    - cron: "*/10 * * * *"
   workflow_dispatch:
 
 permissions:
@@ -30,7 +30,7 @@ jobs:
       - name: Fetch AIS data
         env:
           AIS_API_KEY: ${{ secrets.AIS_API_KEY }}
-        run: python scripts/fetch_ais.py --bounds "42.28,-71.08,42.38,-70.92" --output data/harbor/vessels.json --history-output data/harbor/sightings_history.json --timeout 60
+        run: python scripts/fetch_ais.py --bounds "42.28,-71.08,42.38,-70.92" --output data/harbor/vessels.json --history-output data/harbor/sightings_history.json --timeout 300
 
       - name: Fetch weather
         env:

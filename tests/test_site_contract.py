@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import re
 import shutil
 import subprocess
 from pathlib import Path
@@ -26,10 +27,17 @@ def read(path: Path) -> str:
     return path.read_text(encoding="utf-8")
 
 
+def primary_nav(html: str) -> str:
+    match = re.search(r'<nav class="site-nav" aria-label="Primary navigation">(.*?)</nav>', html, re.S)
+    assert match
+    return match.group(1)
+
+
 def test_hugo_site_renders_core_ingrid_surfaces(tmp_path: Path) -> None:
     output = build_site(tmp_path)
 
     index = read(output / "index.html")
+    nav = primary_nav(index)
     assert "Harbor Signal" in index
     assert "Harbor Traffic Observatory" in index
     assert "Sci-Fi Review Space" in index
@@ -41,6 +49,23 @@ def test_hugo_site_renders_core_ingrid_surfaces(tmp_path: Path) -> None:
     assert "Signal Feed" in index
     assert "Logger" in index
     assert 'href="/about/"' in index
+    assert "Live vessels" in index
+    assert ">10 min<" in index
+    assert "HARBOR" in nav
+    assert "REVIEWS" in nav
+    assert 'href="/map/"' in nav
+    assert 'href="/timeline/"' in nav
+    assert 'href="/vessels/"' in nav
+    assert 'href="/observations/"' in nav
+    assert 'href="/reviews/"' in nav
+    assert 'href="/about/"' in nav
+    assert 'href="/signal/"' not in nav
+    assert 'href="/threads/"' not in nav
+    assert 'href="/logger/"' not in nav
+    assert 'class="nav-about"' in nav
+    assert 'href="/signal/"' in index
+    assert 'href="/threads/"' in index
+    assert 'href="/logger/"' in index
     assert "Currently tracking" in index
     assert "Currently reading" in index
     assert "Recent Signal Feed" in index
@@ -103,6 +128,7 @@ def test_harbor_direction_pages_render_operational_surfaces(tmp_path: Path) -> N
     assert "Unique MMSI this fetch" in live_map
     assert "Data freshness" in live_map
     assert "data-vessel-type" in live_map
+    assert "10 min target" in live_map
     assert "left: 50%; top: 50%;" not in live_map
     assert "top: 0.0%;" not in live_map
 
@@ -409,12 +435,15 @@ def test_pipeline_scripts_transform_aisstream_and_weather_payloads() -> None:
 
 def test_pipeline_workflow_and_live_data_schema_exist() -> None:
     workflow = read(ROOT / ".github" / "workflows" / "ais-data.yml")
-    assert "*/15 * * * *" in workflow
+    fetch_ais_script = read(ROOT / "scripts" / "fetch_ais.py")
+    assert "*/10 * * * *" in workflow
     assert "AIS_API_KEY" in workflow
     assert "OW_API_KEY" in workflow
     assert "scripts/fetch_ais.py" in workflow
     assert "--history-output data/harbor/sightings_history.json" in workflow
-    assert "--timeout 60" in workflow
+    assert "--timeout 300" in workflow
+    assert "--timeout 60" not in workflow
+    assert 'parser.add_argument("--timeout", type=int, default=300)' in fetch_ais_script
     assert "scripts/fetch_weather.py" in workflow
     assert "data/harbor/sightings_history.json" in workflow
     assert "actions/deploy-pages" in workflow

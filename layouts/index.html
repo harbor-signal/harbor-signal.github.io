@@ -28,7 +28,8 @@
         <span class="track track-two"></span>
       </div>
       <dl class="signal-readout">
-        <div><dt>AIS interval</dt><dd>15 min</dd></div>
+        <div><dt>AIS interval</dt><dd>10 min</dd></div>
+        <div><dt>Live vessels</dt><dd>{{ len $vessels }}</dd></div>
         <div><dt>Observations</dt><dd>{{ len $observations }}</dd></div>
         <div><dt>Reviews</dt><dd>{{ len $reviews }}</dd></div>
       </dl>
@@ -54,7 +55,7 @@
       <aside class="pulse-card">
         <p class="section-kicker">Currently tracking</p>
         <h2>{{ .name }}</h2>
-        <p>{{ .type }} / {{ .status }}</p>
+        <p>{{ len $vessels }} live vessels / {{ .type }} / {{ .status }}</p>
       </aside>
     {{ end }}
     <aside class="pulse-card">
@@ -90,17 +91,13 @@
       <span>Vessel Log</span>
       <strong>Per-vessel context for traffic that keeps showing up.</strong>
     </a>
-    <a href="{{ "/signal/" | relURL }}">
-      <span>Signal Feed</span>
-      <strong>Where harbor logistics and science fiction criticism cross-reference.</strong>
+    <a href="{{ "/observations/" | relURL }}">
+      <span>Observations</span>
+      <strong>Field notes, pattern reads, and authored context for the harbor side.</strong>
     </a>
-    <a href="{{ "/threads/" | relURL }}">
-      <span>Threads</span>
-      <strong>Shared taxonomy for observations, reviews, and analysis.</strong>
-    </a>
-    <a href="{{ "/logger/" | relURL }}">
-      <span>Logger</span>
-      <strong>Mobile-first field capture that works offline.</strong>
+    <a href="{{ "/reviews/" | relURL }}">
+      <span>Reviews</span>
+      <strong>Science-fiction criticism with logistics, governance, and body verdicts.</strong>
     </a>
   </section>
 

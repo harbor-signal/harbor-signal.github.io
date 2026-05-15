@@ -456,7 +456,7 @@ def main() -> None:
     parser.add_argument("--output", default="data/harbor/vessels.json")
     parser.add_argument("--history-output", default="data/harbor/sightings_history.json")
     parser.add_argument("--registry", default=DEFAULT_REGISTRY)
-    parser.add_argument("--timeout", type=int, default=60)
+    parser.add_argument("--timeout", type=int, default=300)
     parser.add_argument("--max-messages", type=int, default=80)
     parser.add_argument("--history-detail-days", type=int, default=30)
     parser.add_argument("--enrich-existing", action="store_true", help="Enrich the existing output JSON without opening AISStream.")

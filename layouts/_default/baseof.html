@@ -19,15 +19,18 @@
         <span>Harbor</span><strong>Signal</strong>
       </a>
       <nav class="site-nav" aria-label="Primary navigation">
-        <a href="{{ "/map/" | relURL }}">Map</a>
-        <a href="{{ "/timeline/" | relURL }}">Timeline</a>
-        <a href="{{ "/vessels/" | relURL }}">Vessels</a>
-        <a href="{{ "/signal/" | relURL }}">Signal</a>
-        <a href="{{ "/threads/" | relURL }}">Threads</a>
-        <a href="{{ "/observations/" | relURL }}">Observations</a>
-        <a href="{{ "/reviews/" | relURL }}">Reviews</a>
-        <a href="{{ "/logger/" | relURL }}">Logger</a>
-        <a href="{{ "/about/" | relURL }}">About</a>
+        <div class="nav-group">
+          <span class="nav-label">HARBOR</span>
+          <a href="{{ "/map/" | relURL }}">Map</a>
+          <a href="{{ "/timeline/" | relURL }}">Timeline</a>
+          <a href="{{ "/vessels/" | relURL }}">Vessels</a>
+        </div>
+        <div class="nav-group">
+          <span class="nav-label">REVIEWS</span>
+          <a href="{{ "/observations/" | relURL }}">Observations</a>
+          <a href="{{ "/reviews/" | relURL }}">Reviews</a>
+        </div>
+        <a class="nav-about" href="{{ "/about/" | relURL }}">About</a>
       </nav>
     </header>
     <main>
@@ -35,6 +38,11 @@
     </main>
     <footer class="site-footer">
       <p>Harbor notes and speculative systems criticism by Ingrid.</p>
+      <nav class="footer-nav" aria-label="Utility navigation">
+        <a href="{{ "/signal/" | relURL }}">Signal Feed</a>
+        <a href="{{ "/threads/" | relURL }}">Threads</a>
+        <a href="{{ "/logger/" | relURL }}">Logger</a>
+      </nav>
     </footer>
     <script>
       if ("serviceWorker" in navigator) {
