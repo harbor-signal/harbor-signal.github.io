@@ -27,6 +27,7 @@
         </div>
         <div class="nav-group">
           <span class="nav-label">REVIEWS</span>
+          <a href="{{ "/analysis/" | relURL }}"{{ if eq .Section "analysis" }} class="is-active" aria-current="page"{{ end }}>Analysis</a>
           <a href="{{ "/observations/" | relURL }}"{{ if eq .Section "observations" }} class="is-active" aria-current="page"{{ end }}>Observations</a>
           <a href="{{ "/reviews/" | relURL }}"{{ if eq .Section "reviews" }} class="is-active" aria-current="page"{{ end }}>Reviews</a>
         </div>

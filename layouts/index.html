@@ -1,10 +1,12 @@
 {{ define "main" }}
   {{ $observations := where .Site.RegularPages "Section" "observations" }}
   {{ $reviews := where .Site.RegularPages "Section" "reviews" }}
+  {{ $analysis := where .Site.RegularPages "Section" "analysis" }}
   {{ $signals := hugo.Data.harbor.signals }}
   {{ $vessels := hugo.Data.harbor.vessels.vessels }}
   {{ $latestObservation := index (first 1 $observations.ByDate.Reverse) 0 }}
   {{ $latestReview := index (first 1 $reviews.ByDate.Reverse) 0 }}
+  {{ $latestAnalysis := index (first 1 $analysis.ByDate.Reverse) 0 }}
   {{ $tracking := index $vessels 0 }}
   <section class="hero">
     <div class="hero-copy">
@@ -15,6 +17,7 @@
         <a href="{{ "/map/" | relURL }}">Live Map</a>
         <a href="{{ "/timeline/" | relURL }}">Observation Timeline</a>
         <a href="{{ "/observations/" | relURL }}">Read the harbor</a>
+        <a href="{{ "/analysis/" | relURL }}">Read analysis</a>
         <a href="{{ "/reviews/" | relURL }}">Open the reviews</a>
       </div>
     </div>
@@ -31,6 +34,7 @@
         <div><dt>AIS interval</dt><dd>20 min</dd></div>
         <div><dt>Live vessels</dt><dd>{{ len $vessels }}</dd></div>
         <div><dt>Observations</dt><dd>{{ len $observations }}</dd></div>
+        <div><dt>Analysis</dt><dd>{{ len $analysis }}</dd></div>
         <div><dt>Reviews</dt><dd>{{ len $reviews }}</dd></div>
       </dl>
     </div>
@@ -47,6 +51,13 @@
     {{ with $latestReview }}
       <article class="pulse-card pulse-review">
         <p class="section-kicker">Latest Review</p>
+        <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+        <p>{{ .Summary | plainify | truncate 170 }}</p>
+      </article>
+    {{ end }}
+    {{ with $latestAnalysis }}
+      <article class="pulse-card">
+        <p class="section-kicker">Latest Analysis</p>
         <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
         <p>{{ .Summary | plainify | truncate 170 }}</p>
       </article>
@@ -96,6 +107,10 @@
       <span>Observations</span>
       <strong>Field notes, pattern reads, and authored context for the harbor side.</strong>
     </a>
+    <a href="{{ "/analysis/" | relURL }}">
+      <span>Analysis</span>
+      <strong>Longer synthesis across harbor evidence, governance, and infrastructure patterns.</strong>
+    </a>
     <a href="{{ "/reviews/" | relURL }}">
       <span>Reviews</span>
       <strong>Science-fiction criticism with logistics, governance, and body verdicts.</strong>
@@ -107,6 +122,18 @@
       <p class="section-kicker">Latest Harbor Signals</p>
       <div class="item-stack">
         {{ range first 3 $observations }}
+          <article class="list-item">
+            <span>{{ .Date.Format "Jan 2, 2006" }}</span>
+            <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+            <p>{{ .Summary | plainify | truncate 150 }}</p>
+          </article>
+        {{ end }}
+      </div>
+    </div>
+    <div>
+      <p class="section-kicker">Latest Analysis</p>
+      <div class="item-stack">
+        {{ range first 3 $analysis.ByDate.Reverse }}
           <article class="list-item">
             <span>{{ .Date.Format "Jan 2, 2006" }}</span>
             <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
