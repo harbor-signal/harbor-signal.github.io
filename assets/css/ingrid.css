@@ -630,6 +630,25 @@ dd,
   margin: 0 0 1.35rem;
 }
 
+.post-figure {
+  margin: 1.8rem 0;
+}
+
+.post-figure img {
+  border: 1px solid var(--line);
+  display: block;
+  height: auto;
+  width: 100%;
+}
+
+.post-figure figcaption {
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  margin-top: 0.55rem;
+  text-transform: uppercase;
+}
+
 .fact-strip,
 .field-log,
 .grade-grid,

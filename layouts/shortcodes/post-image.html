@@ -1,0 +1,8 @@
+{{- $index := .Get 0 | int -}}
+{{- $gallery := .Page.Params.gallery -}}
+{{- with index $gallery $index -}}
+  <figure class="post-figure">
+    <img src="{{ .src }}" alt="{{ .alt }}">
+    {{ with .caption }}<figcaption>{{ . }}</figcaption>{{ end }}
+  </figure>
+{{- end -}}
