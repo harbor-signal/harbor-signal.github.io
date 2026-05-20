@@ -5,14 +5,17 @@ import argparse
 import asyncio
 import json
 import os
+import socket
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 
 
 AISSTREAM_URL = "wss://stream.aisstream.io/v0/stream"
 DEFAULT_BOUNDS = "42.28,-71.08,42.38,-70.92"
 DEFAULT_REGISTRY = "data/harbor/vessel_registry.json"
+AISSTREAM_CONNECT_HOSTS_ENV = "AISSTREAM_CONNECT_HOSTS"
+AISSTREAM_CONNECT_HOSTNAME_ENV = "AISSTREAM_CONNECT_HOSTNAME"
 
 AIS_TYPE_CODES = {
     "30": "fishing",
@@ -418,6 +421,51 @@ def prune_history(history: dict[str, Any], now: str | None = None, detail_days: 
     return next_history
 
 
+def resolve_hostname_addresses(hostname: str) -> list[str]:
+    addresses = []
+    for result in socket.getaddrinfo(hostname, 443, type=socket.SOCK_STREAM):
+        address = result[4][0]
+        if address not in addresses:
+            addresses.append(address)
+    return addresses
+
+
+def aisstream_connection_hosts(
+    environ: dict[str, str] | None = None,
+    *,
+    resolver: Callable[[str], list[str]] = resolve_hostname_addresses,
+) -> list[str | None]:
+    source = environ if environ is not None else os.environ
+    explicit_hosts = [
+        host.strip()
+        for host in source.get(AISSTREAM_CONNECT_HOSTS_ENV, "").split(",")
+        if host.strip()
+    ]
+    if explicit_hosts:
+        return explicit_hosts
+
+    connect_hostname = source.get(AISSTREAM_CONNECT_HOSTNAME_ENV, "").strip()
+    if connect_hostname:
+        hosts = resolver(connect_hostname)
+        if hosts:
+            return hosts
+
+    return [None]
+
+
+async def open_aisstream_connection(websockets_module: Any, connect_hosts: list[str | None]) -> Any:
+    last_error: BaseException | None = None
+    for host in connect_hosts:
+        try:
+            connect_kwargs = {"host": host} if host else {}
+            return await websockets_module.connect(AISSTREAM_URL, **connect_kwargs)
+        except OSError as exc:
+            last_error = exc
+    if last_error is not None:
+        raise last_error
+    raise RuntimeError("No AISStream connection hosts configured")
+
+
 async def collect_vessels(api_key: str, bounds: dict[str, list[float]], timeout: int, max_messages: int) -> list[dict[str, Any]]:
     try:
         import websockets
@@ -426,7 +474,8 @@ async def collect_vessels(api_key: str, bounds: dict[str, list[float]], timeout:
 
     vessels_by_mmsi: dict[str, dict[str, Any]] = {}
     static_by_mmsi: dict[str, dict[str, Any]] = {}
-    async with websockets.connect(AISSTREAM_URL) as websocket:
+    websocket = await open_aisstream_connection(websockets, aisstream_connection_hosts())
+    async with websocket:
         await websocket.send(json.dumps(subscription_message(api_key, bounds)))
         end_at = asyncio.get_running_loop().time() + timeout
         while asyncio.get_running_loop().time() < end_at and len(vessels_by_mmsi) < max_messages:
