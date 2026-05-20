@@ -5,8 +5,6 @@ import argparse
 import asyncio
 import json
 import os
-import ssl
-import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
@@ -420,32 +418,6 @@ def prune_history(history: dict[str, Any], now: str | None = None, detail_days: 
     return next_history
 
 
-def is_recoverable_collection_error(exc: BaseException) -> bool:
-    current: BaseException | None = exc
-    while current is not None:
-        if isinstance(current, (OSError, TimeoutError, asyncio.TimeoutError, ssl.SSLError)):
-            return True
-        current = current.__cause__ or current.__context__
-    return False
-
-
-def maybe_keep_stale_output(exc: BaseException, output_path: Path, allow_stale: bool) -> bool:
-    if not allow_stale or not is_recoverable_collection_error(exc) or not output_path.exists():
-        return False
-    try:
-        existing = json.loads(output_path.read_text(encoding="utf-8"))
-    except json.JSONDecodeError:
-        return False
-    if not isinstance(existing, dict) or not isinstance(existing.get("vessels"), list):
-        return False
-    print(
-        f"WARNING: AIS collection failed with {type(exc).__name__}: {exc}. "
-        f"Keeping existing {output_path} so the map can publish stale data.",
-        file=sys.stderr,
-    )
-    return True
-
-
 async def collect_vessels(api_key: str, bounds: dict[str, list[float]], timeout: int, max_messages: int) -> list[dict[str, Any]]:
     try:
         import websockets
@@ -488,7 +460,6 @@ def main() -> None:
     parser.add_argument("--max-messages", type=int, default=80)
     parser.add_argument("--history-detail-days", type=int, default=30)
     parser.add_argument("--enrich-existing", action="store_true", help="Enrich the existing output JSON without opening AISStream.")
-    parser.add_argument("--allow-stale-on-error", action="store_true", help="Keep the existing output and exit successfully when AISStream has a recoverable network/TLS failure.")
     args = parser.parse_args()
 
     bounds = parse_bounds(args.bounds)
@@ -508,12 +479,7 @@ def main() -> None:
     if not api_key:
         raise SystemExit("AIS_API_KEY is required")
 
-    try:
-        vessels = asyncio.run(collect_vessels(api_key, bounds, timeout=args.timeout, max_messages=args.max_messages))
-    except Exception as exc:
-        if maybe_keep_stale_output(exc, path, args.allow_stale_on_error):
-            return
-        raise
+    vessels = asyncio.run(collect_vessels(api_key, bounds, timeout=args.timeout, max_messages=args.max_messages))
     vessels = enrich_vessels(vessels, history_input, registry)
     history = prune_history(update_sightings_history(load_history(history_path), vessels), detail_days=args.history_detail_days)
     output = build_output(vessels, bounds, collection_window_seconds=args.timeout, history=history)
