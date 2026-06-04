@@ -1,15 +1,24 @@
 {
   "source": "aisstream-history",
-  "last_updated": "2026-06-04T15:53:36.836180+00:00",
+  "last_updated": "2026-06-04T18:11:48.166935+00:00",
   "vessels": {
     "367784560": {
       "mmsi": "367784560",
       "name": "CHAMPION",
       "type": "passenger",
       "first_seen": "2026-05-14T21:45:54.637561+00:00",
-      "last_seen": "2026-06-04 15:52:55.747005744 +0000 UTC",
-      "sighting_count": 100,
+      "last_seen": "2026-06-04 18:11:06.564536721 +0000 UTC",
+      "sighting_count": 101,
       "recent_sightings": [
+        {
+          "seen_at": "2026-06-04 18:11:06.564536721 +0000 UTC",
+          "lat": 42.34541,
+          "lon": -71.0163,
+          "speed_knots": 23.1,
+          "heading": 131,
+          "status": "under way using engine",
+          "destination": "BOSTON"
+        },
         {
           "seen_at": "2026-06-04 15:52:55.747005744 +0000 UTC",
           "lat": 42.36092,
@@ -225,15 +234,6 @@
           "heading": 166,
           "status": "under way using engine",
           "destination": "BOSTON"
-        },
-        {
-          "seen_at": "2026-05-29 11:53:48.414260133 +0000 UTC",
-          "lat": 42.31996,
-          "lon": -70.94037,
-          "speed_knots": 26.3,
-          "heading": 141,
-          "status": "under way using engine",
-          "destination": "BOSTON"
         }
       ],
       "destinations": [
@@ -247,7 +247,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "367627580": {
@@ -494,7 +494,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "367029020": {
@@ -502,9 +502,18 @@
       "name": "BOSTON PILOT MYSTIC",
       "type": "pilot boat",
       "first_seen": "2026-05-14T21:45:54.637561+00:00",
-      "last_seen": "2026-06-04 15:53:26.554988767 +0000 UTC",
-      "sighting_count": 191,
+      "last_seen": "2026-06-04 18:10:38.411086157 +0000 UTC",
+      "sighting_count": 192,
       "recent_sightings": [
+        {
+          "seen_at": "2026-06-04 18:10:38.411086157 +0000 UTC",
+          "lat": 42.3625,
+          "lon": -71.03151,
+          "speed_knots": 0,
+          "heading": 184,
+          "status": "under way using engine",
+          "destination": ""
+        },
         {
           "seen_at": "2026-06-04 15:53:26.554988767 +0000 UTC",
           "lat": 42.36255,
@@ -720,15 +729,6 @@
           "heading": 186,
           "status": "under way using engine",
           "destination": ""
-        },
-        {
-          "seen_at": "2026-05-31 21:39:49.185473675 +0000 UTC",
-          "lat": 42.36259,
-          "lon": -71.03158,
-          "speed_knots": 0,
-          "heading": 181,
-          "status": "under way using engine",
-          "destination": ""
         }
       ],
       "destinations": [],
@@ -738,7 +738,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "367551860": {
@@ -746,9 +746,18 @@
       "name": "JOCKA",
       "type": "other",
       "first_seen": "2026-05-14 22:08:44.313427195 +0000 UTC",
-      "last_seen": "2026-06-04 15:51:12.492966752 +0000 UTC",
-      "sighting_count": 107,
+      "last_seen": "2026-06-04 18:11:12.468665013 +0000 UTC",
+      "sighting_count": 108,
       "recent_sightings": [
+        {
+          "seen_at": "2026-06-04 18:11:12.468665013 +0000 UTC",
+          "lat": 42.35163,
+          "lon": -71.0383,
+          "speed_knots": 0,
+          "heading": 360,
+          "status": "reported",
+          "destination": ""
+        },
         {
           "seen_at": "2026-06-04 15:51:12.492966752 +0000 UTC",
           "lat": 42.35163,
@@ -964,15 +973,6 @@
           "heading": 360,
           "status": "reported",
           "destination": ""
-        },
-        {
-          "seen_at": "2026-05-31 22:41:14.437007385 +0000 UTC",
-          "lat": 42.35103,
-          "lon": -71.03737,
-          "speed_knots": 0,
-          "heading": 360,
-          "status": "reported",
-          "destination": ""
         }
       ],
       "destinations": [],
@@ -984,7 +984,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "368241920": {
@@ -1231,7 +1231,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "369494417": {
@@ -1239,9 +1239,18 @@
       "name": "CG49417",
       "type": "service craft",
       "first_seen": "2026-05-14 22:09:06.99610203 +0000 UTC",
-      "last_seen": "2026-06-04 15:52:31.338891848 +0000 UTC",
-      "sighting_count": 169,
+      "last_seen": "2026-06-04 18:11:42.415170935 +0000 UTC",
+      "sighting_count": 170,
       "recent_sightings": [
+        {
+          "seen_at": "2026-06-04 18:11:42.415170935 +0000 UTC",
+          "lat": 42.36827,
+          "lon": -71.05034,
+          "speed_knots": 0.1,
+          "heading": 256.7,
+          "status": "under way using engine",
+          "destination": ""
+        },
         {
           "seen_at": "2026-06-04 15:52:31.338891848 +0000 UTC",
           "lat": 42.36752,
@@ -1457,15 +1466,6 @@
           "heading": 245.8,
           "status": "under way using engine",
           "destination": ""
-        },
-        {
-          "seen_at": "2026-05-31 20:37:32.750548045 +0000 UTC",
-          "lat": 42.36782,
-          "lon": -71.05093,
-          "speed_knots": 0.1,
-          "heading": 86,
-          "status": "under way using engine",
-          "destination": ""
         }
       ],
       "destinations": [],
@@ -1476,7 +1476,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "368227370": {
@@ -1723,7 +1723,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "368351390": {
@@ -1731,9 +1731,18 @@
       "name": "COMMONWEALTH",
       "type": "passenger",
       "first_seen": "2026-05-14 22:09:06.99134703 +0000 UTC",
-      "last_seen": "2026-06-04 15:52:45.417344819 +0000 UTC",
-      "sighting_count": 66,
+      "last_seen": "2026-06-04 18:10:47.571990098 +0000 UTC",
+      "sighting_count": 67,
       "recent_sightings": [
+        {
+          "seen_at": "2026-06-04 18:10:47.571990098 +0000 UTC",
+          "lat": 42.35218,
+          "lon": -71.03906,
+          "speed_knots": 0.1,
+          "heading": 192.3,
+          "status": "under way using engine",
+          "destination": "FAN PIER TO LOVEJOY"
+        },
         {
           "seen_at": "2026-06-04 15:52:45.417344819 +0000 UTC",
           "lat": 42.35217,
@@ -1949,15 +1958,6 @@
           "heading": 153.1,
           "status": "under way using engine",
           "destination": "FAN PIER TO LOVEJOY"
-        },
-        {
-          "seen_at": "2026-05-27 21:28:23.514853921 +0000 UTC",
-          "lat": 42.35357,
-          "lon": -71.04318,
-          "speed_knots": 0,
-          "heading": 235.2,
-          "status": "under way using engine",
-          "destination": "FAN PIER TO LOVEJOY"
         }
       ],
       "destinations": [
@@ -1971,7 +1971,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "367623310": {
@@ -2216,7 +2216,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "367507210": {
@@ -2224,9 +2224,18 @@
       "name": "AMERICAN UNITED",
       "type": "service craft",
       "first_seen": "2026-05-14 22:09:20.945281663 +0000 UTC",
-      "last_seen": "2026-06-04 15:52:14.156197221 +0000 UTC",
-      "sighting_count": 163,
+      "last_seen": "2026-06-04 18:11:05.567265999 +0000 UTC",
+      "sighting_count": 164,
       "recent_sightings": [
+        {
+          "seen_at": "2026-06-04 18:11:05.567265999 +0000 UTC",
+          "lat": 42.36226,
+          "lon": -71.02672,
+          "speed_knots": 0,
+          "heading": 198,
+          "status": "under way using engine",
+          "destination": ""
+        },
         {
           "seen_at": "2026-06-04 15:52:14.156197221 +0000 UTC",
           "lat": 42.36226,
@@ -2442,15 +2451,6 @@
           "heading": 196,
           "status": "under way using engine",
           "destination": ""
-        },
-        {
-          "seen_at": "2026-05-31 23:44:43.501875733 +0000 UTC",
-          "lat": 42.36224,
-          "lon": -71.02669,
-          "speed_knots": 0,
-          "heading": 199,
-          "status": "under way using engine",
-          "destination": ""
         }
       ],
       "destinations": [],
@@ -2461,7 +2461,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "367367470": {
@@ -2469,9 +2469,18 @@
       "name": "ASTERIA",
       "type": "high-speed craft",
       "first_seen": "2026-05-14 22:09:33.460638565 +0000 UTC",
-      "last_seen": "2026-06-04 00:21:34.638135064 +0000 UTC",
-      "sighting_count": 61,
+      "last_seen": "2026-06-04 18:09:33.304361649 +0000 UTC",
+      "sighting_count": 62,
       "recent_sightings": [
+        {
+          "seen_at": "2026-06-04 18:09:33.304361649 +0000 UTC",
+          "lat": 42.35944,
+          "lon": -71.05025,
+          "speed_knots": 0.2,
+          "heading": 258,
+          "status": "under way using engine",
+          "destination": "SHIPPING UP TO BOSTN"
+        },
         {
           "seen_at": "2026-06-04 00:21:34.638135064 +0000 UTC",
           "lat": 42.35568,
@@ -2687,15 +2696,6 @@
           "heading": 122,
           "status": "under way using engine",
           "destination": "SHIPPING UP TO BOSTN"
-        },
-        {
-          "seen_at": "2026-05-26 19:11:41.273143865 +0000 UTC",
-          "lat": 42.35168,
-          "lon": -71.02546,
-          "speed_knots": 34.2,
-          "heading": 301,
-          "status": "under way using engine",
-          "destination": "SHIPPING UP TO BOSTN"
         }
       ],
       "destinations": [
@@ -2709,7 +2709,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "367148860": {
@@ -2957,7 +2957,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "367513250": {
@@ -3202,7 +3202,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "367379320": {
@@ -3433,7 +3433,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "367677670": {
@@ -3680,7 +3680,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "368157410": {
@@ -3927,7 +3927,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "368227350": {
@@ -3935,9 +3935,18 @@
       "name": "PHILLIS WHEATLEY",
       "type": "passenger",
       "first_seen": "2026-05-14 22:37:33.701809718 +0000 UTC",
-      "last_seen": "2026-06-04 15:51:00.71593747 +0000 UTC",
-      "sighting_count": 47,
+      "last_seen": "2026-06-04 18:10:59.8326686 +0000 UTC",
+      "sighting_count": 48,
       "recent_sightings": [
+        {
+          "seen_at": "2026-06-04 18:10:59.8326686 +0000 UTC",
+          "lat": 42.35217,
+          "lon": -71.03902,
+          "speed_knots": 0,
+          "heading": 244.1,
+          "status": "under way using engine",
+          "destination": "BOSTON"
+        },
         {
           "seen_at": "2026-06-04 15:51:00.71593747 +0000 UTC",
           "lat": 42.35225,
@@ -4153,15 +4162,6 @@
           "heading": 39.4,
           "status": "under way using engine",
           "destination": "BOSTON"
-        },
-        {
-          "seen_at": "2026-05-26 21:04:39.981351452 +0000 UTC",
-          "lat": 42.36069,
-          "lon": -71.0403,
-          "speed_knots": 7.8,
-          "heading": 131.5,
-          "status": "under way using engine",
-          "destination": "BOSTON"
         }
       ],
       "destinations": [
@@ -4174,7 +4174,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "338295000": {
@@ -4421,7 +4421,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "367513040": {
@@ -4429,9 +4429,18 @@
       "name": "LIBERTY",
       "type": "tug",
       "first_seen": "2026-05-14 23:01:25.084543615 +0000 UTC",
-      "last_seen": "2026-06-04 12:22:57.895374264 +0000 UTC",
-      "sighting_count": 174,
+      "last_seen": "2026-06-04 18:09:57.193836492 +0000 UTC",
+      "sighting_count": 175,
       "recent_sightings": [
+        {
+          "seen_at": "2026-06-04 18:09:57.193836492 +0000 UTC",
+          "lat": 42.37998,
+          "lon": -71.04248,
+          "speed_knots": 0,
+          "heading": 89,
+          "status": "under way using engine",
+          "destination": "BOSTON"
+        },
         {
           "seen_at": "2026-06-04 12:22:57.895374264 +0000 UTC",
           "lat": 42.37998,
@@ -4647,15 +4656,6 @@
           "heading": 91,
           "status": "under way using engine",
           "destination": "BOSTON"
-        },
-        {
-          "seen_at": "2026-05-31 14:16:17.387764929 +0000 UTC",
-          "lat": 42.3428,
-          "lon": -71.0158,
-          "speed_knots": 1.6,
-          "heading": 291,
-          "status": "under way using engine",
-          "destination": "BOSTON"
         }
       ],
       "destinations": [
@@ -4668,7 +4668,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "338926452": {
@@ -4913,7 +4913,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "368443210": {
@@ -4921,9 +4921,18 @@
       "name": "GEORGE LAYHE",
       "type": "service craft",
       "first_seen": "2026-05-14 23:38:30.329020886 +0000 UTC",
-      "last_seen": "2026-06-02 21:43:42.863560164 +0000 UTC",
-      "sighting_count": 24,
+      "last_seen": "2026-06-04 18:10:20.743353864 +0000 UTC",
+      "sighting_count": 25,
       "recent_sightings": [
+        {
+          "seen_at": "2026-06-04 18:10:20.743353864 +0000 UTC",
+          "lat": 42.36832,
+          "lon": -71.04943,
+          "speed_knots": 4.8,
+          "heading": 149,
+          "status": "under way using engine",
+          "destination": ""
+        },
         {
           "seen_at": "2026-06-02 21:43:42.863560164 +0000 UTC",
           "lat": 42.36689,
@@ -5148,7 +5157,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "367098070": {
@@ -5396,7 +5405,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "538002220": {
@@ -5424,7 +5433,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "368434520": {
@@ -5432,9 +5441,18 @@
       "name": "AMERICAN PIONEER",
       "type": "passenger",
       "first_seen": "2026-05-15 05:40:31.603154107 +0000 UTC",
-      "last_seen": "2026-06-04 15:52:13.677013509 +0000 UTC",
-      "sighting_count": 15,
+      "last_seen": "2026-06-04 18:10:18.708306861 +0000 UTC",
+      "sighting_count": 16,
       "recent_sightings": [
+        {
+          "seen_at": "2026-06-04 18:10:18.708306861 +0000 UTC",
+          "lat": 42.35422,
+          "lon": -71.04204,
+          "speed_knots": 0,
+          "heading": 119,
+          "status": "reported",
+          "destination": "BOSTON,MA"
+        },
         {
           "seen_at": "2026-06-04 15:52:13.677013509 +0000 UTC",
           "lat": 42.35421,
@@ -5582,7 +5600,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "367164250": {
@@ -5829,7 +5847,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "368159170": {
@@ -6022,7 +6040,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "367567110": {
@@ -6030,9 +6048,18 @@
       "name": "CETACEA",
       "type": "passenger",
       "first_seen": "2026-05-15 11:49:27.750527613 +0000 UTC",
-      "last_seen": "2026-06-01 13:18:52.566857639 +0000 UTC",
-      "sighting_count": 9,
+      "last_seen": "2026-06-04 18:10:48.5885846 +0000 UTC",
+      "sighting_count": 10,
       "recent_sightings": [
+        {
+          "seen_at": "2026-06-04 18:10:48.5885846 +0000 UTC",
+          "lat": 42.36153,
+          "lon": -71.03604,
+          "speed_knots": 0.1,
+          "heading": 256.7,
+          "status": "under way using engine",
+          "destination": "BOSTON"
+        },
         {
           "seen_at": "2026-06-01 13:18:52.566857639 +0000 UTC",
           "lat": 42.33637,
@@ -6125,7 +6152,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "367513010": {
@@ -6372,7 +6399,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "352005828": {
@@ -6400,7 +6427,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "367760510": {
@@ -6548,7 +6575,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "338926454": {
@@ -6794,7 +6821,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "367513050": {
@@ -6879,7 +6906,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "367383190": {
@@ -7126,7 +7153,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "367513030": {
@@ -7134,9 +7161,18 @@
       "name": "INDEPENDENCE",
       "type": "tug",
       "first_seen": "2026-05-15 13:24:13.520929547 +0000 UTC",
-      "last_seen": "2026-06-04 15:52:45.512359615 +0000 UTC",
-      "sighting_count": 162,
+      "last_seen": "2026-06-04 18:09:34.92287481 +0000 UTC",
+      "sighting_count": 163,
       "recent_sightings": [
+        {
+          "seen_at": "2026-06-04 18:09:34.92287481 +0000 UTC",
+          "lat": 42.37997,
+          "lon": -71.04294,
+          "speed_knots": 0,
+          "heading": 84,
+          "status": "under way using engine",
+          "destination": "BOSTON"
+        },
         {
           "seen_at": "2026-06-04 15:52:45.512359615 +0000 UTC",
           "lat": 42.37996,
@@ -7352,15 +7388,6 @@
           "heading": 86,
           "status": "under way using engine",
           "destination": "BOSTON"
-        },
-        {
-          "seen_at": "2026-05-31 19:07:17.162720954 +0000 UTC",
-          "lat": 42.3796,
-          "lon": -71.04278,
-          "speed_knots": 0,
-          "heading": 84,
-          "status": "under way using engine",
-          "destination": "BOSTON"
         }
       ],
       "destinations": [
@@ -7373,7 +7400,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "367371000": {
@@ -7620,7 +7647,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "368038790": {
@@ -7867,7 +7894,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "367177610": {
@@ -7875,9 +7902,18 @@
       "name": "FORT_INDEPENDENCE",
       "type": "passenger",
       "first_seen": "2026-05-15 13:23:55.860414474 +0000 UTC",
-      "last_seen": "2026-06-04 15:51:38.929325562 +0000 UTC",
-      "sighting_count": 80,
+      "last_seen": "2026-06-04 18:11:27.488223407 +0000 UTC",
+      "sighting_count": 81,
       "recent_sightings": [
+        {
+          "seen_at": "2026-06-04 18:11:27.488223407 +0000 UTC",
+          "lat": 42.34387,
+          "lon": -71.0089,
+          "speed_knots": 8.8,
+          "heading": 103,
+          "status": "under way using engine",
+          "destination": "BOSTON TO SPEC ISI"
+        },
         {
           "seen_at": "2026-06-04 15:51:38.929325562 +0000 UTC",
           "lat": 42.36091,
@@ -8093,15 +8129,6 @@
           "heading": 43,
           "status": "under way using engine",
           "destination": "BOSTON TO SPEC ISI"
-        },
-        {
-          "seen_at": "2026-05-27 10:49:01.03487697 +0000 UTC",
-          "lat": 42.36576,
-          "lon": -71.0422,
-          "speed_knots": 0.3,
-          "heading": 22,
-          "status": "under way using engine",
-          "destination": "BOSTON TO SPEC ISI"
         }
       ],
       "destinations": [
@@ -8114,7 +8141,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "338045163": {
@@ -8122,9 +8149,18 @@
       "name": "SEATOW RESPONDER",
       "type": "other",
       "first_seen": "2026-05-15 13:24:08.677963654 +0000 UTC",
-      "last_seen": "2026-06-04 15:51:56.461142545 +0000 UTC",
-      "sighting_count": 22,
+      "last_seen": "2026-06-04 18:11:42.948317949 +0000 UTC",
+      "sighting_count": 23,
       "recent_sightings": [
+        {
+          "seen_at": "2026-06-04 18:11:42.948317949 +0000 UTC",
+          "lat": 42.30272,
+          "lon": -70.95034,
+          "speed_knots": 2.8,
+          "heading": 31.4,
+          "status": "under way using engine",
+          "destination": ""
+        },
         {
           "seen_at": "2026-06-04 15:51:56.461142545 +0000 UTC",
           "lat": 42.35741,
@@ -8332,7 +8368,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "636022657": {
@@ -8381,7 +8417,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "367782940": {
@@ -8389,9 +8425,18 @@
       "name": "GLORY",
       "type": "passenger",
       "first_seen": "2026-05-15 18:21:12.069714054 +0000 UTC",
-      "last_seen": "2026-06-04 12:23:36.033439973 +0000 UTC",
-      "sighting_count": 85,
+      "last_seen": "2026-06-04 18:11:39.342890572 +0000 UTC",
+      "sighting_count": 86,
       "recent_sightings": [
+        {
+          "seen_at": "2026-06-04 18:11:39.342890572 +0000 UTC",
+          "lat": 42.28201,
+          "lon": -70.94622,
+          "speed_knots": 26.1,
+          "heading": 281,
+          "status": "under way using engine",
+          "destination": "BOSTON"
+        },
         {
           "seen_at": "2026-06-04 12:23:36.033439973 +0000 UTC",
           "lat": 42.35181,
@@ -8607,15 +8652,6 @@
           "heading": 76,
           "status": "under way using engine",
           "destination": "BOSTON"
-        },
-        {
-          "seen_at": "2026-05-29 23:46:45.792478928 +0000 UTC",
-          "lat": 42.28773,
-          "lon": -70.95559,
-          "speed_knots": 26.9,
-          "heading": 319,
-          "status": "under way using engine",
-          "destination": "BOSTON"
         }
       ],
       "destinations": [
@@ -8627,7 +8663,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "368298810": {
@@ -8874,7 +8910,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "368051060": {
@@ -9112,7 +9148,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "367521170": {
@@ -9259,7 +9295,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "367377380": {
@@ -9503,7 +9539,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "366924480": {
@@ -9685,7 +9721,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "367096310": {
@@ -9931,7 +9967,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "367582110": {
@@ -10178,7 +10214,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "367447520": {
@@ -10425,7 +10461,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "338411009": {
@@ -10670,7 +10706,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "338926946": {
@@ -10698,7 +10734,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "366787340": {
@@ -10753,7 +10789,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "367432220": {
@@ -10812,7 +10848,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "367482050": {
@@ -10913,7 +10949,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "367351950": {
@@ -11061,7 +11097,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "369990186": {
@@ -11089,7 +11125,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "338724000": {
@@ -11135,7 +11171,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "311050800": {
@@ -11383,7 +11419,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "538002784": {
@@ -11567,7 +11603,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "367539090": {
@@ -11604,7 +11640,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "563293300": {
@@ -11735,7 +11771,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "367452180": {
@@ -11904,7 +11940,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "367301110": {
@@ -11912,9 +11948,18 @@
       "name": "CODZILLA",
       "type": "passenger",
       "first_seen": "2026-05-17 14:45:06.762692387 +0000 UTC",
-      "last_seen": "2026-06-04 15:52:48.917176065 +0000 UTC",
-      "sighting_count": 24,
+      "last_seen": "2026-06-04 18:11:05.100047979 +0000 UTC",
+      "sighting_count": 25,
       "recent_sightings": [
+        {
+          "seen_at": "2026-06-04 18:11:05.100047979 +0000 UTC",
+          "lat": 42.35983,
+          "lon": -71.04038,
+          "speed_knots": 7.7,
+          "heading": 296.1,
+          "status": "under way using engine",
+          "destination": ""
+        },
         {
           "seen_at": "2026-06-04 15:52:48.917176065 +0000 UTC",
           "lat": 42.33534,
@@ -12139,7 +12184,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "369493659": {
@@ -12240,7 +12285,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "367110280": {
@@ -12268,7 +12313,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "366843420": {
@@ -12517,7 +12562,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "367784920": {
@@ -12718,7 +12763,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "366868000": {
@@ -12746,7 +12791,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "338223812": {
@@ -12847,7 +12892,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "368317880": {
@@ -12942,7 +12987,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "636021190": {
@@ -13045,7 +13090,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "338926943": {
@@ -13082,7 +13127,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "316018880": {
@@ -13137,7 +13182,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "367534240": {
@@ -13145,9 +13190,18 @@
       "name": "NATHANIEL BOWDITCH",
       "type": "passenger",
       "first_seen": "2026-05-19 13:45:18.159853889 +0000 UTC",
-      "last_seen": "2026-06-04 15:53:34.484436811 +0000 UTC",
-      "sighting_count": 31,
+      "last_seen": "2026-06-04 18:10:11.838978921 +0000 UTC",
+      "sighting_count": 32,
       "recent_sightings": [
+        {
+          "seen_at": "2026-06-04 18:10:11.838978921 +0000 UTC",
+          "lat": 42.361,
+          "lon": -71.04932,
+          "speed_knots": 0,
+          "heading": 234,
+          "status": "under way using engine",
+          "destination": "SALEM2BOSTON&BACK"
+        },
         {
           "seen_at": "2026-06-04 15:53:34.484436811 +0000 UTC",
           "lat": 42.35109,
@@ -13363,15 +13417,6 @@
           "heading": 130.2,
           "status": "under way using engine",
           "destination": "SALEM2BOSTON&BACK"
-        },
-        {
-          "seen_at": "2026-05-23 20:42:06.754936095 +0000 UTC",
-          "lat": 42.33916,
-          "lon": -70.9632,
-          "speed_knots": 27.4,
-          "heading": 275.6,
-          "status": "under way using engine",
-          "destination": "SALEM2BOSTON&BACK"
         }
       ],
       "destinations": [
@@ -13384,7 +13429,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "636021665": {
@@ -13460,7 +13505,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "368163860": {
@@ -13616,7 +13661,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "245968000": {
@@ -13693,7 +13738,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "316014540": {
@@ -13742,7 +13787,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "368418270": {
@@ -13770,7 +13815,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "338926143": {
@@ -13843,7 +13888,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "366954420": {
@@ -13945,7 +13990,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "368337070": {
@@ -14048,7 +14093,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "367325010": {
@@ -14295,7 +14340,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "368336890": {
@@ -14541,7 +14586,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "319161800": {
@@ -14787,7 +14832,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "245304000": {
@@ -14880,7 +14925,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "366774330": {
@@ -14919,7 +14964,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "538010420": {
@@ -14995,7 +15040,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "368151520": {
@@ -15023,7 +15068,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "369493708": {
@@ -15060,7 +15105,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "338110011": {
@@ -15088,7 +15133,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "367002660": {
@@ -15127,7 +15172,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "210623000": {
@@ -15239,7 +15284,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "538002783": {
@@ -15351,7 +15396,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "368010420": {
@@ -15390,7 +15435,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "636021462": {
@@ -15466,7 +15511,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "368330650": {
@@ -15494,7 +15539,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "367387420": {
@@ -15723,17 +15768,26 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "367524060": {
       "mmsi": "367524060",
       "name": "AVA PEARL",
-      "type": "unknown",
+      "type": "high-speed craft",
       "first_seen": "2026-05-26 21:04:59.941841243 +0000 UTC",
-      "last_seen": "2026-05-26 21:04:59.941841243 +0000 UTC",
-      "sighting_count": 1,
+      "last_seen": "2026-06-04 18:11:16.69259552 +0000 UTC",
+      "sighting_count": 2,
       "recent_sightings": [
+        {
+          "seen_at": "2026-06-04 18:11:16.69259552 +0000 UTC",
+          "lat": 42.35974,
+          "lon": -71.04923,
+          "speed_knots": 0,
+          "heading": 257,
+          "status": "under way using engine",
+          "destination": "FAIRHAVEN"
+        },
         {
           "seen_at": "2026-05-26 21:04:59.941841243 +0000 UTC",
           "lat": 42.37199,
@@ -15744,14 +15798,17 @@
           "destination": ""
         }
       ],
-      "destinations": [],
+      "destinations": [
+        "FAIRHAVEN"
+      ],
       "observed_types": [
+        "high-speed craft",
         "unknown"
       ],
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "367305350": {
@@ -15809,7 +15866,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "368234420": {
@@ -15930,7 +15987,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "338494843": {
@@ -15938,9 +15995,18 @@
       "name": "BOSTON PILOT CHELSEA",
       "type": "pilot boat",
       "first_seen": "2026-05-27 14:18:37.257027509 +0000 UTC",
-      "last_seen": "2026-06-04 15:53:30.243495568 +0000 UTC",
-      "sighting_count": 53,
+      "last_seen": "2026-06-04 18:11:25.441961952 +0000 UTC",
+      "sighting_count": 54,
       "recent_sightings": [
+        {
+          "seen_at": "2026-06-04 18:11:25.441961952 +0000 UTC",
+          "lat": 42.36277,
+          "lon": -71.03152,
+          "speed_knots": 0,
+          "heading": 184,
+          "status": "under way using engine",
+          "destination": ""
+        },
         {
           "seen_at": "2026-06-04 15:53:30.243495568 +0000 UTC",
           "lat": 42.33921,
@@ -16156,15 +16222,6 @@
           "heading": 82,
           "status": "under way using engine",
           "destination": ""
-        },
-        {
-          "seen_at": "2026-05-31 19:07:08.725038969 +0000 UTC",
-          "lat": 42.34747,
-          "lon": -71.02225,
-          "speed_knots": 11.4,
-          "heading": 158,
-          "status": "under way using engine",
-          "destination": ""
         }
       ],
       "destinations": [],
@@ -16174,7 +16231,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "367464090": {
@@ -16202,7 +16259,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "338926455": {
@@ -16250,7 +16307,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "538011293": {
@@ -16280,7 +16337,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "371851000": {
@@ -16338,7 +16395,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "367496470": {
@@ -16375,7 +16432,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "367513020": {
@@ -16412,7 +16469,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "368348820": {
@@ -16440,7 +16497,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "369494418": {
@@ -16486,7 +16543,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "367062890": {
@@ -16525,7 +16582,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "368352250": {
@@ -16555,7 +16612,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "338926450": {
@@ -16563,9 +16620,18 @@
       "name": "CGC WILLIAM CHADWICK",
       "type": "service craft",
       "first_seen": "2026-05-29 11:55:47.194793818 +0000 UTC",
-      "last_seen": "2026-06-04 15:49:59.61662361 +0000 UTC",
-      "sighting_count": 57,
+      "last_seen": "2026-06-04 18:11:01.283137886 +0000 UTC",
+      "sighting_count": 58,
       "recent_sightings": [
+        {
+          "seen_at": "2026-06-04 18:11:01.283137886 +0000 UTC",
+          "lat": 42.36914,
+          "lon": -71.05142,
+          "speed_knots": 0,
+          "heading": 211,
+          "status": "reported",
+          "destination": "BOSTON"
+        },
         {
           "seen_at": "2026-06-04 15:49:59.61662361 +0000 UTC",
           "lat": 42.36912,
@@ -16781,15 +16847,6 @@
           "heading": 209,
           "status": "under way using engine",
           "destination": "BOSTON"
-        },
-        {
-          "seen_at": "2026-05-31 22:40:34.294274637 +0000 UTC",
-          "lat": 42.36914,
-          "lon": -71.05142,
-          "speed_knots": 0,
-          "heading": 209,
-          "status": "under way using engine",
-          "destination": "BOSTON"
         }
       ],
       "destinations": [
@@ -16801,7 +16858,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "766999501": {
@@ -17045,7 +17102,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "368275660": {
@@ -17255,7 +17312,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "636022443": {
@@ -17448,7 +17505,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "563291500": {
@@ -17551,7 +17608,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "636024633": {
@@ -17579,7 +17636,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "538012300": {
@@ -17628,7 +17685,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "538002221": {
@@ -17658,7 +17715,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "366843020": {
@@ -17686,7 +17743,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "338327000": {
@@ -17788,7 +17845,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "636017916": {
@@ -17864,7 +17921,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "386094980": {
@@ -17892,7 +17949,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "369990185": {
@@ -17920,7 +17977,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "210643000": {
@@ -17987,7 +18044,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "538072144": {
@@ -17995,9 +18052,18 @@
       "name": "ALCHEMIST",
       "type": "fishing",
       "first_seen": "2026-06-03 12:15:51.471670934 +0000 UTC",
-      "last_seen": "2026-06-04 15:53:13.821008708 +0000 UTC",
-      "sighting_count": 5,
+      "last_seen": "2026-06-04 18:08:14.981054987 +0000 UTC",
+      "sighting_count": 6,
       "recent_sightings": [
+        {
+          "seen_at": "2026-06-04 18:08:14.981054987 +0000 UTC",
+          "lat": 42.36208,
+          "lon": -71.0473,
+          "speed_knots": 0,
+          "heading": 357,
+          "status": "reported",
+          "destination": "BOSTON"
+        },
         {
           "seen_at": "2026-06-04 15:53:13.821008708 +0000 UTC",
           "lat": 42.36208,
@@ -18053,7 +18119,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "354022000": {
@@ -18102,7 +18168,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     },
     "563619000": {
@@ -18130,7 +18196,7 @@
       "summary": {
         "archived_sighting_count": 0,
         "detail_window_days": 30,
-        "detail_cutoff": "2026-05-05T15:53:36.836395+00:00"
+        "detail_cutoff": "2026-05-05T18:11:48.167127+00:00"
       }
     }
   }
