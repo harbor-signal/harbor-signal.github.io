@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-06-24T05:51:36.837300+00:00",
+  "last_updated": "2026-06-24T08:55:01.301237+00:00",
   "source": "aisstream",
   "status": "live",
   "bounds": {
@@ -13,8 +13,8 @@
     ]
   },
   "health": {
-    "unique_mmsi_count": 0,
-    "vessel_count": 0,
+    "unique_mmsi_count": 14,
+    "vessel_count": 14,
     "collection_window_seconds": 300,
     "recurrence_candidates": [
       "210623000",
@@ -165,5 +165,328 @@
       "766999501"
     ]
   },
-  "vessels": []
+  "vessels": [
+    {
+      "mmsi": "367551860",
+      "name": "JOCKA",
+      "type": "other",
+      "flag": "",
+      "lat": 42.35101,
+      "lon": -71.03738,
+      "x": 26.6,
+      "y": 29.0,
+      "coordinates": "42.35101, -71.03738",
+      "speed_knots": 0,
+      "heading": 360,
+      "destination": "",
+      "eta": "",
+      "length_m": 19,
+      "nav_status": 4,
+      "last_signal": "2026-06-24 08:54:12.896880638 +0000 UTC",
+      "source": "AISStream",
+      "status": "reported",
+      "tags": [
+        "other"
+      ]
+    },
+    {
+      "mmsi": "368134210",
+      "name": "DAUNTLESS",
+      "type": "fishing",
+      "flag": "",
+      "lat": 42.36929,
+      "lon": -70.99235,
+      "x": 54.8,
+      "y": 10.7,
+      "coordinates": "42.36929, -70.99235",
+      "speed_knots": 0,
+      "heading": 324.5,
+      "destination": "WINTHROP MASS",
+      "eta": "",
+      "length_m": "",
+      "nav_status": 0,
+      "last_signal": "2026-06-24 08:54:46.389427748 +0000 UTC",
+      "source": "AISStream",
+      "status": "under way using engine",
+      "tags": [
+        "fishing"
+      ]
+    },
+    {
+      "mmsi": "367590780",
+      "name": "HAGGERTY GIRLS",
+      "type": "unknown",
+      "flag": "",
+      "lat": 42.36671,
+      "lon": -71.0466,
+      "x": 20.9,
+      "y": 13.3,
+      "coordinates": "42.36671, -71.0466",
+      "speed_knots": 5.9,
+      "heading": 158,
+      "destination": "",
+      "eta": "",
+      "length_m": "",
+      "nav_status": 0,
+      "last_signal": "2026-06-24 08:51:28.769858467 +0000 UTC",
+      "source": "AISStream",
+      "status": "under way using engine",
+      "tags": [
+        "unknown"
+      ]
+    },
+    {
+      "mmsi": "367513040",
+      "name": "LIBERTY",
+      "type": "tug",
+      "flag": "",
+      "lat": 42.33517,
+      "lon": -70.97873,
+      "x": 63.3,
+      "y": 44.8,
+      "coordinates": "42.33517, -70.97873",
+      "speed_knots": 9.3,
+      "heading": 76,
+      "destination": "BOSTON",
+      "eta": "",
+      "length_m": 26,
+      "nav_status": 0,
+      "last_signal": "2026-06-24 08:54:43.429683594 +0000 UTC",
+      "source": "AISStream",
+      "status": "under way using engine",
+      "tags": [
+        "tug"
+      ]
+    },
+    {
+      "mmsi": "367164250",
+      "name": "FREEDOM",
+      "type": "tug",
+      "flag": "",
+      "lat": 42.33565,
+      "lon": -70.97545,
+      "x": 65.3,
+      "y": 44.4,
+      "coordinates": "42.33565, -70.97545",
+      "speed_knots": 8.1,
+      "heading": 83,
+      "destination": "BOSTON",
+      "eta": "",
+      "length_m": "",
+      "nav_status": 0,
+      "last_signal": "2026-06-24 08:53:18.560385292 +0000 UTC",
+      "source": "AISStream",
+      "status": "under way using engine",
+      "tags": [
+        "tug"
+      ]
+    },
+    {
+      "mmsi": "319311200",
+      "name": "ASTURIAS",
+      "type": "fishing",
+      "flag": "",
+      "lat": 42.30165,
+      "lon": -71.03117,
+      "x": 30.5,
+      "y": 78.3,
+      "coordinates": "42.30165, -71.03117",
+      "speed_knots": 0,
+      "heading": 189,
+      "destination": "BOSTON",
+      "eta": "",
+      "length_m": "",
+      "nav_status": 5,
+      "last_signal": "2026-06-24 08:51:07.756084102 +0000 UTC",
+      "source": "AISStream",
+      "status": "reported",
+      "tags": [
+        "fishing"
+      ]
+    },
+    {
+      "mmsi": "367513010",
+      "name": "JUSTICE",
+      "type": "tug",
+      "flag": "",
+      "lat": 42.3514,
+      "lon": -71.02715,
+      "x": 33.0,
+      "y": 28.6,
+      "coordinates": "42.3514, -71.02715",
+      "speed_knots": 10.2,
+      "heading": 128,
+      "destination": "BOSTON",
+      "eta": "",
+      "length_m": 31,
+      "nav_status": 0,
+      "last_signal": "2026-06-24 08:54:29.697485194 +0000 UTC",
+      "source": "AISStream",
+      "status": "under way using engine",
+      "tags": [
+        "tug"
+      ]
+    },
+    {
+      "mmsi": "369494417",
+      "name": "CG49417",
+      "type": "service craft",
+      "flag": "",
+      "lat": 42.36752,
+      "lon": -71.05085,
+      "x": 18.2,
+      "y": 12.5,
+      "coordinates": "42.36752, -71.05085",
+      "speed_knots": 0.1,
+      "heading": 335.4,
+      "destination": "",
+      "eta": "",
+      "length_m": 15,
+      "nav_status": 0,
+      "last_signal": "2026-06-24 08:54:54.470902574 +0000 UTC",
+      "source": "AISStream",
+      "status": "under way using engine",
+      "tags": [
+        "service craft"
+      ]
+    },
+    {
+      "mmsi": "367513030",
+      "name": "INDEPENDENCE",
+      "type": "tug",
+      "flag": "",
+      "lat": 42.33619,
+      "lon": -70.99966,
+      "x": 50.2,
+      "y": 43.8,
+      "coordinates": "42.33619, -70.99966",
+      "speed_knots": 11,
+      "heading": 124,
+      "destination": "BOSTON",
+      "eta": "05-11 01:00 UTC",
+      "length_m": 39,
+      "nav_status": 0,
+      "last_signal": "2026-06-24 08:52:47.229439141 +0000 UTC",
+      "source": "AISStream",
+      "status": "under way using engine",
+      "tags": [
+        "tug"
+      ]
+    },
+    {
+      "mmsi": "338427000",
+      "name": "REBECCA",
+      "type": "unknown",
+      "flag": "",
+      "lat": 42.36206,
+      "lon": -71.04729,
+      "x": 20.4,
+      "y": 17.9,
+      "coordinates": "42.36206, -71.04729",
+      "speed_knots": 0,
+      "heading": 173,
+      "destination": "",
+      "eta": "",
+      "length_m": "",
+      "nav_status": 5,
+      "last_signal": "2026-06-24 08:51:53.027312526 +0000 UTC",
+      "source": "AISStream",
+      "status": "reported",
+      "tags": [
+        "unknown"
+      ]
+    },
+    {
+      "mmsi": "367452180",
+      "name": "DENALI",
+      "type": "service craft",
+      "flag": "",
+      "lat": 42.35823,
+      "lon": -71.03304,
+      "x": 29.3,
+      "y": 21.8,
+      "coordinates": "42.35823, -71.03304",
+      "speed_knots": 0.1,
+      "heading": 274,
+      "destination": "US PWM",
+      "eta": "",
+      "length_m": 154,
+      "nav_status": 0,
+      "last_signal": "2026-06-24 08:51:55.973725964 +0000 UTC",
+      "source": "AISStream",
+      "status": "under way using engine",
+      "tags": [
+        "service craft"
+      ]
+    },
+    {
+      "mmsi": "319154100",
+      "name": "SCOUT",
+      "type": "fishing",
+      "flag": "",
+      "lat": 42.35463,
+      "lon": -71.04295,
+      "x": 23.2,
+      "y": 25.4,
+      "coordinates": "42.35463, -71.04295",
+      "speed_knots": 0,
+      "heading": 117,
+      "destination": "USBOS",
+      "eta": "06-22 16:00 UTC",
+      "length_m": 64,
+      "nav_status": 5,
+      "last_signal": "2026-06-24 08:52:10.489206188 +0000 UTC",
+      "source": "AISStream",
+      "status": "reported",
+      "tags": [
+        "fishing"
+      ]
+    },
+    {
+      "mmsi": "338926452",
+      "name": "CGC MAURICE JESTER",
+      "type": "service craft",
+      "flag": "",
+      "lat": 42.36845,
+      "lon": -71.05145,
+      "x": 17.8,
+      "y": 11.5,
+      "coordinates": "42.36845, -71.05145",
+      "speed_knots": 0,
+      "heading": 211,
+      "destination": "",
+      "eta": "",
+      "length_m": "",
+      "nav_status": 5,
+      "last_signal": "2026-06-24 08:52:49.868597692 +0000 UTC",
+      "source": "AISStream",
+      "status": "reported",
+      "tags": [
+        "service craft"
+      ]
+    },
+    {
+      "mmsi": "538002221",
+      "name": "GREAT EASTERN",
+      "type": "tanker",
+      "flag": "",
+      "lat": 42.34128,
+      "lon": -70.96341,
+      "x": 72.9,
+      "y": 38.7,
+      "coordinates": "42.34128, -70.96341",
+      "speed_knots": 0.1,
+      "heading": 209,
+      "destination": "USBOS",
+      "eta": "06-23 13:00 UTC",
+      "length_m": 182,
+      "nav_status": 1,
+      "last_signal": "2026-06-24 08:53:41.242156694 +0000 UTC",
+      "source": "AISStream",
+      "status": "reported",
+      "tags": [
+        "tanker"
+      ]
+    }
+  ]
 }
